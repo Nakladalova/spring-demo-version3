@@ -5,9 +5,13 @@ import com.example.springdemo.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class UsersController {
@@ -16,6 +20,11 @@ public class UsersController {
 
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
+    }
+
+    @ModelAttribute("user")
+    public UsersModel usersModel() {
+        return new UsersModel();
     }
 
     @GetMapping("/register")
@@ -31,14 +40,14 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UsersModel usersModel){
+    public String register(UsersModel usersModel){
         System.out.println("Register request " + usersModel);
-        UsersModel registeredUser= usersService.registerUser(usersModel.getLogin(), usersModel.getPassword(), usersModel.getEmail());
+        UsersModel registeredUser = usersService.registerUser(usersModel.getLogin(), usersModel.getPassword(), usersModel.getEmail());
         return registeredUser == null ? "error_page" : "redirect:/login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute UsersModel usersModel, Model model){
+    public String login(UsersModel usersModel, Model model){
         System.out.println("Login request " + usersModel);
         UsersModel authenticated= usersService.authenticate(usersModel.getLogin(), usersModel.getPassword());
         if(authenticated!=null){

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.springframework.org/tags/form">
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
@@ -9,47 +9,13 @@
 <div class="form">
     <!--/*@thymesVar id="loginRequest" type=""*/-->
     <form method="post" action="/login" th:object="${loginRequest}">
-    <div class="row">
-        <div class="col-lg-3 col-md-2">
-
-        </div>
-        <div class="col-lg-6 col-md-8 login-box">
-            <div class="col-lg-12 login-key">
-                <i class="fa fa-key" aria-hidden="true"></i>
-            </div>
-            <div class="col-lg-12 login-title">
-                LOGIN
-            </div>
-
-            <div class="col-lg-12 login-form">
-                <div class="col-lg-12 login-form">
-                    <form>
-                        <div class="form-group">
-                            <label class="form-control-label">USERNAME</label>
-                            <input type="text" name="login" placeholder="Login" required class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label">PASSWORD</label>
-                            <input type="password" name="password" placeholder="Password" required class="form-control" i>
-                        </div>
-
-                        <div class="col-lg-12 loginbttm">
-                            <div class="col-lg-6 login-btm login-text">
-                                <!-- Error Message -->
-                            </div>
-                            <div class="col-lg-6 login-btm login-button">
-                                <button type="submit" class="btn btn-outline-primary">LOGIN</button>
-                            </div>
-                        </div>
-                    </form>
-                    <a href="/register">REGISTER</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-2">
-
-            </div>
-        </div>
-    </div>
+    <form class="login-form">
+        <input type="text" name="login" required="true" placeholder="login"/>
+        <input type="password" name="password" required="true" placeholder="password"/>
+        <button name="submit" type="submit">login</button>
+        <p class="message">Not registered? <a href="/register">Create an account</a></p>
+        <p class="message"><a href="/">Navigate to main page</a></p>
+    </form>
     </form>
   </div>
  </body>
