@@ -1,18 +1,11 @@
 package com.example.springdemo.model;
 
-import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.*;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 //import javax.validation;
 
 
@@ -26,7 +19,6 @@ public class UsersModel {
 
     String login;
 
-    //@ValidPassword
     String password;
 
     String email;

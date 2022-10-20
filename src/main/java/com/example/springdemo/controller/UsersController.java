@@ -40,7 +40,7 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public String register(UsersModel usersModel){
+    public String register( UsersModel usersModel){
         System.out.println("Register request " + usersModel);
         UsersModel registeredUser = usersService.registerUser(usersModel.getLogin(), usersModel.getPassword(), usersModel.getEmail());
         return registeredUser == null ? "error_page" : "redirect:/login";
