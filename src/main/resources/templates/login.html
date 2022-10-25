@@ -42,6 +42,9 @@
                     <div class="alert alert-danger">Invalid username or
                         password.</div>
                 </div>
+                <div th:if="${param.error}">
+                    <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+                </div>
 
                 <!-- logout message -->
                 <div th:if="${param.logout}">
@@ -49,8 +52,8 @@
                 </div>
 
                 <div class = "form-group">
-                    <label for ="login"> Username </label> :
-                    <input type="text" class = "form-control" id ="login" name = "login"
+                    <label for ="username"> Username </label> :
+                    <input type="text" class = "form-control" id ="username" name = "username"
                            placeholder="Enter Login" autofocus="autofocus">
                 </div>
 
