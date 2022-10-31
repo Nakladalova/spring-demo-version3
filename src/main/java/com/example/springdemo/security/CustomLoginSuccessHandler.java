@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.springdemo.CustomUserDetails;
-import com.example.springdemo.CustomUserDetailsService;
 import com.example.springdemo.User;
+//import com.example.springdemo.service.CustomUserDetailsService;
+import com.example.springdemo.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -25,6 +26,15 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                                         Authentication authentication) throws IOException, ServletException {
         CustomUserDetails customUserDetails =  (CustomUserDetails) authentication.getPrincipal();
         User user = customUserDetails.getUser();
+
+        /*if (!user.isAccountNonLocked()) {
+            if (customUserDetailsService.unlockWhenTimeExpired(user)) {
+                exception = new LockedException("Your account has been unlocked. Please try to login again.");
+            }
+            else{
+                exception = new LockedException("Your account is locked due too many failed attemts");
+            }
+        } */
         if (user.getFailedAttempt() > 0) {
             customUserDetailsService.resetFailedAttempts(user.getUsername());
         }

@@ -6,8 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.springdemo.CustomUserDetailsService;
 import com.example.springdemo.User;
+//import com.example.springdemo.service.CustomUserDetailsService;
+import com.example.springdemo.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
@@ -42,7 +43,6 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
             }
 
         }
-
         super.setDefaultFailureUrl("/login?error");
         super.onAuthenticationFailure(request, response, exception);
     }

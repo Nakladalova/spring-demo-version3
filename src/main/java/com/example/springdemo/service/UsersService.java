@@ -1,20 +1,18 @@
 package com.example.springdemo.service;
 
-import com.example.springdemo.model.UsersModel;
-import com.example.springdemo.repository.UsersRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springdemo.User;
+import com.example.springdemo.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class UsersService {
+    private final UserRepository userRepository;
 
-    private final UsersRepository usersRepository;
-
-    public UsersService(UsersRepository usersRepository){
-        this.usersRepository = usersRepository;
+    public UsersService(UserRepository userRepository){
+        this.userRepository = userRepository;
     }
 
     @Bean
@@ -22,28 +20,25 @@ public class UsersService {
         return new BCryptPasswordEncoder();
     }
 
-    public UsersModel registerUser( String login, String password, String email){
-        if(login == null && password == null){
+    public User registerUser(String username, String password, String email){
+        if(username == null && password == null){
             return null;
         }
         else{
-            if(usersRepository.findFirstByLogin(login).isPresent()){
+            if(userRepository.findByUsername(username)!=null){
                 System.out.println("Duplicate login");
                 return null;
             }
-            /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(password);*/
-            UsersModel usersModel = new UsersModel();
-            usersModel.setLogin(login);
-            usersModel.setPassword(password);
-            usersModel.setEmail(email);
-
-            return usersRepository.save(usersModel);
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(password);
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(encodedPassword);
+            user.setEmail(email);
+            user.setAccountNonLocked(true);
+            user.setEnabled(true);
+            return userRepository.save(user);
         }
-    }
-
-    public UsersModel authenticate(String login, String password){
-            return usersRepository.findByLoginAndPassword(login, password).orElse(null);
     }
 
 }

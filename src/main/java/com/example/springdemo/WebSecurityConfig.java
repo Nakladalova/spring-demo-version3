@@ -1,10 +1,8 @@
 package com.example.springdemo;
 
-import javax.sql.DataSource;
-
 import com.example.springdemo.security.CustomLoginFailureHandler;
 import com.example.springdemo.security.CustomLoginSuccessHandler;
-import com.example.springdemo.service.UsersService;
+import com.example.springdemo.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,8 +45,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+			.antMatchers("/admin").hasAnyRole("ADMIN")
 			.antMatchers("/users").authenticated()
+			.antMatchers("/search").authenticated()
+			.antMatchers("/find").authenticated()
 			.anyRequest().permitAll()
+				//.antMatchers("/admin").hasAnyRole("ADMIN")
 			.and()
 			.formLogin().loginPage("/login").permitAll()
 				.usernameParameter("username")
