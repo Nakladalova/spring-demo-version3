@@ -1,0 +1,138 @@
+/* common classes */
+.content-box1,
+.content-box2,
+.contenr-box3,
+.content-box4 {
+    margin-bottom: 50px;
+}
+
+.content-box1 .content-icon-circle,
+.content-box2 .outline-circle i,
+.content-box3 .outline-circle i {
+    border-radius: 50px;
+}
+.content-box2 .outline-circle i,
+.content-box3 .outline-circle i{
+    background-color: #ffffff;
+}
+.content-box1:hover .content-icon,
+.content-box1:hover .content-icon-circle,
+.content-box2:hover .outline-circle i,
+.content-box3:hover .outline-circle i,
+.content-box1:hover h1,
+.content-box1:hover h2,
+.content-box1:hover h3,
+.content-box1:hover h4,
+.content-box1:hover h5,
+.content-box1:hover h6,
+.content-box2:hover h1,
+.content-box2:hover h2,
+.content-box2:hover h3,
+.content-box2:hover h4,
+.content-box2:hover h5,
+.content-box2:hover h6,
+.content-box3:hover h1,
+.content-box3:hover h2,
+.content-box3:hover h3,
+.content-box3:hover h4,
+.content-box3:hover h5,
+.content-box3:hover h6 {
+    transition: .3s all ease-in-out;
+}
+
+.content-box1:hover .content-icon,
+.content-box1:hover h1,
+.content-box1:hover h2,
+.content-box1:hover h3,
+.content-box1:hover h4,
+.content-box1:hover h5,
+.content-box1:hover h6,
+.content-box2:hover h1,
+.content-box2:hover h2,
+.content-box2:hover h3,
+.content-box2:hover h4,
+.content-box2:hover h5,
+.content-box2:hover h6,
+.content-box3:hover h1,
+.content-box3:hover h2,
+.content-box3:hover h3,
+.content-box3:hover h4,
+.content-box3:hover h5,
+.content-box3:hover h6{
+    color: #ffcc00;
+}
+
+.content-box1:hover .content-icon-circle,
+.content-box2:hover .outline-circle i,
+.content-box3:hover .outline-circle i {
+    background-color: #ffcc00;
+    border-color: #ffcc00;
+    color: #f9f9f9;
+}
+
+
+
+.content-box2,
+.content-box3 {
+    text-align: center;
+}
+
+.content-box2 .outline-circle i,
+.content-box3 .outline-circle i {
+    border-color: #333333;
+    border-width: 1px;
+    border-style: solid;
+}
+
+
+/* content-box1 */
+.content-box1 .content-icon,
+.content-box1 .content-icon-circle {
+    float: left;
+    display: block;
+    width: 38px;
+    height: 38px;
+    margin-top: 4px;
+    text-align: center;
+}
+
+.content-box1 .content-icon-circle {
+    background: #333;
+    color: #fff;
+    display: block;
+    line-height: 38px;
+}
+
+.content-box1 .content-icon i {
+    font-size: 2em;
+    text-align: center;
+}
+
+.content-box1 .content-wrap {
+    margin-left: 50px;
+}
+
+
+/* content2 */
+.content-box2 .outline-circle i {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 3em;
+}
+
+/* content-box3 */
+.content-box3 {
+    background-color: #eee;
+    padding: 15px;
+}
+
+.content-box3 .outline-circle i {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 1.6em;
+    position: absolute;
+    top: -35px;
+    margin-left: -30px;
+}

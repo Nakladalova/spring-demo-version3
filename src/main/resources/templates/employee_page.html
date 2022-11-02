@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html html lang="cs" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Search employee</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Home Page
+            </a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-6 col-md-offset-3">
+
+            <h1> Search employee </h1>
+            <!--/*@thymesVar id="employee" type=""*/-->
+            <form th:action="@{/search}" th:object="${employee}" method="post">
+
+                <!-- logout message -->
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">You have been logged out.</div>
+                </div>
+
+                <div class = "form-group">
+                    <label for ="username"> Username of Employee </label> :
+                    <!--<input type="text" th:field="*{id}" class="form-control" placeholder="Employee ID" autofocus="autofocus"/> /-->
+                    <input type="text" class = "form-control" id ="username" name = "username"
+                           placeholder="Enter username of Employee" autofocus="autofocus">
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" name="search-submit" id="search-submit"
+                                   class="form-control btn btn-primary" value="search" />
+                        </div>
+                    </div>
+                </div>
+                <div alight="left">
+                    <tr>
+                        <label class="form-label" >Employee Name</label>
+                        <td>
+                            <!--/*@thymesVar id="ename" type="string"*/-->
+                            <!--/*@thymesVar id="ename" type=""*/-->
+                            <input type="text" th:field="${employee.ename}" class="form-control" placeholder="Employee Name" />
+                        </td>
+                    </tr>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
