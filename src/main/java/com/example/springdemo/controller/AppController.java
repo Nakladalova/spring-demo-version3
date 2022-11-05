@@ -80,7 +80,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 	public String listUsers(Model model) {
 		List<User> listUsers = userRepo.findAll();
 		model.addAttribute("listUsers", listUsers);
-		
 		return "users";
 	}
 
@@ -95,7 +94,9 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@PostMapping("/search")
 	public String doSearchEmployee(@ModelAttribute("employeeSearchFormData") Employee formData, Model model) {
 		//Employee emp = service.get(formData.getId());
-		Employee emp = service.getName(formData.getUsername());
+		//int id = formData.getId();
+		//String id_employee = Integer.toString(id);
+		Employee emp = service.getName(formData.getEmployee_id());
 		model.addAttribute("employee", emp);
 		return "employee_page";
 	}

@@ -17,6 +17,7 @@ public class Employee{
     private int mobile;
     private int salary;
     private String username;
+    private String employee_id;
 
     public Employee() {
     }
@@ -26,6 +27,7 @@ public class Employee{
         this.mobile = mobile;
         this.salary = salary;
         this.username = username;
+        this.employee_id= employee_id;
     }
 
 
@@ -60,6 +62,13 @@ public class Employee{
 
     public int getId() {
         return id;
+    }
+    public String getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(String employee_id) {
+        this.employee_id = employee_id;
     }
 
     @Override

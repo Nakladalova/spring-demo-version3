@@ -1,58 +1,72 @@
 package com.example.springdemo.repository;
 
 import com.example.springdemo.model.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class DangerEmployeeRepository{
+public class DangerEmployeeRepository implements CustomEmployeeRepository {
 
     private static final String FIND_EMPLOYEE_BY_ID =
-            "select ename " +
+            "select ename, username " +
                     "from public.employees e " +
-                    "where e.id = %s";
+                    "where e.id = %s;";
 
     @PersistenceContext
     private EntityManager em;
 
 
-    //@Override
-    public Optional<Employee> findEmployeeById(String Id) {
-        return queryDatabase(FIND_EMPLOYEE_BY_ID, Id);
+    @Override
+    public Optional<Employee> findEmployeeById(String id) {
+        return queryDatabase(FIND_EMPLOYEE_BY_ID, id);
     }
 
-    private Optional<Employee> queryDatabase(String query, Object... params) {
+     /* Optional<Employee> queryDatabase(String query, Object... params) {
         String formattedQuery = String.format(query, params);
         Query nativeQuery = this.em.createNativeQuery(formattedQuery);
         List<Object[]> result = nativeQuery.getResultList();
-        if (result == null || result.size() == 0) {
+        if(result == null || result.size() == 0) {
             return Optional.empty();
         }
-
         return Optional.of(mapResultToUser(result.get(0)));
     }
 
-    private Employee mapResultToUser(Object[] result) {
+    private Employee mapResultToUser( Object[] result) {
         Employee employee = new Employee();
-        employee.setId(new Integer(result[0].toString()));
-        /*user.setUsername(result[1].toString());
-        user.setPassword(result[2].toString());
-        user.setName(result[3].toString());
-        user.setSurname(result[4].toString());*/
+        employee.setEname(result[0].toString());
         return employee;
     }
+
+    ///*/
+
+    Optional<Employee> queryDatabase(String query, Object... params) {
+        String formattedQuery = String.format(query, params);
+        Query nativeQuery = this.em.createNativeQuery(formattedQuery);
+        StringBuffer s = new StringBuffer();
+        String name="";
+        List<Object[]> result = nativeQuery.getResultList();
+        if(result == null || result.size() == 0) {
+            Employee employee = new Employee();
+            employee.setEname("No Employee with this ID");
+            return Optional.of(employee);
+        }
+        for(int i=0; i < result.size(); i++){
+            Object[] employeeDB = result.get(i);
+            name = employeeDB[0].toString();
+            s.append(name + " ");
+        }
+        String nameFromDatabase = s.toString();
+        Employee employee = new Employee();
+        employee.setEname(nameFromDatabase);
+        return Optional.of(employee);
+    }
+
+
 
 
 
