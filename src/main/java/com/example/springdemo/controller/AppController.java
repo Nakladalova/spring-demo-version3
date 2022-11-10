@@ -1,8 +1,7 @@
 package com.example.springdemo.controller;
 
-import com.example.springdemo.User;
+import com.example.springdemo.model.User;
 import com.example.springdemo.model.Employee;
-import com.example.springdemo.repository.DangerEmployeeRepository;
 import com.example.springdemo.repository.UserRepository;
 import com.example.springdemo.service.EmployeeService;
 import com.example.springdemo.service.UsersService;
@@ -42,6 +41,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 		registry.addViewController("/users").setViewName("users");
 		registry.addViewController("/admin").setViewName("admin");
 		registry.addViewController("/search").setViewName("employee_page");
+		registry.addViewController("/home").setViewName("Home");
 	}
 
 	@Autowired

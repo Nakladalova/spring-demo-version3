@@ -1,10 +1,7 @@
-package com.example.springdemo;
-
-import org.springframework.transaction.annotation.Transactional;
+package com.example.springdemo.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 //import java.util.Set;
 

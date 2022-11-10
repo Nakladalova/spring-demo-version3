@@ -1,4 +1,4 @@
-package com.example.springdemo;
+package com.example.springdemo.config;
 
 import com.example.springdemo.security.CustomLoginFailureHandler;
 import com.example.springdemo.security.CustomLoginSuccessHandler;

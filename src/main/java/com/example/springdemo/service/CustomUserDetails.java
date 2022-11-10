@@ -1,9 +1,10 @@
-package com.example.springdemo;
+package com.example.springdemo.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.example.springdemo.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

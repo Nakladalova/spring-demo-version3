@@ -1,6 +1,6 @@
 package com.example.springdemo.service;
 
-import com.example.springdemo.User;
+import com.example.springdemo.model.User;
 import com.example.springdemo.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -6,8 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.springdemo.CustomUserDetails;
-import com.example.springdemo.User;
+import com.example.springdemo.service.CustomUserDetails;
+import com.example.springdemo.model.User;
 //import com.example.springdemo.service.CustomUserDetailsService;
 import com.example.springdemo.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
