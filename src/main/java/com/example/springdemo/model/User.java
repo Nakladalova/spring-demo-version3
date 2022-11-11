@@ -1,8 +1,12 @@
 package com.example.springdemo.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.Set;
+
 //import java.util.Set;
 
 
@@ -17,8 +21,9 @@ public class User {
 	
 	@Column(nullable = false, unique = true, length = 45)
 	private String username;
-	
+
 	@Column(nullable = false, length = 64)
+	@Pattern(regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message="Must contain at least one number, one uppercase and lowercase letter, one special character and at least 8 or more characters")
 	private String password;
 
 	private boolean enabled;

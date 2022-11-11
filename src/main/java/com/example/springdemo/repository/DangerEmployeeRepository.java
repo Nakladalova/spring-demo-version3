@@ -15,7 +15,7 @@ public class DangerEmployeeRepository implements CustomEmployeeRepository {
     private static final String FIND_EMPLOYEE_BY_ID =
             "select ename, username " +
                     "from public.employees e " +
-                    "where e.id = %s;";
+                    "where e.ename = '%s';";
 
     @PersistenceContext
     private EntityManager em;

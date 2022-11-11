@@ -8,6 +8,7 @@ import com.example.springdemo.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -70,10 +72,15 @@ public class AppController extends WebMvcConfigurerAdapter {
 	}
 	
 	@PostMapping("/register")
-	public String processRegister(User user) {
+	public String processRegister(@Valid User user, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()){
+			return "signup_form";
+		}
 		User registeredUser = usersService.registerUser(user.getUsername(), user.getPassword(), user.getEmail());
-		return registeredUser == null ? "error_page" : "redirect:/register_success";
-
+		if(registeredUser==null){
+			return "error";
+		}
+		return "redirect:/register_success";
 	}
 	
 	@GetMapping("/users")
