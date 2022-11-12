@@ -13,7 +13,7 @@ import java.util.Optional;
 public class DangerEmployeeRepository implements CustomEmployeeRepository {
 
     private static final String FIND_EMPLOYEE_BY_ID =
-            "select ename, username " +
+            "select * " +
                     "from public.employees e " +
                     "where e.ename = '%s';";
 
@@ -26,23 +26,6 @@ public class DangerEmployeeRepository implements CustomEmployeeRepository {
         return queryDatabase(FIND_EMPLOYEE_BY_ID, id);
     }
 
-     /* Optional<Employee> queryDatabase(String query, Object... params) {
-        String formattedQuery = String.format(query, params);
-        Query nativeQuery = this.em.createNativeQuery(formattedQuery);
-        List<Object[]> result = nativeQuery.getResultList();
-        if(result == null || result.size() == 0) {
-            return Optional.empty();
-        }
-        return Optional.of(mapResultToUser(result.get(0)));
-    }
-
-    private Employee mapResultToUser( Object[] result) {
-        Employee employee = new Employee();
-        employee.setEname(result[0].toString());
-        return employee;
-    }
-
-    ///*/
 
     Optional<Employee> queryDatabase(String query, Object... params) {
         String formattedQuery = String.format(query, params);
@@ -93,5 +76,8 @@ public class DangerEmployeeRepository implements CustomEmployeeRepository {
         TypedQuery<Employee> q = em.createQuery(jql, Employee.class);
         return q.getResultList();
     }*/
+
+
+
 
 }

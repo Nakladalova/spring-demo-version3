@@ -1,7 +1,10 @@
 package com.example.springdemo.service;
 
+import com.example.springdemo.model.Employee;
 import com.example.springdemo.model.User;
+import com.example.springdemo.repository.DangerUserRepository;
 import com.example.springdemo.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +16,14 @@ public class UsersService {
 
     public UsersService(UserRepository userRepository){
         this.userRepository = userRepository;
+    }
+
+    @Autowired
+    private DangerUserRepository dangerUserRepository;
+
+
+    public User getName(String username) {
+        return dangerUserRepository.findUserByUsername(username).get();
     }
 
     @Bean

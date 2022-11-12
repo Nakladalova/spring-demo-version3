@@ -108,6 +108,24 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "employee_page";
 	}
 
+	@GetMapping("/getInfo")
+	public String getInfo(Model model) {
+		//List<Employee> listemployee = service.listAll();
+		model.addAttribute("user", new User());
+		return "user_page";
+	}
+
+
+	@PostMapping("/getInfo")
+	public String getInfoOfUser(@ModelAttribute("userSearchFormData") User formData, Model model) {
+		//Employee emp = service.get(formData.getId());
+		//int id = formData.getId();
+		//String id_employee = Integer.toString(id);
+		User user = usersService.getName(formData.getUsername());
+		model.addAttribute("user", user);
+		return "user_page";
+	}
+
 
 
 	/*@GetMapping("/all")

@@ -46,6 +46,16 @@ public class User {
 	@Column(name = "lock_time")
 	private Date lockTime;
 
+
+	public String getActive() {
+		return active;
+	}
+
+	public void setActive(String active) {
+		this.active = active;
+	}
+
+	private String active;
 	public boolean isEnabled() {
 		return enabled;
 	}
