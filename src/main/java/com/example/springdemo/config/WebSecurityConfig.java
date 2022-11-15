@@ -59,8 +59,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//.successHandler(loginSuccessHandler)
 				.defaultSuccessUrl("/users")
 				.permitAll()
+
+
 			.and()
-			.logout().logoutSuccessUrl("/").permitAll();
+			.logout().logoutSuccessUrl("/").permitAll()
+			.and()
+			.exceptionHandling().accessDeniedPage("/access-denied");
 	}
 
 	@Autowired

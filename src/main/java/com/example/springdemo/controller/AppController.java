@@ -17,7 +17,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.validation.Valid;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 @Controller
 @EnableWebMvc
@@ -57,6 +60,11 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@GetMapping("/Home")
 	public String viewePage() {
 		return "Home";
+	}
+
+	@GetMapping("/access-denied")
+	public String viewePaget() {
+		return "access-denied";
 	}
 
 	@GetMapping("/admin")
@@ -121,8 +129,12 @@ public class AppController extends WebMvcConfigurerAdapter {
 		//Employee emp = service.get(formData.getId());
 		//int id = formData.getId();
 		//String id_employee = Integer.toString(id);
-		User user = usersService.getName(formData.getUsername());
-		model.addAttribute("user", user);
+		
+		User user2 = usersService.getName(formData.getUsername());
+		//List<User> listUsers = null;
+		//listUsers.add(user);
+		//model.addAttribute("listUsers", listUsers);
+		model.addAttribute("user", user2);
 		return "user_page";
 	}
 

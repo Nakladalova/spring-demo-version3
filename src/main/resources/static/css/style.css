@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+    font-family: helvetica;
+}
+
+/* pattern adapted from http://lea.verou.me/css3patterns/ */
+body {
+
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+section {
+    background-color: rgba(255,255,255);
+    margin: 2% 1%;
+    padding: 1em;
+    width: 20%;
+    border: #0b5394 3px solid;
+}
+
+img {
+    max-width: 90%;
+    margin: 0% auto 0% 5%;
+}
+
+h1 {
+    width: 98%;
+    text-align: center;
+    padding: 0.5em;
+    background-color: #0b5394;
+}
+
+h2 {
+    padding: 0.5em;
+    background-color: #0b5394;
+}
+
+p {
+    padding: 0.5em;
+}
+
+code {
+    color: #3d85c6;
+}

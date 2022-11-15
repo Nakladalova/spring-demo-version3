@@ -59,7 +59,7 @@
 					<label class="control-label" for="password"> Password </label> <input
 						id="password" class="form-control" type="password" name="password"
 						th:field="*{password}" required autofocus="autofocus" th:errorClass="is-invalid">
-					<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback">
+					<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red" class="invalid-feedback">
 					</div>
 <!--						pattern="(?=.*\d)(?=.*[a-z])(?=.*[@$!%*#?&><^-_/~%()+=])(?=.*[A-Z]).{8,}"-->
 <!--						title="Must contain at least one number, one uppercase and lowercase letter, one special character and at least 8 or more characters"/>-->

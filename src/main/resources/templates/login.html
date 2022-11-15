@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
     <title>Registration and Login App</title>
@@ -42,7 +42,7 @@
                     <div class="alert alert-danger">Invalid username or
                         password.</div>
                 </div>
-                <div th:if="${param.error}">
+               <div th:if="${param.error}">
                     <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
                 </div>
 
