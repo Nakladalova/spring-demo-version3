@@ -11,8 +11,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -37,6 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return authProvider;
 	}
 
+
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
@@ -59,12 +67,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//.successHandler(loginSuccessHandler)
 				.defaultSuccessUrl("/getInfo")
 				.permitAll()
+			.and()
+				.exceptionHandling().accessDeniedPage("/access-denied")
 
 
 			.and()
-			.logout().logoutSuccessUrl("/").permitAll()
-			.and()
-			.exceptionHandling().accessDeniedPage("/access-denied");
+			//.logout().logoutSuccessUrl("/").permitAll()
+				//.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+
+				//.logoutSuccessUrl("/")
+				.logout(logout -> logout
+						.logoutSuccessUrl("/"));
+
+						//.deleteCookies(cookieNamesToClear)
+
+
+
+
 	}
 
 	@Autowired

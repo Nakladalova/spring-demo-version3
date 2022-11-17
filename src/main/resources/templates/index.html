@@ -1,21 +1,158 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html>
+
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Welcome Home</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		  crossorigin="anonymous"/>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+	<style>
+		* {
+			box-sizing: border-box;
+			font-family: helvetica;
+		}
+
+		/* pattern adapted from http://lea.verou.me/css3patterns/ */
+
+		.b-green, .b-green:before {
+			color: white;
+			padding: 9px 12px;
+			text-align: center;
+
+			background: rgba(73,155,234,1);
+			background: -moz-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(73,155,234,1)), color-stop(100%, rgba(26,188,156,1)));
+			background: -webkit-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			background: -o-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			background: -ms-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			background: linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#1abc9c', GradientType=1 );
+		}
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		section {
+			background-color: rgba(255,255,255);
+			margin: 2% 1%;
+			padding: 1em;
+			width: 30%;
+			border: #c1c4c7 3px solid;
+		}
+
+		img {
+			max-width: 90%;
+			margin: 0% auto 0% 5%;
+		}
+
+		h1 {
+			font-size: 47px;
+			width: 98%;
+			text-align: center;
+			padding: 0.5em;
+
+		}
+
+		h2 {
+			font-family: Verdana, sans-serif;
+			font-size: 25px;
+			color: white;
+			padding: 1em;
+			text-align: center;
+			background-color: #3477ba;
+		}
+
+		h3 {
+			font-size: 33px;
+			width: 98%;
+			text-align: center;
+			padding: 0.5em;
+
+		}
+
+		p {
+			padding: 0.5em;
+			font-size: 15px;
+		}
+
+		code {
+			color: #3d85c6;
+		}
+
+	</style>
 </head>
+
 <body>
-	<div class="container text-center">
-		<h1>Welcome Page</h1>
-		<h3><a th:href="@{/users}">List of Users</a></h3>
-		<h3><a th:href="@{/register}">Register</a></h3>
-		<h3><a th:href="@{/login}">Login</a></h3>
-		<h3><a th:href="@{/search}">Search</a></h3>
-		<h3><a th:href="@{/Home}">Home</a></h3>
-		<h3><a th:href="@{/admin}">For admin only</a></h3>
-		<h3><a th:href="@{/getInfo}">Get info</a></h3>
-		<h3><a th:href="@{/test}">Test</a></h3>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#" th:href="@{/login}">Login</a>
+			<a class="navbar-brand" href="#" th:href="@{/register}">Register</a>
+			<a class="navbar-brand" href="#" th:href="@{/users}">Users</a>
+			<a class="navbar-brand" href="#" th:href="@{/getInfo}">Get info</a>
+			<a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
+		</div>
 	</div>
-	
+</nav>
+<br>
+<br>
+<br>
+<b><h1> Home Page</h1></b>
+<div class="container">
+	<br>
+	<br>
+	<section>
+		<h2>Login page</h2>
+		<p>Login (
+			<em>document object model</em>) of a web page is a tree-like structure containing all the elements in its HTML document as its nodes.</p>
+		<p>When creating a website from a design of what it will look like, it is useful to draw a box around each visual element on the page, and then code each box as an element of the DOM.  nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnnn
+		</p>
+		<div class="text-center">
+			<a href="#" th:href="@{/login}" class="button2 b-green rot-135">Go to</a>
+		</div>
+		<br>
+		<!--    <a href="#" class="btn blue">Blue Button</a>-->
+	</section>
+	<section>
+		<h2>Register page</h2>
+		<p>Register (
+			<em>document object model</em>) of a web page is a tree-like structure containing all the elements in its HTML document as its nodes.</p>
+		<p>When creating a website from a design of what it will look like, it is useful to draw a box around each visual element on the page, and then code each box as an element of the DOM.nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn  nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnnn
+		</p>
+		<div class="text-center">
+			<a href="#" th:href="@{/register}" class="button2 b-green rot-135">Go to</a>
+		</div>
+	</section>
+	<section>
+		<h2>Show users</h2>
+		<p>Show users (
+			<em>document object model</em>) of a web page is a tree-like structure containing all the elements in its HTML document as its nodes.</p>
+		<p>When creating a website from a design of what it will look like, it is useful to draw a box around each visual element on the page, and then code each box as an element of the DOM.nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn  nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnnn
+		</p>
+		<div class="text-center">
+			<a href="#" th:href="@{/users}" class="button2 b-green rot-135">Go to</a>
+		</div>
+	</section>
+	<section>
+		<h2>Get your info</h2>
+		<p>Get your info (
+			<em>document object model</em>) of a web page is a tree-like structure containing all the elements in its HTML document as its nodes.</p>
+		<p>When creating a website from a design of what it will look like, it is useful to draw a box around each visual element on the page, and then code each box as an element of the DOM.nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn  nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnnn
+		</p>
+		<div class="text-center">
+			<a href="#" th:href="@{/user_page}" class="button2 b-green rot-135">Go to</a>
+		</div>
+	</section>
+</div>
 </body>
+
 </html>

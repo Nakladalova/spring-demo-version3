@@ -37,7 +37,6 @@ public class User {
 	private Set<Role> roles;
 	//private Set<Role> roles = new HashSet<>();
 
-	@Column(name = "account_non_locked")
 	private boolean accountNonLocked;
 
 	@Column(name = "failed_attempt")
