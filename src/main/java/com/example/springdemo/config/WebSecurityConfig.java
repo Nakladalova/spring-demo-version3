@@ -63,8 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin().loginPage("/login").permitAll()
 				.usernameParameter("username")
-				//.failureHandler(loginFailureHandler)
-				//.successHandler(loginSuccessHandler)
+				.failureHandler(loginFailureHandler)
+				.successHandler(loginSuccessHandler)
 				.defaultSuccessUrl("/getInfo")
 				.permitAll()
 			.and()
@@ -80,9 +80,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						.logoutSuccessUrl("/"));
 
 						//.deleteCookies(cookieNamesToClear)
-
-
-
 
 	}
 

@@ -12,18 +12,27 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class DangerUserRepository implements CustomUserRepository {
+public class SecureUserRepository implements CustomUserRepository {
 
     private static final String FIND_USER_BY_USERNAME =
             "select email, password, active " +
                     "from public.users u " +
                     "where u.username = '%s';";
 
+    @Autowired
+    private SqlInputValidator sqlInputValidator;
+
     @PersistenceContext
     private EntityManager em;
 
     @Override
     public Optional<User> findUserByUsername(String username) {
+        boolean valid = sqlInputValidator.isValidUsername(username);
+        if (!valid) {
+            User user = new User();
+            user.setMessage("NO DATA - INVALID USERNAME!");
+            return Optional.of(user);
+        }
         return queryDatabase(FIND_USER_BY_USERNAME, username);
     }
 
@@ -34,19 +43,19 @@ public class DangerUserRepository implements CustomUserRepository {
         StringBuffer s = new StringBuffer();
         StringBuffer b = new StringBuffer();
         StringBuffer d = new StringBuffer();
-        String email="";
-        String active="";
-        String password="";
+        String email = "";
+        String active = "";
+        String password = "";
         List<Object[]> result = nativeQuery.getResultList();
-        if(result == null || result.size() == 0) {
+        if (result == null || result.size() == 0) {
             User user = new User();
             user.setMessage("USERNAME DOESN'T EXIST!");
             return Optional.of(user);
         }
-        for(int i=0; i < result.size(); i++){
+        for (int i = 0; i < result.size(); i++) {
             Object[] userDB = result.get(i);
             email = userDB[0].toString();
-            password =  userDB[1].toString();
+            password = userDB[1].toString();
             active = userDB[2].toString();
             s.append(email + " ");
             b.append(password + "  ");
@@ -61,5 +70,5 @@ public class DangerUserRepository implements CustomUserRepository {
         user.setActive(activeFromDatabase);
         return Optional.of(user);
     }
-
 }
+

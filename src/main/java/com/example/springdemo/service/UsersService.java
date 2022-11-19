@@ -3,12 +3,16 @@ package com.example.springdemo.service;
 import com.example.springdemo.model.Employee;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.DangerUserRepository;
+import com.example.springdemo.repository.SecureUserRepository;
 import com.example.springdemo.repository.UserRepository;
+import com.example.springdemo.validation.SqlInputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UsersService {
@@ -21,9 +25,26 @@ public class UsersService {
     @Autowired
     private DangerUserRepository dangerUserRepository;
 
+    @Autowired
+    private SecureUserRepository secureUserRepository;
 
-    public User getName(String username) {
+
+    public User getUserDanger(String username) {
         return dangerUserRepository.findUserByUsername(username).get();
+    }
+
+    public User getUserSecure(String username) {
+        return secureUserRepository.findUserByUsername(username).get();
+    }
+
+    public User getUserSecureWithJPA(String username) {
+        User user = userRepository.findByUsername(username);
+        if(user == null){
+            User userMessage = new User();
+            userMessage.setMessage("USER IS NULL!");
+            return userMessage;
+        }
+        return user;
     }
 
     @Bean

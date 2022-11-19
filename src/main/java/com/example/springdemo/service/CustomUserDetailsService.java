@@ -28,8 +28,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 	public static final int MAX_FAILED_ATTEMPTS = 3;
 
-	//private static final long LOCK_TIME_DURATION =  15 * 60 * 1000 ;
-	private static final long LOCK_TIME_DURATION =  24 * 60 * 60 * 1000 ;
+	private static final long LOCK_TIME_DURATION =  5 * 60 * 1000 ;
+	//private static final long LOCK_TIME_DURATION =  24 * 60 * 60 * 1000 ;
 
 	public void increaseFailedAttempts(User user) {
 		int newFailAttempts = user.getFailedAttempt() + 1;
@@ -41,19 +41,20 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 
 	public void lock(User user) {
+		long currentLockTimeInMillis = System.currentTimeMillis();
 		user.setAccountNonLocked(false);
-		user.setLockTime(new Date());
+		user.setLockTime(currentLockTimeInMillis);
 
 		userRepo.save(user);
 	}
 
 	public boolean unlockWhenTimeExpired(User user) {
-		long lockTimeInMillis = user.getLockTime().getTime();
+		long lockTimeInMillis = user.getLockTime();
 		long currentTimeInMillis = System.currentTimeMillis();
 
 		if (lockTimeInMillis + LOCK_TIME_DURATION < currentTimeInMillis) {
 			user.setAccountNonLocked(true);
-			user.setLockTime(null);
+			user.setLockTime(0);
 			user.setFailedAttempt(0);
 
 			userRepo.save(user);

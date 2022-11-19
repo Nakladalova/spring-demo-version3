@@ -66,7 +66,7 @@
                     <label for ="username">Insert your username </label>
                     <!--<input type="text" th:field="*{id}" class="form-control" placeholder="Employee ID" autofocus="autofocus"/> /-->
                     <input type="text" class = "form-control" id ="username" name = "username" th:field="*{username}"
-                           placeholder="Enter your username" autofocus="autofocus">
+                           placeholder="Enter your username" autofocus="autofocus" required >
                 </div>
 
                 <div class="form-group">
@@ -78,6 +78,13 @@
                     </div>
                 </div>
                 <div alight="left">
+                    <tr>
+                        <label class="form-label" >Error Message</label>
+                        <td>
+                            <input type="text" th:field="*{message}" class="form-control" style="color: red" placeholder="Error Message" />
+                        </td>
+                    </tr>
+                    <br>
                     <tr>
                         <label class="form-label" >E-mail</label>
                         <td>

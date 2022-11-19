@@ -42,8 +42,16 @@ public class User {
 	@Column(name = "failed_attempt")
 	private int failedAttempt;
 
+	public long getLockTime() {
+		return lockTime;
+	}
+
+	public void setLockTime(long lockTime) {
+		this.lockTime = lockTime;
+	}
+
 	@Column(name = "lock_time")
-	private Date lockTime;
+	private long lockTime;
 
 	public String getActive() {
 		return active;
@@ -68,6 +76,16 @@ public class User {
 
 	@Column(nullable = false, unique = true, length = 45)
 	private String email;
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	private String message;
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
@@ -95,14 +113,6 @@ public class User {
 
 	public void setFailedAttempt(int failedAttempt) {
 		this.failedAttempt = failedAttempt;
-	}
-
-	public Date getLockTime() {
-		return lockTime;
-	}
-
-	public void setLockTime(Date lockTime) {
-		this.lockTime = lockTime;
 	}
 
 	public Long getId() {
