@@ -20,10 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 @Controller
 @EnableWebMvc
@@ -33,8 +30,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	private EmployeeService service;
-
-	//private DangerEmployeeRepository dangerEmployeeRepository;
 
 	public AppController(UsersService usersService) {
 		this.usersService = usersService;
@@ -86,7 +81,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 		if(registeredUser==null){
 			return "error";
 		}
-		return "redirect:/register_success";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/users")
@@ -124,15 +119,11 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	@PostMapping("/getInfo")
 	public String getInfoOfUser(@ModelAttribute("userSearchFormData") User formData, Model model) {
-		//Employee emp = service.get(formData.getId());
-		//int id = formData.getId();
-		//String id_employee = Integer.toString(id);
-		
-		User user2 = usersService.getName(formData.getUsername());
-		//List<User> listUsers = null;
-		//listUsers.add(user);
-		//model.addAttribute("listUsers", listUsers);
-		model.addAttribute("user", user2);
+		User userDanger = usersService.getUserDanger(formData.getUsername());
+		User userSecure = usersService.getUserSecure(formData.getUsername());
+		User userSecureWithJPA = usersService.getUserSecureWithJPA(formData.getUsername());
+
+		model.addAttribute("user", userDanger);
 		return "user_page";
 	}
 
