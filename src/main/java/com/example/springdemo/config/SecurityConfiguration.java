@@ -6,14 +6,18 @@ import com.example.springdemo.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
 import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
@@ -22,8 +26,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+public class SecurityConfiguration{
+
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new CustomUserDetailsService();
@@ -43,44 +47,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return authProvider;
 	}
 
-
-
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
+	@Bean
+	public AuthenticationManager authenticationManager(
+			AuthenticationConfiguration authConfig) throws Exception {
+		return authConfig.getAuthenticationManager();
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/admin").hasAnyRole("ADMIN")
-			.antMatchers("/users").hasAnyRole("ADMIN")
-			.antMatchers("/search").authenticated()
-			.antMatchers("/find").authenticated()
-			.antMatchers("/getInfo").authenticated()
-			.anyRequest().permitAll()
-				//.antMatchers("/admin").hasAnyRole("ADMIN")
-			.and()
-			.formLogin().loginPage("/login").permitAll()
+				.antMatchers("/admin").hasAnyRole("ADMIN")
+				.antMatchers("/users").hasAnyRole("ADMIN")
+				.antMatchers("/user_page").authenticated()
+				.anyRequest().permitAll()
+				.and()
+				.formLogin().loginPage("/login").permitAll()
 				.usernameParameter("username")
 				.failureHandler(loginFailureHandler)
 				.successHandler(loginSuccessHandler)
-				.defaultSuccessUrl("/getInfo")
+				.defaultSuccessUrl("/user_page")
 				.permitAll()
-			.and()
-				.exceptionHandling().accessDeniedPage("/access-denied")
+				.and()
+				.exceptionHandling().accessDeniedPage("/access_denied");
+		http.authenticationProvider(authenticationProvider());
+		return http.build();
+	}
 
-
-			.and()
-			//.logout().logoutSuccessUrl("/").permitAll()
-				//.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
-
-				//.logoutSuccessUrl("/")
-				.logout(logout -> logout
-						.logoutSuccessUrl("/"));
-
-						//.deleteCookies(cookieNamesToClear)
-
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
 	}
 
 	@Autowired

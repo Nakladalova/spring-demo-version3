@@ -1,6 +1,5 @@
 package com.example.springdemo.service;
 
-import com.example.springdemo.model.Employee;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.DangerUserRepository;
 import com.example.springdemo.repository.SecureUserRepository;
@@ -47,10 +46,10 @@ public class UsersService {
         return user;
     }
 
-    @Bean
+    /*@Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
 
     public User registerUser(String username, String password, String email){
         if(username == null && password == null){
@@ -61,11 +60,11 @@ public class UsersService {
                 System.out.println("Duplicate login");
                 return null;
             }
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(password);
+            //BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+           //String encodedPassword = passwordEncoder.encode(password);
             User user = new User();
             user.setUsername(username);
-            user.setPassword(encodedPassword);
+            user.setPassword(password);
             user.setEmail(email);
             user.setAccountNonLocked(true);
             user.setEnabled(true);

@@ -27,14 +27,6 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         CustomUserDetails customUserDetails =  (CustomUserDetails) authentication.getPrincipal();
         User user = customUserDetails.getUser();
 
-        /*if (!user.isAccountNonLocked()) {
-            if (customUserDetailsService.unlockWhenTimeExpired(user)) {
-                exception = new LockedException("Your account has been unlocked. Please try to login again.");
-            }
-            else{
-                exception = new LockedException("Your account is locked due too many failed attemts");
-            }
-        } */
         if (user.getFailedAttempt() > 0) {
             customUserDetailsService.resetFailedAttempts(user.getUsername());
         }

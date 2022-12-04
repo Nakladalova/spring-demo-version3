@@ -1,6 +1,5 @@
 package com.example.springdemo.repository;
 
-import com.example.springdemo.model.Employee;
 import com.example.springdemo.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

@@ -78,6 +78,9 @@
 				text-align: left;
 				font-weight: bold;
 			}
+			#no-more-tables th{
+				text-align: center;
+			}
 
 			/*
               Label the data
@@ -106,9 +109,6 @@
 	</div>
 </nav>
 <br>
-<br>
-<!--<h1>List of Users</h1>-->
-<br>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -125,10 +125,8 @@
 
 		<th>User ID</th>
 		<th>E-mail</th>
-<!--		<th>Account not locked</th>-->
 		<th>Username</th>
-		<th>Active</th>
-<!--		<th>Action</th>-->
+		<th>Active user</th>
 	</tr>
 	</thead>
 
@@ -136,12 +134,8 @@
 	<tr th:each="user: ${listUsers}">
 		<td th:text="${user.id}">User ID </td>
 		<td th:text="${user.email}">E-mail</td>
-<!--		<td th:text="${user.accountNonLocked}">Account not locked</td>-->
 		<td th:text="${user.username}">Username</td>
-		<td th:text="${user.active}">Active</td>
-<!--		<td>-->
-<!--			<a class='btn btn-primary btn-sm' href='update'>Update</a>-->
-<!--			<a class='btn btn-danger btn-sm' href='delete'>Delete</a>-->
+		<td th:text="${user.active}">Active user</td>
 		</td>
 	</tr>
 	</tbody>

@@ -1,9 +1,7 @@
 package com.example.springdemo.controller;
 
 import com.example.springdemo.model.User;
-import com.example.springdemo.model.Employee;
 import com.example.springdemo.repository.UserRepository;
-import com.example.springdemo.service.EmployeeService;
 import com.example.springdemo.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -28,9 +26,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	private final UsersService usersService;
 
-	@Autowired
-	private EmployeeService service;
-
 	public AppController(UsersService usersService) {
 		this.usersService = usersService;
 	}
@@ -42,9 +37,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 		registry.addViewController("/register").setViewName("signup_form");
 		registry.addViewController("/register_success").setViewName("register_success");
 		registry.addViewController("/users").setViewName("users");
-		registry.addViewController("/admin").setViewName("admin");
-		registry.addViewController("/search").setViewName("employee_page");
-		registry.addViewController("/home").setViewName("Home");
 	}
 
 	@Autowired
@@ -55,14 +47,9 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "index";
 	}
 
-	@GetMapping("/access-denied")
+	@GetMapping("/access_denied")
 	public String viewePaget() {
-		return "access-denied";
-	}
-
-	@GetMapping("/admin")
-	public String viewAdminPage() {
-		return "admin";
+		return "access_denied";
 	}
 	
 	@GetMapping("/register")
@@ -91,25 +78,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "users";
 	}
 
-	@GetMapping("/search")
-	public String add(Model model) {
-		//List<Employee> listemployee = service.listAll();
-		model.addAttribute("employee", new Employee());
-		return "employee_page";
-	}
-
-
-	@PostMapping("/search")
-	public String doSearchEmployee(@ModelAttribute("employeeSearchFormData") Employee formData, Model model) {
-		//Employee emp = service.get(formData.getId());
-		//int id = formData.getId();
-		//String id_employee = Integer.toString(id);
-		Employee emp = service.getName(formData.getEmployee_id());
-		model.addAttribute("employee", emp);
-		return "employee_page";
-	}
-
-	@GetMapping("/getInfo")
+	@GetMapping("/user_page")
 	public String getInfo(Model model) {
 		//List<Employee> listemployee = service.listAll();
 		model.addAttribute("user", new User());
@@ -117,7 +86,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 	}
 
 
-	@PostMapping("/getInfo")
+	@PostMapping("/user_page")
 	public String getInfoOfUser(@ModelAttribute("userSearchFormData") User formData, Model model) {
 		User userDanger = usersService.getUserDanger(formData.getUsername());
 		User userSecure = usersService.getUserSecure(formData.getUsername());
@@ -135,13 +104,5 @@ public class AppController extends WebMvcConfigurerAdapter {
 		}
 		return "redirect:/login?logout";
 	}
-
-
-	/*@GetMapping("/all")
-    public String add(Model model) {
-        List<Employee> listemployee = service.listAll();
-        model.addAttribute("employee", new Employee());
-        return "employee_page";
-    }*/
 
 }
