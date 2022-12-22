@@ -27,7 +27,6 @@ public class DangerUserRepository implements CustomUserRepository {
         return queryDatabase(FIND_USER_BY_USERNAME, username);
     }
 
-
     Optional<User> queryDatabase(String query, Object... params) {
         String formattedQuery = String.format(query, params);
         Query nativeQuery = this.em.createNativeQuery(formattedQuery);

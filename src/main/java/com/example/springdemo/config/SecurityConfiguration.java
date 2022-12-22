@@ -33,6 +33,9 @@ public class SecurityConfiguration{
 		return new BCryptPasswordEncoder();
 	}*/
 
+	/*@Autowired
+     private PasswordEncoder passwordEncoder;*/
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
@@ -57,19 +60,27 @@ public class SecurityConfiguration{
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/admin").hasAnyRole("ADMIN")
-				.antMatchers("/users").hasAnyRole("ADMIN")
+				.antMatchers("/users").authenticated()
 				.antMatchers("/user_page").authenticated()
+				.antMatchers("/delete_user").authenticated()
 				.anyRequest().permitAll()
 				.and()
 				.formLogin().loginPage("/login").permitAll()
 				.usernameParameter("username")
-				//.failureHandler(loginFailureHandler)
-				//.successHandler(loginSuccessHandler)
+
+				.failureHandler(loginFailureHandler)
+				.successHandler(loginSuccessHandler)
+
 				.defaultSuccessUrl("/user_page")
 				.permitAll()
 				.and()
 				.exceptionHandling().accessDeniedPage("/access_denied");
 		http.authenticationProvider(authenticationProvider());
+		//http.headers().xssProtection().disable();
+		//http.csrf().disable();
+		http.sessionManagement()
+				.sessionFixation().none();
+
 		return http.build();
 	}
 

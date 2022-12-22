@@ -37,6 +37,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 		registry.addViewController("/register").setViewName("signup_form");
 		registry.addViewController("/register_success").setViewName("register_success");
 		registry.addViewController("/users").setViewName("users");
+		registry.addViewController("/delete_user").setViewName("delete_user");
 	}
 
 	@Autowired
@@ -47,6 +48,41 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "index";
 	}
 
+	@GetMapping("/items")
+	public String viewItems() {
+		return "items";
+	}
+
+	@GetMapping("/watch1")
+	public String viewWatch1() {
+		return "watch1";
+	}
+
+	@GetMapping("/watch2")
+	public String viewWatch2() {
+		return "watch2";
+	}
+
+	@GetMapping("/watch3")
+	public String viewWatch3() {
+		return "watch3";
+	}
+
+	@GetMapping("/watch4")
+	public String viewWatch4() {
+		return "watch4";
+	}
+
+	@GetMapping("/watch5")
+	public String viewWatch5() {
+		return "watch5";
+	}
+
+	@GetMapping("/watch6")
+	public String viewWatch6() {
+		return "watch6";
+	}
+
 	@GetMapping("/access_denied")
 	public String viewePaget() {
 		return "access_denied";
@@ -55,7 +91,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("user", new User());
-		
 		return "signup_form";
 	}
 	
@@ -66,7 +101,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 		}
 		User registeredUser = usersService.registerUser(user.getUsername(), user.getPassword(), user.getEmail());
 		if(registeredUser==null){
-			return "error";
+			return "signup_form";
 		}
 		return "redirect:/";
 	}
@@ -78,9 +113,15 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "users";
 	}
 
+	@PostMapping("/users")
+	public String deleteUser(User user, Model model) {
+		User message = usersService.deleteUser(user.getUsername());
+		    model.addAttribute("user", new User());
+			return "users";
+		}
+
 	@GetMapping("/user_page")
-	public String getInfo(Model model) {
-		//List<Employee> listemployee = service.listAll();
+	public String getInfo( Model model) {
 		model.addAttribute("user", new User());
 		return "user_page";
 	}
@@ -95,6 +136,22 @@ public class AppController extends WebMvcConfigurerAdapter {
 		model.addAttribute("user", userDanger);
 		return "user_page";
 	}
+
+	@GetMapping("/delete_user")
+	public String deleteUser( Model model) {
+		model.addAttribute("user", new User());
+		return "delete_user";
+	}
+
+
+	@PostMapping("/delete_user")
+	public String deleteUserByUsername(User user, Model model) {
+		User message = usersService.deleteUser(user.getUsername());
+		model.addAttribute("user", message );
+		return "delete_user";
+
+	}
+
 
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {

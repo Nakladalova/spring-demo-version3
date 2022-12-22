@@ -4,10 +4,13 @@ import com.example.springdemo.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long>, CustomUserRepository {
+@Transactional
+public interface UserRepository extends JpaRepository<User, Long>, CustomUserRepository, CrudRepository<User, Long> {
 	@Query("SELECT u FROM User u WHERE u.username = ?1")
 	public User findByUsername(String username);
 
@@ -15,5 +18,11 @@ public interface UserRepository extends JpaRepository<User, Long>, CustomUserRep
 	@Modifying
 	public void updateFailedAttempts(int failedAttempts, String username);
 
-	Optional<User> findUserById(String username);
+	long deleteByUsername(String username);
+
+	//Optional<User> findUserById(String username);
+
+	//@Query("DELETE FROM User u WHERE u.username = ?1")
+	//public void deleteUserByUsername(String username);
+
 }

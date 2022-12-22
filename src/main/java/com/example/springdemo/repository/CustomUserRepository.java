@@ -8,7 +8,4 @@ public interface CustomUserRepository {
 
     Optional<User> findUserByUsername(String username);
 
-    //Optional<Employee> findEmployeeById(int Id);
-
-    //Optional<Employee> findEmployeeByUsername(String username);
 }

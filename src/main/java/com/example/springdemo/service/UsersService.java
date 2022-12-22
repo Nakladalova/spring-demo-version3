@@ -71,4 +71,17 @@ public class UsersService {
             return userRepository.save(user);
         }
     }
+
+    public User deleteUser(String username) {
+        long deletedRow = userRepository.deleteByUsername(username);
+        User userMessage = new User();
+        if(deletedRow==1){
+            userMessage.setMessage("User "+ username +" is deleted.");
+            return userMessage;
+        }
+        userMessage.setMessage("Failed to delete User");
+        return userMessage;
+
+
+    }
 }

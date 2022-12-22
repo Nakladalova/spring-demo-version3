@@ -1,14 +1,9 @@
 package com.example.springdemo.model;
 
-import org.hibernate.validator.constraints.Length;
+//import com.example.springdemo.validation.ValidUsername;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import java.util.Date;
 import java.util.Set;
-
-//import java.util.Set;
-
 
 @Entity
 @Table(name = "users")
@@ -19,7 +14,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false, unique = true, length = 45)
+	@Column(nullable = false, unique = true, length = 45)  //"'", "\"", "--", "/", "\\", "&", ";","||
+	//@Pattern(regexp="^[a-z0-9_A-ZĚŠČŘŽÝÁÍÉěščřžýáíéúůÚŮ]{3,10}$", message="INVALID INPUT")
+	//@ValidUsername
 	private String username;
 
 	@Column(nullable = false, length = 64)

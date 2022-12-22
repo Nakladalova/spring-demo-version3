@@ -133,7 +133,7 @@
 	<tbody>
 	<tr th:each="user: ${listUsers}">
 		<td th:text="${user.id}">User ID </td>
-		<td th:text="${user.email}">E-mail</td>
+		<td th:utext="${user.email}">E-mail</td>
 		<td th:text="${user.username}">Username</td>
 		<td th:text="${user.active}">Active user</td>
 		</td>
@@ -155,6 +155,7 @@
 <br>
 <div class="text-center">
 	<a href="#" th:href="@{/logout}" class="button2 b-green rot-135">Log out</a>
+</div>
 </div>
 </body>
 </html>

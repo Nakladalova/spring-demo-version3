@@ -15,6 +15,11 @@ import java.util.Date;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
+	public static final int MAX_FAILED_ATTEMPTS = 3;
+
+	private static final long LOCK_TIME_DURATION =  5 * 60 * 1000 ;
+	//private static final long LOCK_TIME_DURATION =  24 * 60 * 60 * 1000 ;
+
 	@Autowired
 	private UserRepository userRepo;
 	
@@ -26,10 +31,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}
 		return new CustomUserDetails(user);
 	}
-	public static final int MAX_FAILED_ATTEMPTS = 3;
-
-	private static final long LOCK_TIME_DURATION =  5 * 60 * 1000 ;
-	//private static final long LOCK_TIME_DURATION =  24 * 60 * 60 * 1000 ;
 
 	public void increaseFailedAttempts(User user) {
 		int newFailAttempts = user.getFailedAttempt() + 1;
