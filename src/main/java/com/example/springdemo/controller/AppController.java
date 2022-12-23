@@ -1,8 +1,10 @@
 package com.example.springdemo.controller;
 
+import com.example.springdemo.model.Item;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.UserRepository;
-import com.example.springdemo.service.UsersService;
+import com.example.springdemo.service.ItemService;
+import com.example.springdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,10 +26,12 @@ import java.util.List;
 @EnableWebMvc
 public class AppController extends WebMvcConfigurerAdapter {
 
-	private final UsersService usersService;
+	private final UserService usersService;
+	private final ItemService itemService;
 
-	public AppController(UsersService usersService) {
+	public AppController(UserService usersService, ItemService itemService) {
 		this.usersService = usersService;
+		this.itemService = itemService;
 	}
 
 	@Override
@@ -48,6 +52,11 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "index";
 	}
 
+	@GetMapping("/shoppingcart")
+	public String viewShoppingCart() {
+		return "shopping_cart";
+	}
+
 	@GetMapping("/items")
 	public String viewItems() {
 		return "items";
@@ -58,14 +67,32 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "watch1";
 	}
 
+	@PostMapping("/watch1")
+	public String addItem(Item item) {
+		itemService.addItem(1,item.getAmount());
+		return "shoppingcart";
+	}
+
 	@GetMapping("/watch2")
 	public String viewWatch2() {
 		return "watch2";
 	}
 
+	@PostMapping("/watch2")
+	public String addItem2(Item item) {
+		itemService.addItem(2,item.getAmount());
+		return "shoppingcart";
+	}
+
 	@GetMapping("/watch3")
 	public String viewWatch3() {
 		return "watch3";
+	}
+
+	@PostMapping("/watch3")
+	public String addItem3(Item item) {
+		itemService.addItem(3,item.getAmount());
+		return "shoppingcart";
 	}
 
 	@GetMapping("/watch4")

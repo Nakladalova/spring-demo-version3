@@ -6,10 +6,12 @@ import com.example.springdemo.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,10 +19,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 public class SecurityConfiguration{
 
 	@Bean
@@ -63,6 +69,10 @@ public class SecurityConfiguration{
 				.antMatchers("/users").authenticated()
 				.antMatchers("/user_page").authenticated()
 				.antMatchers("/delete_user").authenticated()
+				.antMatchers("/images/**").permitAll()
+				.antMatchers("/items").permitAll()
+				.antMatchers("/watch1").authenticated()
+				.antMatchers("/watch2").authenticated()
 				.anyRequest().permitAll()
 				.and()
 				.formLogin().loginPage("/login").permitAll()
@@ -84,9 +94,8 @@ public class SecurityConfiguration{
 		return http.build();
 	}
 
-	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
+	public void configure(WebSecurity web) throws Exception{
+		web.ignoring().antMatchers("/images/**");
 	}
 
 	@Autowired
