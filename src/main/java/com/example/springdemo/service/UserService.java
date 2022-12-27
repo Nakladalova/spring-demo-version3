@@ -7,6 +7,8 @@ import com.example.springdemo.repository.UserRepository;
 import com.example.springdemo.validation.SqlInputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -81,7 +83,21 @@ public class UserService {
         }
         userMessage.setMessage("Failed to delete User");
         return userMessage;
+    }
 
+    public int getUserID() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user = userRepository.findByUsername(currentPrincipalName);
+        int user_id = user.getId();
+        return user_id;
+
+    }
+
+    public int getUserIDwithUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        int user_id = user.getId();
+        return user_id;
 
     }
 }

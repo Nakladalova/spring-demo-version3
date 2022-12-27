@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Item {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
     private Integer item_id;
 
@@ -18,6 +19,26 @@ public class Item {
 
     @Column(name = "amount", nullable = false, precision=11, scale=0)
     private Integer amount;
+
+    private String product_name;
+
+    private Integer price;
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public Integer getItem_id() {
         return item_id;

@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <!--	<link rel="stylesheet" href="css/style.css" />-->
     <link rel="stylesheet"
@@ -269,12 +269,12 @@
 <br>
 <br>
 <br>
-<b><h1>Watches for You</h1></b>
+<b><h1>Watch1</h1></b>
+<form th:action="@{/shoppingcart}" method="get" th:object="${item}">
 <div class="container">
     <br>
     <br>
     <section>
-        <h2>Rolex</h2>
         <br>
         <br>
         <br>
@@ -289,7 +289,6 @@
         <!--    <a href="#" class="btn blue">Blue Button</a>-->
     </section>
     <section>
-        <h3>Rolex</h3>
         <br>
         <br>
         <br>
@@ -308,8 +307,8 @@
     <div class = "row">
         <div class = "col-md-6 col-md-offset-3">
             <div class="form-group">
-                <label for="numOfItems">Quantity</label>: <input type="numOfItems"
-                                                   id="numOfItems" name="numOfItems" class="form-control"
+                <label for="amount">Quantity</label>: <input type="amount"
+                                                   id="amount" name="amount" class="form-control"
                                                    placeholder="Enter number of Items" />
             </div>
 
@@ -318,13 +317,14 @@
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
                 <input type="submit" name="btn btn-success"
-                   class="form-control btn btn-primary" value="Buy" />
+                   class="form-control btn btn-primary" value="Add to cart" />
              </div>
              </div>
         </div>
         </div>
     </div>
 </div>
+</form>
 </body>
 <br>
 <br>

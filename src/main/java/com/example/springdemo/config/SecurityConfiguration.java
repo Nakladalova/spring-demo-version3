@@ -73,6 +73,7 @@ public class SecurityConfiguration{
 				.antMatchers("/items").permitAll()
 				.antMatchers("/watch1").authenticated()
 				.antMatchers("/watch2").authenticated()
+				.antMatchers("/check").authenticated()
 				.anyRequest().permitAll()
 				.and()
 				.formLogin().loginPage("/login").permitAll()

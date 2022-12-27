@@ -1,9 +1,11 @@
 package com.example.springdemo.controller;
 
 import com.example.springdemo.model.Item;
+import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.UserRepository;
 import com.example.springdemo.service.ItemService;
+import com.example.springdemo.service.ShoppingCartService;
 import com.example.springdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,12 +28,14 @@ import java.util.List;
 @EnableWebMvc
 public class AppController extends WebMvcConfigurerAdapter {
 
-	private final UserService usersService;
+	private final UserService userService;
 	private final ItemService itemService;
+	private ShoppingCartService shoppingCartService;
 
-	public AppController(UserService usersService, ItemService itemService) {
-		this.usersService = usersService;
+	public AppController(UserService usersService, ItemService itemService, ShoppingCartService shoppingCartService) {
+		this.userService = usersService;
 		this.itemService = itemService;
+		this.shoppingCartService = shoppingCartService;
 	}
 
 	@Override
@@ -54,7 +58,29 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	@GetMapping("/shoppingcart")
 	public String viewShoppingCart() {
-		return "shopping_cart";
+		return "shoppingcart";
+	}
+
+	@GetMapping("/shopping")
+	public String viewShopping(Model model) {
+		List<Item> listItems = itemService.getItemsFromDB();
+		ShoppingCart shoppingCart = shoppingCartService.getTotal(listItems);
+		model.addAttribute("listItems", listItems);
+		model.addAttribute("shoppingCart", shoppingCart);
+		return "shopping";
+	}
+
+	@GetMapping("/check")
+	public String viewCheck(Model model, @RequestParam (defaultValue = "-1") int userID) { //, @RequestParam (defaultValue = "-1") int userID
+		//int userID = userService.getUserID();
+		ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(userID);
+		model.addAttribute("shoppingCart", shoppingCart);
+		return "check";
+	}
+
+	@PostMapping("/check")
+	public String getCheck() {
+		return "check";
 	}
 
 	@GetMapping("/items")
@@ -69,8 +95,8 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	@PostMapping("/watch1")
 	public String addItem(Item item) {
-		itemService.addItem(1,item.getAmount());
-		return "shoppingcart";
+		Item item1 = itemService.addItem(1,item.getAmount());
+		return "shopping";
 	}
 
 	@GetMapping("/watch2")
@@ -92,7 +118,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@PostMapping("/watch3")
 	public String addItem3(Item item) {
 		itemService.addItem(3,item.getAmount());
-		return "shoppingcart";
+		return "shopping_cart";
 	}
 
 	@GetMapping("/watch4")
@@ -126,7 +152,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 		if(bindingResult.hasErrors()){
 			return "signup_form";
 		}
-		User registeredUser = usersService.registerUser(user.getUsername(), user.getPassword(), user.getEmail());
+		User registeredUser = userService.registerUser(user.getUsername(), user.getPassword(), user.getEmail());
 		if(registeredUser==null){
 			return "signup_form";
 		}
@@ -140,13 +166,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "users";
 	}
 
-	@PostMapping("/users")
-	public String deleteUser(User user, Model model) {
-		User message = usersService.deleteUser(user.getUsername());
-		    model.addAttribute("user", new User());
-			return "users";
-		}
-
 	@GetMapping("/user_page")
 	public String getInfo( Model model) {
 		model.addAttribute("user", new User());
@@ -156,9 +175,9 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	@PostMapping("/user_page")
 	public String getInfoOfUser(@ModelAttribute("userSearchFormData") User formData, Model model) {
-		User userDanger = usersService.getUserDanger(formData.getUsername());
-		User userSecure = usersService.getUserSecure(formData.getUsername());
-		User userSecureWithJPA = usersService.getUserSecureWithJPA(formData.getUsername());
+		User userDanger = userService.getUserDanger(formData.getUsername());
+		User userSecure = userService.getUserSecure(formData.getUsername());
+		User userSecureWithJPA = userService.getUserSecureWithJPA(formData.getUsername());
 
 		model.addAttribute("user", userDanger);
 		return "user_page";
@@ -173,7 +192,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	@PostMapping("/delete_user")
 	public String deleteUserByUsername(User user, Model model) {
-		User message = usersService.deleteUser(user.getUsername());
+		User message = userService.deleteUser(user.getUsername());
 		model.addAttribute("user", message );
 		return "delete_user";
 

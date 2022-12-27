@@ -1,14 +1,19 @@
 package com.example.springdemo.service;
 
 import com.example.springdemo.model.Item;
+import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.model.User;
-import com.example.springdemo.repository.DangerUserRepository;
 import com.example.springdemo.repository.ItemRepository;
 import com.example.springdemo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class ItemService {
@@ -25,12 +30,22 @@ public class ItemService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByUsername(currentPrincipalName);
-        long user_id = user.getId();
+        int user_id = user.getId();
         Item item = new Item();
         item.setProduct_id(product_id);
         item.setAmount(amount);
         item.setShoppingcart_id(user_id);
         return itemRepository.save(item);
-
     }
+
+    public List getItemsFromDB (){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user = userRepository.findByUsername(currentPrincipalName);
+        int user_id = user.getId();
+        Collection<Item> itemsCollection = itemRepository.findAllItems(user_id);
+        List<Item> itemsList = itemsCollection.stream().collect(toList());
+        return itemsList;
+    }
+
 }
