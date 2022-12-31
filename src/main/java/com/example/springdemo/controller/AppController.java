@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,7 +59,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	@GetMapping("/shoppingcart")
 	public String viewShoppingCart() {
-		return "shoppingcart";
+		return "shopping_cart";
 	}
 
 	@GetMapping("/shopping")
@@ -70,6 +71,14 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "shopping";
 	}
 
+	@GetMapping("/purchase")
+	public String viewPurchase(Model model) {
+		ShoppingCart shoppingCart = shoppingCartService.updateShoppingCart();
+		model.addAttribute("shoppingCart", shoppingCart);
+		return "purchase";
+	}
+
+
 	@GetMapping("/check")
 	public String viewCheck(Model model, @RequestParam (defaultValue = "-1") int userID) { //, @RequestParam (defaultValue = "-1") int userID
 		//int userID = userService.getUserID();
@@ -78,10 +87,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "check";
 	}
 
-	@PostMapping("/check")
-	public String getCheck() {
-		return "check";
-	}
 
 	@GetMapping("/items")
 	public String viewItems() {

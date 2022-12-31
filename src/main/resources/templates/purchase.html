@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:c="">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="ISO-8859-1">
     <title>Registration and Login App</title>
@@ -10,91 +9,6 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
     <style>
-        table {
-            /*border: 1px solid #ccc;*/
-            /*border-collapse: collapse;*/
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            table-layout: fixed;
-        }
-
-        table caption {
-            font-size: 1.5em;
-            margin: .5em 0 .75em;
-        }
-
-        table tr {
-            /*background-color: #f8f8f8;*/
-            /*border: 1px solid #ddd;*/
-            padding: .35em;
-        }
-
-        table th,
-        table td {
-            padding: .625em;
-            text-align: center;
-        }
-
-        table th {
-            font-size: .85em;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-        }
-
-        @media screen and (max-width: 600px) {
-            table {
-                border: 0;
-            }
-
-            table caption {
-                font-size: 1.3em;
-            }
-
-            table thead {
-                border: none;
-                clip: rect(0 0 0 0);
-                height: 1px;
-                margin: -1px;
-                overflow: hidden;
-                padding: 0;
-                position: absolute;
-                width: 1px;
-            }
-
-            table tr {
-                border-bottom: 3px solid #ddd;
-                display: block;
-                margin-bottom: .625em;
-            }
-
-            table td {
-                /*border-bottom: 1px solid #ddd;*/
-                display: block;
-                font-size: .8em;
-                text-align: right;
-            }
-
-            table td::before {
-                /*
-                * aria-label has no advantage, it won't be read inside a table
-                content: attr(aria-label);
-                */
-                content: attr(data-label);
-                float: left;
-                font-weight: bold;
-                text-transform: uppercase;
-            }
-
-            table td:last-child {
-                border-bottom: 0;
-            }
-        }
-        /* general styling */
-        body {
-            font-family: "Open Sans", sans-serif;
-            line-height: 1.25;
-        }
         @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
         html, body, div, span, applet, object, iframe,
         h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -125,10 +39,10 @@
             list-style: none;
         }
 
-        /*table {*/
-        /*    border-collapse: collapse;*/
-        /*    border-spacing: 0;*/
-        /*}*/
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
 
         caption, th, td {
             text-align: left;
@@ -575,9 +489,16 @@
 </nav>
 <div class="wrap cf">
     <h1 class="projTitle">Shopping Cart</h1>
+    <!--    <form th:action="@{/check}" method="post">-->
+            <div th:if="${shoppingCart.wallet<0}">
+                <div class="alert alert-danger">Not enough money on the wallet</div>
+            </div>
+            <div th:if="${shoppingCart.wallet>=0}">
+                <div class="alert alert-info">Successful purchase</div>
     <div class="heading cf">
         <h1>My Cart</h1>
         <a href="/items" class="continue">Continue Shopping</a>
+
     </div>
     <div class="cart">
         <ul class="cartWrap">
@@ -586,49 +507,43 @@
 
                 <div class="infoWrap">
                     <div class="cartSection">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th scope="col">Item name</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Subtotal</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="item: ${listItems}">
-                                <td th:text="${item.product_name}">Item name</td>
-                                <td th:text="${item.amount}">Amount</td>
-                                <td th:text="${item.price}">Price</td>
-                                <div th:with="result=${item.amount * item.price}">
-                                    <td th:text="${result}"></td>
-                                </div>
-                                </td>
-                            </tr>
-<!--                            <tr>-->
-<!--                                <td colspan="3" />-->
-<!--                                <td><b th:text="${#aggregates.sum(result)}" /></td>-->
-<!--                            </tr>-->
-                            </tbody>
-                        </table>
+
+                        <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
+                        <h3>Total Cost</h3>
+
+                        <p> Including Tax
+                        </p>
+
+
+                    </div>
+
+
+                    <div class="prodTotal cartSection">
+                        <td th:text="${shoppingCart.total}">Total</td>
+                    </div>
+                </div>
+            </li>
+            <li class="items even">
+
+                <div class="infoWrap">
+                    <div class="cartSection">
+
+                        <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
+                        <h3>My Wallet</h3>
+
+                        <p>My Account</p>
+
+                    </div>
+
+
+                    <div class="prodTotal cartSection">
+                        <td th:text="${shoppingCart.wallet}">Wallet</td>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
-
-    <div class="subtotal cf">
-        <ul>
-<!--            <input type= "text" th:value="${shoppingCart.total}" name = "total">-->
-            <li class="totalRow final"><span class="label">Total</span><span class="value" th:text="${shoppingCart.total}"></span></li>
-
-<!--            <li class="totalRow final"><span class="label">Total</span><span class="value" th:value="${item.total}" id="total" name="total"></span></li>-->
-            <li class="totalRow"><a href="/check" class="btn continue">Checkout</a></li>
-
-        </ul>
-    </div>
+</div>
 </div>
 </body>
 </html>
-
-<!--th:text="${content}"-->

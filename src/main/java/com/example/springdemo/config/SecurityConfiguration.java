@@ -74,6 +74,8 @@ public class SecurityConfiguration{
 				.antMatchers("/watch1").authenticated()
 				.antMatchers("/watch2").authenticated()
 				.antMatchers("/check").authenticated()
+				.antMatchers("/shopping").authenticated()
+				.antMatchers("/purchase").authenticated()
 				.anyRequest().permitAll()
 				.and()
 				.formLogin().loginPage("/login").permitAll()
@@ -104,5 +106,6 @@ public class SecurityConfiguration{
 
 	@Autowired
 	private CustomLoginSuccessHandler loginSuccessHandler;
+
 	
 }

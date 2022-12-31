@@ -29,7 +29,6 @@ public class UserService {
     @Autowired
     private SecureUserRepository secureUserRepository;
 
-
     public User getUserDanger(String username) {
         return dangerUserRepository.findUserByUsername(username).get();
     }

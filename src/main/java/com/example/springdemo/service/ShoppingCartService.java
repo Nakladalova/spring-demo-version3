@@ -2,7 +2,9 @@ package com.example.springdemo.service;
 
 import com.example.springdemo.model.Item;
 import com.example.springdemo.model.ShoppingCart;
+import com.example.springdemo.repository.ItemRepository;
 import com.example.springdemo.repository.ShoppingCartRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +14,12 @@ public class ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
     private UserService userService;
+    private final ItemRepository itemRepository;
 
-    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, UserService userService){
+    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, UserService userService, ItemRepository itemRepository){
         this.shoppingCartRepository = shoppingCartRepository;
         this.userService = userService;
+        this.itemRepository = itemRepository;
     }
 
     public ShoppingCart getShoppingCart (int userID){
@@ -42,6 +46,30 @@ public class ShoppingCartService {
         int user_id = userService.getUserID();
         shoppingCartRepository.updateTotal(total,user_id);
         ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUser_id(user_id);
+        return shoppingCart;
+    }
+
+    public int calculateAccountBallance() {
+        ShoppingCart shoppingCart = getShoppingCart(-1);
+        int total = shoppingCart.getTotal();
+        int wallet = shoppingCart.getWallet();
+        int result = wallet - total;
+        return result;
+    }
+
+    public ShoppingCart updateShoppingCart(){
+        int result = calculateAccountBallance();
+        ShoppingCart shoppingCart = new ShoppingCart();
+        if(result < 0){
+            shoppingCart.setWallet(result);
+            shoppingCart.setTotal(0);
+            return shoppingCart;
+        }
+        int userID = userService.getUserID();
+        shoppingCartRepository.updateShoppingCart(0,result,userID);
+        long userIDlong = (long)userID;
+        itemRepository.deleteItems(userIDlong);
+        shoppingCart = shoppingCartRepository.findShoppingCartByUser_id(userID);
         return shoppingCart;
     }
 }

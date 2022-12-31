@@ -489,9 +489,18 @@
 </nav>
 <div class="wrap cf">
     <h1 class="projTitle">Shopping Cart</h1>
+<!--    <form th:action="@{/check}" method="post">-->
+<!--        <div th:if="${shoppingCart.wallet}<0">-->
+<!--            <div class="alert alert-danger">Invalid username or-->
+<!--                password.</div>-->
+<!--        </div>-->
+<!--        <div th:if="${shoppingCart.wallet}<0">-->
+<!--            <div class="alert alert-info">Invalid username or-->
+<!--                password.</div>-->
     <div class="heading cf">
         <h1>My Cart</h1>
         <a href="/items" class="continue">Continue Shopping</a>
+
     </div>
     <div class="cart">
         <ul class="cartWrap">
@@ -524,7 +533,7 @@
                         <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
                         <h3>My Wallet</h3>
 
-                        <p>  Money on my Account</p>
+                        <p>My Account</p>
 
                     </div>
 
@@ -536,10 +545,9 @@
             </li>
         </ul>
     </div>
-
     <div class="subtotal cf">
         <ul>
-            <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>
+            <li class="totalRow"><a href="/purchase" class="btn continue">Checkout</a></li>
         </ul>
     </div>
 </div>
