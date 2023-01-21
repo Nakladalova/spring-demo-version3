@@ -490,16 +490,14 @@
 <div class="wrap cf">
     <h1 class="projTitle">Shopping Cart</h1>
     <!--    <form th:action="@{/check}" method="post">-->
-            <div th:if="${shoppingCart.wallet<0}">
-                <div class="alert alert-danger">Not enough money on the wallet</div>
-            </div>
-            <div th:if="${shoppingCart.wallet>=0}">
-                <div class="alert alert-info">Successful purchase</div>
+
     <div class="heading cf">
         <h1>My Cart</h1>
         <a href="/items" class="continue">Continue Shopping</a>
 
     </div>
+    <div th:if="${shoppingCart.wallet<0}">
+        <div class="alert alert-danger">Not enough money on the wallet</div>
     <div class="cart">
         <ul class="cartWrap">
 
@@ -529,7 +527,7 @@
                     <div class="cartSection">
 
                         <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
-                        <h3>My Wallet</h3>
+                        <h3>Account Balance</h3>
 
                         <p>My Account</p>
 
@@ -537,12 +535,23 @@
 
 
                     <div class="prodTotal cartSection">
-                        <td th:text="${shoppingCart.wallet}">Wallet</td>
+                        <div th:if="${shoppingCart.wallet<0}">
+                            <td th:text="${shoppingCart.wallet}">Wallet</td>
+                        <div th:if="${shoppingCart.wallet>=0}">
+                            <td th:text="${shoppingCart.wallet}">Wallet</td>
                     </div>
                 </div>
             </li>
+
+
         </ul>
     </div>
+        <div th:if="${shoppingCart.wallet<0}">
+            <div class="subtotal cf">
+                <ul>
+                    <li class="totalRow"><a href="/check" class="btn continue">Edit items</a></li>
+                </ul>
+            </div>
 </div>
 </div>
 </body>

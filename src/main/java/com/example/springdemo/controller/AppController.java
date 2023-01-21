@@ -5,6 +5,7 @@ import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.UserRepository;
 import com.example.springdemo.service.ItemService;
+import com.example.springdemo.service.ProductService;
 import com.example.springdemo.service.ShoppingCartService;
 import com.example.springdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -39,6 +41,9 @@ public class AppController extends WebMvcConfigurerAdapter {
 		this.shoppingCartService = shoppingCartService;
 	}
 
+	@Autowired
+	private ProductService productService;
+
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");
@@ -52,9 +57,36 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@Autowired
 	private UserRepository userRepo;
 	
+	@GetMapping("/listProducts")
+	public String viewHomeP() {
+		return "listProducts";
+	}
+
 	@GetMapping("")
 	public String viewHomePage() {
 		return "index";
+	}
+
+	@GetMapping("/homepage")
+	public String viewHomePag() {
+		return "home_page";
+	}
+
+
+	@GetMapping("/addProduct")
+	public String showAddProduct()
+	{
+		return "addProduct";
+	}
+
+	@PostMapping("/addProduct")
+	public String saveProduct(@RequestParam("file") MultipartFile file,
+							  @RequestParam("pname") String name,
+							  @RequestParam("price") int price,
+							  @RequestParam("desc") String desc)
+	{
+		productService.saveProductToDB(file, name, desc, price);
+		return "redirect:/listProducts";
 	}
 
 	@GetMapping("/shoppingcart")
@@ -77,7 +109,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "purchase";
 	}
-
 
 	@GetMapping("/check")
 	public String viewCheck(Model model, @RequestParam (defaultValue = "-1") int userID) { //, @RequestParam (defaultValue = "-1") int userID
