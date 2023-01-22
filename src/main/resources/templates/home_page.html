@@ -1,4 +1,4 @@
-<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:style="http://www.w3.org/1999/xhtml">
 <head>
     <!--	<link rel="stylesheet" href="css/style.css" />-->
     <link rel="stylesheet"
@@ -41,11 +41,17 @@
             border: #c1c4c7 3px solid;
         }
 
-        img {
-            max-width: 40%;
+        .img1 {
+            max-width: 35%;
             margin-right: 10%;
             margin-top: 5%;
             float: right;
+        }
+        .img2 {
+            max-width: 35%;
+            margin-left: 10%;
+            margin-top: 2%;
+            float: left;
         }
 
         h1 {
@@ -57,9 +63,16 @@
 
         }
         h4 {
-            font-size: 47px;
+            font-size: 40px;
             /*width: 98%;*/
             text-align: left;
+            padding: 5em;
+
+        }
+        h5 {
+            font-size: 40px;
+            /*width: 98%;*/
+            text-align: center;
             padding: 5em;
 
         }
@@ -281,12 +294,11 @@
 <br>
 <b><h1>Time - Zone</h1></b>
 <form th:action="@{/homepage}" method="get">
-    <img src="https://www.maxpixel.net/static/photo/1x/Male-Watch-Luxury-Accessories-To-Watch-Rolex-1327169.jpg">
-    <h4>Choose your style</h4>
-<!--    <button style="width:20px" input type="submit" name="login-submit" id="login-submit"-->
-<!--                                 class="form-control btn btn-primary" value="Log In" />-->
-
-
+    <img src="https://www.maxpixel.net/static/photo/1x/Clock-Rolex-Business-Pen-Work-Style-Watches-3518474.jpg" class="img1"/>
+    <h4>Watches for You</h4>
+   
+    <img src="https://www.maxpixel.net/static/photo/1x/Male-Watch-Luxury-Accessories-To-Watch-Rolex-1327169.jpg" class="img2" />
+    <h5>Choose your style</h5>
 
 </form>
 </body>
