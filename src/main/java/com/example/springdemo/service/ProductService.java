@@ -43,4 +43,8 @@ public class ProductService {
     {
         return productRepo.findAll();
     }
+
+    public Product getProduct(int id){
+        return productRepo.findProductByID(id);
+    }
 }

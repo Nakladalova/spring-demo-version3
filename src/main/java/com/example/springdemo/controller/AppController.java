@@ -1,6 +1,7 @@
 package com.example.springdemo.controller;
 
 import com.example.springdemo.model.Item;
+import com.example.springdemo.model.Product;
 import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.UserRepository;
@@ -57,9 +58,18 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@Autowired
 	private UserRepository userRepo;
 	
-	@GetMapping("/listProducts")
+	@GetMapping("/products")
 	public String viewHomeP() {
-		return "listProducts";
+		return "products";
+	}
+
+	@GetMapping("/watchdetail")
+	public String getById(Model model, @RequestParam (defaultValue = "1") int id){
+
+		Product product = productService.getProduct(id);
+		model.addAttribute("product", product);
+		return "watch_detail";
+
 	}
 
 	@GetMapping("")

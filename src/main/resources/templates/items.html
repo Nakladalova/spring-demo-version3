@@ -138,7 +138,9 @@
 		<br>
 		<br>
 		<div class="text-center">
-			<a href="#" th:href="@{/watch1}" class="button2 b-green rot-135">Shop Item</a>
+			<form action="#" th:href="@{/watch_detail}" class="button2 b-green rot-135">Shop Item>
+			    <input type="hidden" name="id" value="1" />
+			</form>
 		</div>
 		<br>
 		<!--    <a href="#" class="btn blue">Blue Button</a>-->
@@ -151,7 +153,7 @@
 		<br>
 		<br>
 		<div class="text-center">
-			<a href="#" th:href="@{/watch2}" class="button2 b-green rot-135">Shop Item</a>
+			<a href="#" th:href="@{/watch_detail}" class="button2 b-green rot-135">Shop Item</a>
 		</div>
 		<br>
 	</section>

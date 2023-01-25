@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <!--	<link rel="stylesheet" href="css/style.css" />-->
     <link rel="stylesheet"
@@ -35,40 +35,22 @@
         }
         section {
             background-color: rgba(255,255,255);
-            margin: 3% 3%;
+            margin: 2% 1%;
             padding: 1em;
-            width: 44%;
-            border: #FFFFFF 3px solid;
+            width: 40%;
+            border: #c1c4c7 3px solid;
         }
 
         img {
-            max-width: 100%;
-            margin: 0% auto 0% 0%;
+            max-width: 90%;
+            margin: 0% auto 0% 5%;
         }
-        .button {
-            background-color: #1F51FF;
-            border: none;
-            color: white;
-            text-align: left;
-            text-decoration: none;
-            display: inline-block;
-            float:left;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-            margin-left: 39%;
-            margin-top: 0%;
-        }
-
-        .button2 {padding: 8px 24px;}
-
 
         h1 {
             font-size: 47px;
             width: 98%;
             text-align: center;
             padding: 0.5em;
-            margin-top: 2%;
 
         }
 
@@ -91,9 +73,8 @@
 
         p {
             padding: 0.5em;
-            font-size: 25px;
+            font-size: 18px;
             text-align: center;
-            margin-top: -2%;
         }
 
         code {
@@ -264,7 +245,6 @@
 
 
     </style>
-
 </head>
 
 <body>
@@ -278,8 +258,8 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
             <a class="navbar-brand" href="#" th:href="@{/login}">Login</a>
-            <a class="navbar-brand" href="#" th:href="@{/register}">Register</a>
             <a class="navbar-brand" href="#" th:href="@{/users}">Users</a>
             <a class="navbar-brand" href="#" th:href="@{/user_page}">Get info</a>
             <a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
@@ -289,84 +269,65 @@
 <br>
 <br>
 <br>
-<br>
-<br>
-<b><h1> Choose your Style</h1></b>
+<!--<form th:action="@{/watch_detail}" method="get" th:object="${product}">-->
+    <b><h1>Watch1</h1></b>
 <div class="container">
+    <br>
+    <br>
     <section>
-        <img src="https://www.maxpixel.net/static/photo/1x/Wristwatch-Rolex-Watches-Watch-Luxury-Watch-Class-4696644.jpg" class="img1"/>
+        <br>
+        <td th:text="${product.product_name}">Name</td>
         <br>
         <br>
         <br>
-        <p>Watch 1 </p>
         <br>
-        <div class="text-center">
-            <button class="button button2">Shop now</button>
-        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <!--    <a href="#" class="btn blue">Blue Button</a>-->
     </section>
     <section>
-        <img src="https://www.maxpixel.net/static/photo/1x/Steel-Metal-Watch-Dial-Time-Swiss-Luxury-Rolex-2171960.jpg" class="img1"/>
-        <br>
-        <br>
-        <br>
-        <p>Watch 2</p>
-        <br>
-        <div class="text-center">
-            <button class="button button2">Shop now</button>
-        </div>
-    </section>
-    <section>
-        <img src="https://www.maxpixel.net/static/photo/1x/Luxury-Watch-Class-Watches-Rolex-Watch-Wristwatch-4874320.jpg" class="img1"/>
-        <br>
-        <br>
-        <br>
-        <br>
-        <p>Watch 3</p>
-        <br>
-        <div class="text-center">
-            <button class="button button2">Shop now</button>
-        </div>
-    </section>
-    <section>
-        <img src="https://www.maxpixel.net/static/photo/1x/Rolex-Watches-Watch-Luxury-Watch-Wristwatch-Class-4551369.jpg" class="img1"/>
-        <br>
-        <br>
-        <br>
-        <p>Watch 4</p>
-        <br>
-        <div class="text-center">
-            <button class="button button2">Shop now</button>
-        </div>
-    </section>
-    <section>
-        <img src="https://www.maxpixel.net/static/photo/1x/Watch-Rolex-Datejust-2654530.jpg" class="img1"/>
-        <br>
-        <br>
-        <br>
-        <p>Watch 5</p>
-        <br>
-        <div class="text-center">
-            <button class="button button2">Shop now</button>
-        </div>
-    </section>
-    <section>
-        <img src="https://www.maxpixel.net/static/photo/1x/Luxury-Rolex-Swiss-Dial-Metal-Steel-Time-Watch-2171961.jpg" class="img1"/>
-        <br>
-        <br>
-        <br>
-        <p>Watch 6</p>
-        <br>
-        <div class="text-center">
-            <button class="button button2">Shop now</button>
-        </div>
         <br>
         <br>
         <br>
         <br>
         <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!--    <a href="#" class="btn blue">Blue Button</a>-->
     </section>
 </div>
-</body>
+<div>
+    <div class = "row">
+        <div class = "col-md-6 col-md-offset-3">
+            <div class="form-group">
+                <label for="amount">Quantity</label>: <input type="amount"
+                                                   id="amount" name="amount" class="form-control"
+                                                   placeholder="Enter number of Items" />
+            </div>
 
+
+        <div class="form-group">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <input type="submit" name="btn btn-success"
+                   class="form-control btn btn-primary" value="Add to cart" />
+             </div>
+             </div>
+        </div>
+        </div>
+    </div>
+</div>
+</form>
+</body>
+<br>
+<br>
+<br>
 </html>
