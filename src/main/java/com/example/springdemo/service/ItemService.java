@@ -30,16 +30,23 @@ public class ItemService {
     @Autowired
     private UserRepository userRepository;
 
-    public Item addItem(int product_id, int amount) {
+    public void addItem(int product_id, int amount) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByUsername(currentPrincipalName);
         int user_id = user.getId();
-        Item item = new Item();
-        item.setProduct_id(product_id);
-        item.setAmount(amount);
-        item.setShoppingcart_id(user_id);
-        return itemRepository.save(item);
+        Integer amount2 = findItem(product_id, user_id);
+        if(amount2 > 0){
+            int updatedAmount = amount2 + amount;
+            itemRepository.updateItem(updatedAmount, product_id, user_id);
+            return;
+        }
+        Item item2 = new Item();
+        item2.setProduct_id(product_id);
+        item2.setAmount(amount);
+        item2.setShoppingcart_id(user_id);
+        itemRepository.save(item2);
+        return;
     }
 
     public List getItemsFromDB (){
@@ -50,6 +57,15 @@ public class ItemService {
         Collection<Item> itemsCollection = itemRepository.findAllItems(user_id);
         List<Item> itemsList = itemsCollection.stream().collect(toList());
         return itemsList;
+    }
+
+    public int findItem(int product_id, int shoppingcart_id){
+        //Item item = itemRepository.findItem(product_id,shoppingcart_id );
+        Integer amount = itemRepository.findItem(product_id,shoppingcart_id );
+        if (amount == null){
+            return 0;
+        }
+        return amount;
     }
 
 

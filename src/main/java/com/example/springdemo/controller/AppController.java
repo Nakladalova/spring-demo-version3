@@ -65,12 +65,19 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	@GetMapping("/watchdetail")
 	public String getById(Model model, @RequestParam (defaultValue = "1") int id){
-
 		Product product = productService.getProduct(id);
 		model.addAttribute("product", product);
 		return "watch_detail";
-
 	}
+
+	@PostMapping("/watchdetail")
+	public String addItem(@RequestParam("product_name") String product_name,Item item) {
+		Integer id = productService.getProductByName(product_name);
+		itemService.addItem(id,item.getAmount());
+		return "redirect:/shopping";
+	}
+
+	//@RequestParam("product_name") String product_name
 
 	@GetMapping("")
 	public String viewHomePage() {
@@ -113,6 +120,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "shopping";
 	}
 
+
 	@GetMapping("/purchase")
 	public String viewPurchase(Model model) {
 		ShoppingCart shoppingCart = shoppingCartService.updateShoppingCart();
@@ -134,52 +142,10 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "items";
 	}
 
-	@GetMapping("/watch1")
-	public String viewWatch1() {
-		return "watch1";
-	}
-
-	@PostMapping("/watch1")
-	public String addItem(Item item) {
-		Item item1 = itemService.addItem(1,item.getAmount());
-		return "shopping";
-	}
-
-	@GetMapping("/watch2")
-	public String viewWatch2() {
-		return "watch2";
-	}
-
 	@PostMapping("/watch2")
 	public String addItem2(Item item) {
 		itemService.addItem(2,item.getAmount());
 		return "shoppingcart";
-	}
-
-	@GetMapping("/watch3")
-	public String viewWatch3() {
-		return "watch3";
-	}
-
-	@PostMapping("/watch3")
-	public String addItem3(Item item) {
-		itemService.addItem(3,item.getAmount());
-		return "shopping_cart";
-	}
-
-	@GetMapping("/watch4")
-	public String viewWatch4() {
-		return "watch4";
-	}
-
-	@GetMapping("/watch5")
-	public String viewWatch5() {
-		return "watch5";
-	}
-
-	@GetMapping("/watch6")
-	public String viewWatch6() {
-		return "watch6";
 	}
 
 	@GetMapping("/access_denied")

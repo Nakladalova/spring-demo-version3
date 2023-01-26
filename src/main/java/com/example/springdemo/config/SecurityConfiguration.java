@@ -71,7 +71,7 @@ public class SecurityConfiguration{
 				.antMatchers("/delete_user").authenticated()
 				.antMatchers("/images/**").permitAll()
 				.antMatchers("/items").permitAll()
-				.antMatchers("/watch1").authenticated()
+				.antMatchers("/watchdetail").authenticated()
 				.antMatchers("/watch2").authenticated()
 				.antMatchers("/check").authenticated()
 				.antMatchers("/shopping").authenticated()

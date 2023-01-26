@@ -254,7 +254,7 @@
         .tableHead {
             display: table;
             width: 100%;
-            font-family: "Montserrat", sans-serif;
+            font-family: "Calibri", sans-serif;
             font-size: 0.75em;
         }
         .tableHead li {
@@ -288,8 +288,9 @@
             vertical-align: middle;
         }
         .cart .items .cartSection .itemNumber {
+            font-family: "Verdana";
             font-size: 0.75em;
-            color: #777;
+            color: #000000;
             margin-bottom: 0.5em;
         }
         .cart .items .cartSection h3 {
@@ -577,7 +578,7 @@
     <h1 class="projTitle">Shopping Cart</h1>
     <div class="heading cf">
         <h1>My Cart</h1>
-        <a href="/items" class="continue">Continue Shopping</a>
+        <a href="/products" class="continue">Continue Shopping</a>
     </div>
     <div class="cart">
         <ul class="cartWrap">
@@ -605,10 +606,6 @@
                                 </div>
                                 </td>
                             </tr>
-<!--                            <tr>-->
-<!--                                <td colspan="3" />-->
-<!--                                <td><b th:text="${#aggregates.sum(result)}" /></td>-->
-<!--                            </tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -619,10 +616,8 @@
 
     <div class="subtotal cf">
         <ul>
-<!--            <input type= "text" th:value="${shoppingCart.total}" name = "total">-->
-            <li class="totalRow final"><span class="label">Total</span><span class="value" th:text="${shoppingCart.total}"></span></li>
+<!--            <li class="totalRow final"><span class="label">Total</span><span class="value" th:text="${shoppingCart.total}"></span></li>-->
 
-<!--            <li class="totalRow final"><span class="label">Total</span><span class="value" th:value="${item.total}" id="total" name="total"></span></li>-->
             <li class="totalRow"><a href="/check" class="btn continue">Checkout</a></li>
 
         </ul>
@@ -630,5 +625,3 @@
 </div>
 </body>
 </html>
-
-<!--th:text="${content}"-->

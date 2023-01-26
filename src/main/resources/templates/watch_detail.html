@@ -300,11 +300,9 @@
         <th:block th:switch="${product.product_name}">
             <div th:case="'watch1'">
                 <img src="https://www.maxpixel.net/static/photo/1x/Wristwatch-Rolex-Watches-Watch-Luxury-Watch-Class-4696644.jpg" class="img1"/>
-                <!-- print object is not active -->
             </div>
             <div th:case="'watch2'">
                 <img src="https://www.maxpixel.net/static/photo/1x/Steel-Metal-Watch-Dial-Time-Swiss-Luxury-Rolex-2171960.jpg" class="img1"/>
-                <!-- print object is not active -->
             </div>
             <div th:case="'watch3'">
                 <img src="https://www.maxpixel.net/static/photo/1x/Luxury-Watch-Class-Watches-Rolex-Watch-Wristwatch-4874320.jpg" class="img1"/>
@@ -344,17 +342,20 @@
     </section>
     <section>
         <div class = "col-md-6 col-md-offset-3">
-            <div class="form-q">
-                <label for="amount">Quantity</label>
+            <form th:action="@{/watchdetail}" method="post">
+                <div class="form-q">
+                    <label for="amount">Quantity</label>
+                    <br>
+                    <br>
+                    <input type="amount" id="amount" name="amount" class="form-control" placeholder="Enter number of Items" />
+                </div>
                 <br>
                 <br>
-                <input type="amount" id="amount" name="amount" class="form-control" placeholder="Enter number of Items" />
-            </div>
-            <br>
-            <br>
-            <div class="form-group">
+
+<!--            <div class="form-group">-->
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
+                        <input type="hidden" name="product_name" th:value=${product.product_name}>
                         <input type="submit" name="btn btn-success"
                                class="form-control btn btn-primary" value="Add to cart" />
                     </div>

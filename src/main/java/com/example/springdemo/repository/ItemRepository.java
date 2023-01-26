@@ -25,4 +25,10 @@ public interface ItemRepository extends JpaRepository<Item,Integer>, CrudReposit
     @Modifying
     public void deleteItems(long shoppingcart_id);
 
+    @Query(value ="SELECT amount FROM public.item WHERE product_id = ?1 AND shoppingcart_id = ?2", nativeQuery = true)
+    public Integer findItem(int product_id, int shoppingcart_id);
+
+    @Query(value ="UPDATE Item i SET amount = ?1 WHERE product_id = ?2 AND shoppingcart_id = ?3", nativeQuery = true)
+    @Modifying
+    public void updateItem(int updatedAmount, int product_id, int shoppingcart_id);
 }
