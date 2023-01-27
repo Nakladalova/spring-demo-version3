@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -54,6 +56,13 @@ public class SecurityConfiguration{
 		authProvider.setPasswordEncoder(passwordEncoder());
 		
 		return authProvider;
+	}
+
+	@Bean
+	public HttpFirewall allowSemicolonHttpFirewall() {
+		StrictHttpFirewall firewall = new StrictHttpFirewall();
+		firewall.setAllowSemicolon(true);
+		return firewall;
 	}
 
 	@Bean
@@ -93,6 +102,11 @@ public class SecurityConfiguration{
 		//http.csrf().disable();
 		http.sessionManagement()
 				.sessionFixation().none();
+		http
+				.sessionManagement()
+				.enableSessionUrlRewriting(true);
+
+
 
 		return http.build();
 	}

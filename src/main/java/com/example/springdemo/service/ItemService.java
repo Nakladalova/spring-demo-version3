@@ -30,7 +30,13 @@ public class ItemService {
     @Autowired
     private UserRepository userRepository;
 
-    public void addItem(int product_id, int amount) {
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ProductService productService;
+
+    public void addItem(int product_id, int amount, int price) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByUsername(currentPrincipalName);
@@ -45,6 +51,7 @@ public class ItemService {
         item2.setProduct_id(product_id);
         item2.setAmount(amount);
         item2.setShoppingcart_id(user_id);
+        item2.setPrice(price);
         itemRepository.save(item2);
         return;
     }
@@ -68,5 +75,9 @@ public class ItemService {
         return amount;
     }
 
-
+    public void deleteItem(String product_name) {
+        int shoppingCartID = userService.getUserID();
+        int productID = productService.getProductByName(product_name);
+        itemRepository.deleteItem(shoppingCartID, productID);
+    }
 }

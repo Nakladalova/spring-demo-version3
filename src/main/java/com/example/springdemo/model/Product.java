@@ -1,6 +1,7 @@
 package com.example.springdemo.model;
 
 import javax.persistence.*;
+import java.sql.Blob;
 
 @Entity
 @Table(name = "product")
@@ -12,6 +13,10 @@ public class Product {
 
     @Column(name = "product_photo")
     private String product_photo;
+
+    public Integer getProduct_id() {
+        return product_id;
+    }
 
     @Column(name = "description")
     private String description;

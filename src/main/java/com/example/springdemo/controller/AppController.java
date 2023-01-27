@@ -9,6 +9,7 @@ import com.example.springdemo.service.ItemService;
 import com.example.springdemo.service.ProductService;
 import com.example.springdemo.service.ShoppingCartService;
 import com.example.springdemo.service.UserService;
+import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.sql.Blob;
 import java.util.List;
 
 @Controller
@@ -71,13 +73,11 @@ public class AppController extends WebMvcConfigurerAdapter {
 	}
 
 	@PostMapping("/watchdetail")
-	public String addItem(@RequestParam("product_name") String product_name,Item item) {
+	public String addItem(@RequestParam("product_name") String product_name, @RequestParam("price") int price,Item item) {
 		Integer id = productService.getProductByName(product_name);
-		itemService.addItem(id,item.getAmount());
+		itemService.addItem(id,item.getAmount(),price);
 		return "redirect:/shopping";
 	}
-
-	//@RequestParam("product_name") String product_name
 
 	@GetMapping("")
 	public String viewHomePage() {
@@ -103,12 +103,14 @@ public class AppController extends WebMvcConfigurerAdapter {
 							  @RequestParam("desc") String desc)
 	{
 		productService.saveProductToDB(file, name, desc, price);
-		return "redirect:/listProducts";
+		return "redirect:/homepage";
 	}
 
-	@GetMapping("/shoppingcart")
-	public String viewShoppingCart() {
-		return "shopping_cart";
+	@GetMapping("/image")
+	public String viewImage(Model model) {
+		Product product = productService.getProduct(5);
+		model.addAttribute("product", product);
+		return "image";
 	}
 
 	@GetMapping("/shopping")
@@ -118,6 +120,13 @@ public class AppController extends WebMvcConfigurerAdapter {
 		model.addAttribute("listItems", listItems);
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "shopping";
+	}
+
+	@PostMapping("/shopping")
+	public String deleteItem(@RequestParam("product_name") String product_name) {
+        itemService.deleteItem(product_name);
+		return "redirect:/shopping";
+
 	}
 
 
@@ -140,12 +149,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@GetMapping("/items")
 	public String viewItems() {
 		return "items";
-	}
-
-	@PostMapping("/watch2")
-	public String addItem2(Item item) {
-		itemService.addItem(2,item.getAmount());
-		return "shoppingcart";
 	}
 
 	@GetMapping("/access_denied")
@@ -209,7 +212,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "delete_user";
 
 	}
-
 
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {

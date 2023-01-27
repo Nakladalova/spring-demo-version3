@@ -326,7 +326,6 @@
     </section>
     <section>
        <h4><i><td th:text="${product.description}">Description</td></i></h4>
-        <!--    <a href="#" class="btn blue">Blue Button</a>-->
     </section>
     <section>
         <br>
@@ -338,7 +337,6 @@
         <br>
         <br>
         <br>
-        <!--    <a href="#" class="btn blue">Blue Button</a>-->
     </section>
     <section>
         <div class = "col-md-6 col-md-offset-3">
@@ -351,13 +349,31 @@
                 </div>
                 <br>
                 <br>
-
-<!--            <div class="form-group">-->
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
+                        <th:block th:switch="${product.product_name}">
+                            <div th:case="'watch1'">
+                                <input type="hidden" name="price" value="1000">
+                            </div>
+                            <div th:case="'watch2'">
+                                <input type="hidden" name="price" value="7000">
+                            </div>
+                            <div th:case="'watch3'">
+                                <input type="hidden" name="price" value="6500">
+                            </div>
+                            <div th:case="'watch4'">
+                                <input type="hidden" name="price" value="7500">
+                            </div>
+                            <div th:case="'watch5'">
+                                <input type="hidden" name="price" value="4000">
+                            </div>
+                            <div th:case="'watch6'">
+                                <input type="hidden" name="price" value="4500">
+                            </div>
+                        </th:block>
                         <input type="hidden" name="product_name" th:value=${product.product_name}>
                         <input type="submit" name="btn btn-success"
-                               class="form-control btn btn-primary" value="Add to cart" />
+                               class="form-control btn btn-primary" value="Add to cart" />;
                     </div>
                 </div>
             </div>

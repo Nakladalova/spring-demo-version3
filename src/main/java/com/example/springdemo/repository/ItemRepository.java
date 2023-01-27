@@ -15,7 +15,13 @@ import java.util.Collection;
 @Repository
 public interface ItemRepository extends JpaRepository<Item,Integer>, CrudRepository<Item, Integer> {
 
-    @Query(value ="SELECT p.product_name, p.price, i.amount, i.item_id, p.product_id, s.shoppingcart_id FROM public.item i " +
+   /*@Query(value ="SELECT p.product_name, p.price, i.amount, i.item_id, p.product_id, s.shoppingcart_id FROM public.item i " +
+            "INNER JOIN public.product p ON i.product_id= p.product_id " +
+            "INNER JOIN public.shoppingcart s ON i.shoppingcart_id = s.shoppingcart_id " +
+            "WHERE s.user_id = ?1", nativeQuery = true)
+    Collection<Item> findAllItems(int user_id);*/
+
+    @Query(value ="SELECT p.product_name, i.price, i.amount, i.item_id, p.product_id, s.shoppingcart_id FROM public.item i " +
             "INNER JOIN public.product p ON i.product_id= p.product_id " +
             "INNER JOIN public.shoppingcart s ON i.shoppingcart_id = s.shoppingcart_id " +
             "WHERE s.user_id = ?1", nativeQuery = true)
@@ -31,4 +37,8 @@ public interface ItemRepository extends JpaRepository<Item,Integer>, CrudReposit
     @Query(value ="UPDATE Item i SET amount = ?1 WHERE product_id = ?2 AND shoppingcart_id = ?3", nativeQuery = true)
     @Modifying
     public void updateItem(int updatedAmount, int product_id, int shoppingcart_id);
+
+    @Query(value = "DELETE FROM Item i WHERE shoppingcart_id = ?1 AND product_id= ?2", nativeQuery = true)
+    @Modifying
+    public void deleteItem(int shoppingcart_id, int product_id);
 }

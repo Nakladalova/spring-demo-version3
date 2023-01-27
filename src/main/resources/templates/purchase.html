@@ -532,8 +532,6 @@
                         <p>My Account</p>
 
                     </div>
-
-
                     <div class="prodTotal cartSection">
                         <div th:if="${shoppingCart.wallet<0}">
                             <td th:text="${shoppingCart.wallet}">Wallet</td>
@@ -541,9 +539,9 @@
                             <td th:text="${shoppingCart.wallet}">Wallet</td>
                     </div>
                 </div>
+                    </div>
+                </div>
             </li>
-
-
         </ul>
     </div>
         <div th:if="${shoppingCart.wallet<0}">
@@ -552,6 +550,7 @@
                     <li class="totalRow"><a href="/check" class="btn continue">Edit items</a></li>
                 </ul>
             </div>
+</div>
 </div>
 </div>
 </body>

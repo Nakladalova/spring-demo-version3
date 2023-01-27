@@ -152,6 +152,23 @@
             display: block;
         }
 
+        .button {
+            background-color: #d34a4f;
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            float:left;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            margin-left: 39%;
+            margin-top: 0%;
+        }
+
+        .button2 {padding: 8px 24px;}
+
         * {
             box-sizing: border-box;
         }
@@ -594,6 +611,7 @@
                                 <th scope="col">Amount</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Subtotal</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -604,6 +622,10 @@
                                 <div th:with="result=${item.amount * item.price}">
                                     <td th:text="${result}"></td>
                                 </div>
+                                <td><form th:action="@{/shopping}" method="post">
+                                    <input type="hidden" name="product_name" th:value=${item.product_name}>
+                                    <button type="submit" class="button button2"/>Delete</button>
+                                </form></td>
                                 </td>
                             </tr>
                             </tbody>
