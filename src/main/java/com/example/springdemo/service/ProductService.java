@@ -18,7 +18,30 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepo;
 
-    public void  saveProductToDB(MultipartFile file, String name, String description, int price)
+    public void saveProductToDB(MultipartFile file, String name, String description, int price) throws IOException {
+        Product product = new Product();
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        /*if(fileName.contains(".."))
+        {
+            System.out.println("not a a valid file");
+        } */
+        /*try {
+            product.setProduct_photo((Base64.getEncoder().encodeToString(file.getBytes())));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }} */
+        product.setProduct_photo(fileName);
+        product.setDescription(description);
+        product.setProduct_name(name);
+        product.setPrice(price);
+
+        productRepo.save(product);
+        String uploadDir = "product-photos/" + product.getProduct_id();
+
+        FileUploadUtil.saveFile(uploadDir, fileName, file);
+    }
+
+    /* public void  saveProductToDB(MultipartFile file, String name, String description, int price)
     {
         Product product = new Product();
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -26,7 +49,7 @@ public class ProductService {
         {
             System.out.println("not a a valid file");
         } */
-        try {
+        /*try {
             product.setProduct_photo((Base64.getEncoder().encodeToString(file.getBytes())));
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,7 +60,7 @@ public class ProductService {
         product.setPrice(price);
 
         productRepo.save(product);
-    }
+    }*/
 
     public List<Product> getAllProduct()
     {

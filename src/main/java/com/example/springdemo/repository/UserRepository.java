@@ -14,6 +14,10 @@ public interface UserRepository extends JpaRepository<User, Integer>, CustomUser
 	@Query("SELECT u FROM User u WHERE u.username = ?1")
 	public User findByUsername(String username);
 
+	@Query("SELECT u FROM User u WHERE u.id = ?1")
+	public User findByID(int id);
+
+
 	@Query("UPDATE User u SET u.failedAttempt = ?1 WHERE u.username = ?2")
 	@Modifying
 	public void updateFailedAttempts(int failedAttempts, String username);

@@ -5,17 +5,16 @@ import com.example.springdemo.model.Product;
 import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.UserRepository;
-import com.example.springdemo.service.ItemService;
-import com.example.springdemo.service.ProductService;
-import com.example.springdemo.service.ShoppingCartService;
-import com.example.springdemo.service.UserService;
+import com.example.springdemo.service.*;
 import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,9 +26,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.sql.Blob;
 import java.util.List;
 
+@EnableTransactionManagement
 @Controller
 @EnableWebMvc
 public class AppController extends WebMvcConfigurerAdapter {
@@ -79,13 +80,27 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "redirect:/shopping";
 	}
 
+	@GetMapping("/transfermoney")
+	public String transferMoney(Model model){
+		return "transfer_money";
+	}
+
+	@PostMapping("/transfermoney")
+	public String transferMoney(@RequestParam("receiver") String receiver, @RequestParam("amount") int amount) {
+		userService.transferMoney(receiver, amount);
+		return "redirect:/shopping";
+	}
+
 	@GetMapping("")
 	public String viewHomePage() {
 		return "index";
 	}
 
 	@GetMapping("/homepage")
-	public String viewHomePag() {
+	public String viewHomePag(Model model) {
+		Product product = productService.getProduct(8);
+		product.setPhotos_image_path(product.getPhotos_image_path());
+		model.addAttribute("product", product);
 		return "home_page";
 	}
 
@@ -100,15 +115,14 @@ public class AppController extends WebMvcConfigurerAdapter {
 	public String saveProduct(@RequestParam("file") MultipartFile file,
 							  @RequestParam("pname") String name,
 							  @RequestParam("price") int price,
-							  @RequestParam("desc") String desc)
-	{
+							  @RequestParam("desc") String desc) throws IOException {
 		productService.saveProductToDB(file, name, desc, price);
 		return "redirect:/homepage";
 	}
 
 	@GetMapping("/image")
 	public String viewImage(Model model) {
-		Product product = productService.getProduct(5);
+		Product product = productService.getProduct(8);
 		model.addAttribute("product", product);
 		return "image";
 	}
@@ -128,7 +142,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "redirect:/shopping";
 
 	}
-
 
 	@GetMapping("/purchase")
 	public String viewPurchase(Model model) {

@@ -1,7 +1,6 @@
 package com.example.springdemo.model;
 
 import javax.persistence.*;
-import java.sql.Blob;
 
 @Entity
 @Table(name = "product")
@@ -26,6 +25,19 @@ public class Product {
 
     @Column(name = "price")
     private Integer price;
+
+    public String getPhotos_image_path() {
+        if (product_photo == null || product_id == null) return null;
+
+        return "/product-photos/" + product_id + "/" + product_photo;
+    }
+
+    public void setPhotos_image_path(String photos_image_path) {
+        this.photos_image_path = photos_image_path;
+    }
+
+    @Column(name = "photos_image_path")
+    private String photos_image_path;
 
     public Integer getProduct_id(int maxID) {
         return product_id;
@@ -65,6 +77,13 @@ public class Product {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (product_photo == null || product_id == null) return null;
+
+        return "/product-photos/" + product_id + "/" + product_photo;
     }
 
 

@@ -18,6 +18,10 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Inte
     @Modifying
     public void updateTotal(int total, int user_id);
 
+    @Query("UPDATE ShoppingCart s SET s.wallet = ?1 WHERE s.user_id = ?2")
+    @Modifying
+    public void updateWallet(int wallet, int user_id);
+
     @Query("UPDATE ShoppingCart s SET s.total = ?1, s.wallet=?2 WHERE s.user_id = ?3")
     @Modifying
     public void updateShoppingCart(int total, int wallet, int user_id);

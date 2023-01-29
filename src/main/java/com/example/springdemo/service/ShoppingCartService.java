@@ -4,6 +4,7 @@ import com.example.springdemo.model.Item;
 import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.repository.ItemRepository;
 import com.example.springdemo.repository.ShoppingCartRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class ShoppingCartService {
     private UserService userService;
     private final ItemRepository itemRepository;
 
-    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, UserService userService, ItemRepository itemRepository){
+    public ShoppingCartService( ShoppingCartRepository shoppingCartRepository, @Lazy UserService userService, ItemRepository itemRepository){
         this.shoppingCartRepository = shoppingCartRepository;
         this.userService = userService;
         this.itemRepository = itemRepository;
@@ -71,5 +72,9 @@ public class ShoppingCartService {
         itemRepository.deleteItems(userIDlong);
         shoppingCart = shoppingCartRepository.findShoppingCartByUser_id(userID);
         return shoppingCart;
+    }
+
+    public void updateShoppingCartTransfer(int amount, int senderID){
+        shoppingCartRepository.updateWallet(amount, senderID);
     }
 }

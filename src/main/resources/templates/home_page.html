@@ -333,8 +333,11 @@
 <br>
 <b><h1>Time - Zone</h1></b>
 <form th:action="@{/homepage}" method="get">
-    <img src="https://www.maxpixel.net/static/photo/1x/Clock-Rolex-Business-Pen-Work-Style-Watches-3518474.jpg" class="img1"/>
+<!--    <img src="https://www.maxpixel.net/static/photo/1x/Clock-Rolex-Business-Pen-Work-Style-Watches-3518474.jpg" class="img1"/>-->
     <h4>Watches for You</h4>
+    <h1> <td th:text="${product.photos_image_path}">Name</h1>
+<!--    <img th:src="@{product.photos_image_path}"/>-->
+
     <br>
     <h6>High-precision watches that connect people.</h6>
     <br>

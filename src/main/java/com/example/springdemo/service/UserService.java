@@ -1,5 +1,7 @@
 package com.example.springdemo.service;
 
+import com.example.springdemo.exception.InsufficientAmountException;
+import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.DangerUserRepository;
 import com.example.springdemo.repository.SecureUserRepository;
@@ -7,11 +9,13 @@ import com.example.springdemo.repository.UserRepository;
 import com.example.springdemo.validation.SqlInputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -19,8 +23,11 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository){
+    private ShoppingCartService shoppingCartService;
+
+    public UserService(UserRepository userRepository, @Lazy ShoppingCartService shoppingCartService ){
         this.userRepository = userRepository;
+        this.shoppingCartService = shoppingCartService;
     }
 
     @Autowired
@@ -99,4 +106,32 @@ public class UserService {
         return user_id;
 
     }
+
+    public boolean validateWallet(int receiverID, int newAccountBalance) {
+        ShoppingCart shoppingCartReceiver = shoppingCartService.getShoppingCart(receiverID);
+        int wallet = shoppingCartReceiver.getWallet();
+        if (wallet < newAccountBalance) {
+            throw new InsufficientAmountException("insufficient fund..!");
+        } else {
+            return true;
+        }
+    }
+
+    @Transactional
+    public void transferMoney(String receiverName, int amount){
+       int senderID = getUserID();
+       ShoppingCart shoppingCartSender = shoppingCartService.getShoppingCart(senderID);
+       int accountBalance = shoppingCartSender.getWallet();
+       int newAccountBalance = accountBalance - amount;
+       shoppingCartService.updateShoppingCartTransfer(newAccountBalance, senderID);
+
+       int receiverID = getUserIDwithUsername(receiverName);
+       ShoppingCart shoppingCartReceiver = shoppingCartService.getShoppingCart(receiverID);
+       accountBalance = shoppingCartReceiver.getWallet();
+       newAccountBalance = accountBalance + amount;
+       shoppingCartService.updateShoppingCartTransfer(newAccountBalance, receiverID);
+       validateWallet(receiverID,newAccountBalance);
+
+    }
 }
+ 

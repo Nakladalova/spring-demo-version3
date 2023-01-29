@@ -21,14 +21,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+@EnableTransactionManagement
 @Configuration
 @EnableWebSecurity
-@EnableWebMvc
+//@EnableWebMvc
 public class SecurityConfiguration{
 
 	@Bean
@@ -43,6 +47,19 @@ public class SecurityConfiguration{
 
 	/*@Autowired
      private PasswordEncoder passwordEncoder;*/
+
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		exposeDirectory("product-photos", registry);
+	}
+
+	private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
+		Path uploadDir = Paths.get(dirName);
+		String uploadPath = uploadDir.toFile().getAbsolutePath();
+
+		if (dirName.startsWith("../")) dirName = dirName.replace("../", "");
+
+		registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:/"+ uploadPath + "/");
+	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -81,10 +98,10 @@ public class SecurityConfiguration{
 				.antMatchers("/images/**").permitAll()
 				.antMatchers("/items").permitAll()
 				.antMatchers("/watchdetail").authenticated()
-				.antMatchers("/watch2").authenticated()
 				.antMatchers("/check").authenticated()
 				.antMatchers("/shopping").authenticated()
 				.antMatchers("/purchase").authenticated()
+				.antMatchers("/transfermoney").authenticated()
 				.anyRequest().permitAll()
 				.and()
 				.formLogin().loginPage("/login").permitAll()
