@@ -5,8 +5,11 @@ import com.example.springdemo.model.Product;
 import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.UserRepository;
-import com.example.springdemo.service.*;
-import org.hibernate.engine.jdbc.StreamUtils;
+import com.example.springdemo.service.ItemService;
+import com.example.springdemo.service.ProductService;
+import com.example.springdemo.service.ShoppingCartService;
+import com.example.springdemo.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,26 +17,27 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.sql.Blob;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @EnableTransactionManagement
 @Controller
 @EnableWebMvc
 public class AppController extends WebMvcConfigurerAdapter {
+
+	private static final Logger logger = LogManager.getLogger(AppController.class);
 
 	private final UserService userService;
 	private final ItemService itemService;
@@ -91,12 +95,12 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "redirect:/shopping";
 	}
 
-	@GetMapping("")
+	/*@GetMapping("")
 	public String viewHomePage() {
 		return "index";
-	}
+	}*/
 
-	@GetMapping("/homepage")
+	@GetMapping("/")
 	public String viewHomePag(Model model) {
 		Product product = productService.getProduct(8);
 		product.setPhotos_image_path(product.getPhotos_image_path());
@@ -180,6 +184,8 @@ public class AppController extends WebMvcConfigurerAdapter {
 		if(bindingResult.hasErrors()){
 			return "signup_form";
 		}
+
+		logger.info("Adding new user " + user.getUsername());
 		User registeredUser = userService.registerUser(user.getUsername(), user.getPassword(), user.getEmail());
 		if(registeredUser==null){
 			return "signup_form";
@@ -201,14 +207,14 @@ public class AppController extends WebMvcConfigurerAdapter {
 	}
 
 
-	@PostMapping("/user_page")
+	@GetMapping("/user_pa")
 	public String getInfoOfUser(@ModelAttribute("userSearchFormData") User formData, Model model) {
 		User userDanger = userService.getUserDanger(formData.getUsername());
 		User userSecure = userService.getUserSecure(formData.getUsername());
 		User userSecureWithJPA = userService.getUserSecureWithJPA(formData.getUsername());
 
 		model.addAttribute("user", userDanger);
-		return "user_page";
+		return "user_pa";
 	}
 
 	@GetMapping("/delete_user")

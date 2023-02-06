@@ -55,7 +55,7 @@
 
             <h1> Get your info from database </h1>
             <!--/*@thymesVar id="employee" type=""*/-->
-            <form th:action="@{/user_pa}" th:object="${user}" method="post">
+            <form th:action="@{/user_pa}" th:object="${user}" method="get">
 
                 <!-- logout message -->
                 <div th:if="${param.logout}">

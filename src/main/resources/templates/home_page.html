@@ -42,13 +42,13 @@
         }
 
         .img1 {
-            max-width: 35%;
-            margin-right: 10%;
-            margin-top: 5%;
-            float: right;
+            max-width: 40%;
+            margin-left: 12%;
+            margin-top: -5%;
+            float: left;
         }
         .img2 {
-            max-width: 35%;
+            max-width: 50%;
             margin-left: 10%;
             margin-top: 2%;
             float: left;
@@ -56,7 +56,7 @@
 
         h1 {
             margin-top: 5%;
-            font-size: 52px;
+            font-size: 45px;
             width: 98%;
             text-align: center;
 
@@ -64,9 +64,9 @@
 
         }
         h4 {
-            font-size: 40px;
+            font-size: 25px;
             /*width: 98%;*/
-            margin-top: -2%;
+            margin-top: -7%;
             text-align: center;
 
             padding: 5em;
@@ -115,6 +115,14 @@
             padding: 0.5em;
 
         }
+        h5 {
+            font-family: Verdana, sans-serif;
+            font-size: 25px;
+            color: white;
+            padding: 1em;
+            text-align: center;
+            background-color: #ffffff;
+        }
 
         p {
             padding: 0.5em;
@@ -128,16 +136,15 @@
             color: white;
             text-align: left;
             text-decoration: none;
-            display: inline-block;
-            float:left;
+            /*display: ;*/
             font-size: 14px;
             margin: 4px 2px;
             cursor: pointer;
-            margin-left: 30%;
-            margin-top: -7%;
+            margin-left: 12%;
+            margin-top: 19%;
         }
 
-        .button2 {padding: 8px 24px;}
+        .button2 {padding: 12px 23px;}
 
         code {
             color: #3d85c6;
@@ -331,25 +338,29 @@
 <br>
 <br>
 <br>
-<b><h1>Time - Zone</h1></b>
+<b><h1>Watches for You</h1></b>
 <form th:action="@{/homepage}" method="get">
-<!--    <img src="https://www.maxpixel.net/static/photo/1x/Clock-Rolex-Business-Pen-Work-Style-Watches-3518474.jpg" class="img1"/>-->
-    <h4>Watches for You</h4>
-    <h1> <td th:text="${product.photos_image_path}">Name</h1>
+    <h4>High-precision watches that connect people.</h4>
+<!--    <h1> <td th:text="${product.photos_image_path}">Name</h1>-->
 <!--    <img th:src="@{product.photos_image_path}"/>-->
-
+        <img src="https://wallpaperaccess.com/full/810163.jpg"  class="img1" />
     <br>
-    <h6>High-precision watches that connect people.</h6>
+    <br>
+    <br>
+    <br>
+    <br>
     <br>
     <br>
     <a href="#" th:href="@{/products}" class="button button2">Shop now</a>
-    <img src="https://www.maxpixel.net/static/photo/1x/Male-Watch-Luxury-Accessories-To-Watch-Rolex-1327169.jpg" class="img2" />
-    <h5>Choose your style</h5>
-    <h7>Durable, hight quality, professional</h7>
+    <br>
 
 </form>
-</body>
 <br>
+<br>
+<br>
+<br>
+</body>
+<h5>High-precision watches that connect people.</h5>
 <br>
 <br>
 </html>

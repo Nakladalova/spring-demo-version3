@@ -91,9 +91,9 @@ public class SecurityConfiguration{
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/admin").hasAnyRole("ADMIN")
-				.antMatchers("/users").authenticated()
+				.antMatchers("/users").hasAnyRole("ADMIN")
 				.antMatchers("/user_page").authenticated()
+				.antMatchers("/user_pa").authenticated()
 				.antMatchers("/delete_user").authenticated()
 				.antMatchers("/images/**").permitAll()
 				.antMatchers("/items").permitAll()
@@ -117,11 +117,11 @@ public class SecurityConfiguration{
 		http.authenticationProvider(authenticationProvider());
 		//http.headers().xssProtection().disable();
 		//http.csrf().disable();
-		http.sessionManagement()
+		/*http.sessionManagement()
 				.sessionFixation().none();
-		http
+		/*http
 				.sessionManagement()
-				.enableSessionUrlRewriting(true);
+				.enableSessionUrlRewriting(true);*/
 
 
 

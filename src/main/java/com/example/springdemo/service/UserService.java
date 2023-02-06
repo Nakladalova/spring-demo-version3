@@ -74,6 +74,7 @@ public class UserService {
             user.setUsername(username);
             user.setPassword(password);
             user.setEmail(email);
+            user.setId(1);
             user.setAccountNonLocked(true);
             user.setEnabled(true);
             return userRepository.save(user);
@@ -111,7 +112,7 @@ public class UserService {
         ShoppingCart shoppingCartReceiver = shoppingCartService.getShoppingCart(receiverID);
         int wallet = shoppingCartReceiver.getWallet();
         if (wallet < newAccountBalance) {
-            throw new InsufficientAmountException("insufficient fund..!");
+            throw new InsufficientAmountException("Insufficient fund!");
         } else {
             return true;
         }
@@ -134,4 +135,3 @@ public class UserService {
 
     }
 }
- 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration and Login App</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Home Page
+                </a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-6 col-md-offset-3">
+
+            <form th:action="@{/app/verify}" method="POST" th:object="${captcha}">
+                <label for ="image"> CAPTCHA</label>
+                <input type="image" id="image" th:src="*{'data:realCaptcha/jpg;base64,'+realCaptcha}">
+                <input type="hidden" th:field="*{hiddenCaptcha}"/><br>
+                <lable for ="captchatext"> Enter Captch text </lable>
+                <input type="text" id="captchatext" th:field="*{captcha}" />
+                <input type="submit" value="Verify" />
+            </form>
+            <div th:if="${message!=null}">
+                <span style="color:red;" th:text="${message}"></span>
+            </div>
+        </div>
+    </div>
+<!--    <img th:src="@{/resources/images/rolex.PNG}" height="50" width="50" alt="Media Resource"/>-->
+</div>
+</body>
+</html>
