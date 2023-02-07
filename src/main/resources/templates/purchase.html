@@ -484,20 +484,26 @@
             </button>
             <a class="navbar-brand" href="#" th:href="@{/}">Home Page
             </a>
+            <a class="navbar-brand" href="#" th:href="@{/products}">Shop</a>
         </div>
     </div>
 </nav>
 <div class="wrap cf">
-    <h1 class="projTitle">Shopping Cart</h1>
+    <h1 class="projTitle">Purchase</h1>
     <!--    <form th:action="@{/check}" method="post">-->
 
+
+    <div th:if="${shoppingCart.wallet<0}">
+        <div class="alert alert-danger">Not enough money on the wallet. Remove items</div>
+    </div>
+    <div th:if="${shoppingCart.wallet>=0}">
+            <div class="alert alert-info">Successfull purchase</div>
+    </div>
     <div class="heading cf">
-        <h1>My Cart</h1>
+        <h1></h1>
         <a href="/products" class="continue">Continue Shopping</a>
 
     </div>
-    <div th:if="${shoppingCart.wallet<0}">
-        <div class="alert alert-danger">Not enough money on the wallet</div>
     <div class="cart">
         <ul class="cartWrap">
 
@@ -512,9 +518,7 @@
                         <p> Including Tax
                         </p>
 
-
                     </div>
-
 
                     <div class="prodTotal cartSection">
                         <td th:text="${shoppingCart.total}">Total</td>
@@ -527,29 +531,34 @@
                     <div class="cartSection">
 
                         <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
-                        <h3>Account Balance</h3>
+                        <h3>Wallet</h3>
 
                         <p>My Account</p>
 
                     </div>
                     <div class="prodTotal cartSection">
-                        <div th:if="${shoppingCart.wallet<0}">
-                            <td th:text="${shoppingCart.wallet}">Wallet</td>
-                        <div th:if="${shoppingCart.wallet>=0}">
-                            <td th:text="${shoppingCart.wallet}">Wallet</td>
+<!--                        <div th:if="${shoppingCart.wallet<0}">-->
+                            <td th:text="${shoppingCart.wallet}">My Wallet</td>
+<!--                        <div th:if="${shoppingCart.wallet>-1}">-->
+<!--                            <td th:text="${shoppingCart.wallet}">Wallet</td>-->
                     </div>
                 </div>
-                    </div>
+
                 </div>
             </li>
+    <br>
+    <br>
+    <br>
+    <div th:if="${shoppingCart.wallet<0}">
+        <div class="subtotal cf">
+            <ul>
+                <li class="totalRow"><a href="/shoppingcart" class="btn continue">Edit items</a></li>
+            </ul>
+        </div>
+    </div>
         </ul>
     </div>
-        <div th:if="${shoppingCart.wallet<0}">
-            <div class="subtotal cf">
-                <ul>
-                    <li class="totalRow"><a href="/check" class="btn continue">Edit items</a></li>
-                </ul>
-            </div>
+
 </div>
 </div>
 </div>

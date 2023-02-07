@@ -81,7 +81,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 	public String addItem(@RequestParam("product_name") String product_name, @RequestParam("price") int price,Item item) {
 		Integer id = productService.getProductByName(product_name);
 		itemService.addItem(id,item.getAmount(),price);
-		return "redirect:/shopping";
+		return "redirect:/shoppingcart";
 	}
 
 	@GetMapping("/transfermoney")
@@ -92,7 +92,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@PostMapping("/transfermoney")
 	public String transferMoney(@RequestParam("receiver") String receiver, @RequestParam("amount") int amount) {
 		userService.transferMoney(receiver, amount);
-		return "redirect:/shopping";
+		return "redirect:/shoppingcart";
 	}
 
 	/*@GetMapping("")
@@ -131,19 +131,19 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "image";
 	}
 
-	@GetMapping("/shopping")
+	@GetMapping("/shoppingcart")
 	public String viewShopping(Model model) {
 		List<Item> listItems = itemService.getItemsFromDB();
 		ShoppingCart shoppingCart = shoppingCartService.getTotal(listItems);
 		model.addAttribute("listItems", listItems);
 		model.addAttribute("shoppingCart", shoppingCart);
-		return "shopping";
+		return "shopping_cart";
 	}
 
-	@PostMapping("/shopping")
+	@PostMapping("/shoppingcart")
 	public String deleteItem(@RequestParam("product_name") String product_name) {
         itemService.deleteItem(product_name);
-		return "redirect:/shopping";
+		return "redirect:/shopping_cart";
 
 	}
 
@@ -154,12 +154,12 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "purchase";
 	}
 
-	@GetMapping("/check")
+	@GetMapping("/total")
 	public String viewCheck(Model model, @RequestParam (defaultValue = "-1") int userID) { //, @RequestParam (defaultValue = "-1") int userID
 		//int userID = userService.getUserID();
 		ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(userID);
 		model.addAttribute("shoppingCart", shoppingCart);
-		return "check";
+		return "total";
 	}
 
 

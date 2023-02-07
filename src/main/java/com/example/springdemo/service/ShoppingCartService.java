@@ -70,7 +70,8 @@ public class ShoppingCartService {
         shoppingCartRepository.updateShoppingCart(0,result,userID);
         long userIDlong = (long)userID;
         itemRepository.deleteItems(userIDlong);
-        shoppingCart = shoppingCartRepository.findShoppingCartByUser_id(userID);
+        shoppingCart.setWallet(result);
+        shoppingCart.setTotal(0);
         return shoppingCart;
     }
 
