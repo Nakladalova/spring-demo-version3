@@ -51,9 +51,7 @@
 <div class = "container">
     <div class = "row">
         <div class = "col-md-6 col-md-offset-3">
-
             <h1> Delete user </h1>
-            <!--/*@thymesVar id="employee" type=""*/-->
             <form th:action="@{/delete_user}" th:object="${user}" method="post">
                 <!-- logout message -->
                 <div th:if="${param.logout}">
@@ -62,7 +60,6 @@
 
                 <div class = "form-group">
                 <label for ="username">Insert username </label>
-                <!--<input type="text" th:field="*{id}" class="form-control" placeholder="Employee ID" autofocus="autofocus"/> /-->
                 <input type="text" class = "form-control" id ="username" name = "username" th:field="*{username}"
                        placeholder="Insert username" autofocus="autofocus" required th:errorClass="is-invalid">
                 </div>

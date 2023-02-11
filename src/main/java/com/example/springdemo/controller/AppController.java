@@ -9,7 +9,6 @@ import com.example.springdemo.service.ItemService;
 import com.example.springdemo.service.ProductService;
 import com.example.springdemo.service.ShoppingCartService;
 import com.example.springdemo.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -55,7 +53,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");
-		registry.addViewController("/index").setViewName("index");
 		registry.addViewController("/register").setViewName("signup_form");
 		registry.addViewController("/register_success").setViewName("register_success");
 		registry.addViewController("/users").setViewName("users");
@@ -66,7 +63,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 	private UserRepository userRepo;
 	
 	@GetMapping("/products")
-	public String viewHomeP() {
+	public String viewProducts() {
 		return "products";
 	}
 
@@ -92,47 +89,16 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@PostMapping("/transfermoney")
 	public String transferMoney(@RequestParam("receiver") String receiver, @RequestParam("amount") int amount) {
 		userService.transferMoney(receiver, amount);
-		return "redirect:/shoppingcart";
+		return "redirect:/transfermoney";
 	}
 
-	/*@GetMapping("")
-	public String viewHomePage() {
-		return "index";
-	}*/
-
 	@GetMapping("/")
-	public String viewHomePag(Model model) {
-		Product product = productService.getProduct(8);
-		product.setPhotos_image_path(product.getPhotos_image_path());
-		model.addAttribute("product", product);
+	public String viewHomePage(Model model) {
 		return "home_page";
 	}
 
-
-	@GetMapping("/addProduct")
-	public String showAddProduct()
-	{
-		return "addProduct";
-	}
-
-	@PostMapping("/addProduct")
-	public String saveProduct(@RequestParam("file") MultipartFile file,
-							  @RequestParam("pname") String name,
-							  @RequestParam("price") int price,
-							  @RequestParam("desc") String desc) throws IOException {
-		productService.saveProductToDB(file, name, desc, price);
-		return "redirect:/homepage";
-	}
-
-	@GetMapping("/image")
-	public String viewImage(Model model) {
-		Product product = productService.getProduct(8);
-		model.addAttribute("product", product);
-		return "image";
-	}
-
 	@GetMapping("/shoppingcart")
-	public String viewShopping(Model model) {
+	public String viewShoppingCart(Model model) {
 		List<Item> listItems = itemService.getItemsFromDB();
 		ShoppingCart shoppingCart = shoppingCartService.getTotal(listItems);
 		model.addAttribute("listItems", listItems);
@@ -143,7 +109,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@PostMapping("/shoppingcart")
 	public String deleteItem(@RequestParam("product_name") String product_name) {
         itemService.deleteItem(product_name);
-		return "redirect:/shopping_cart";
+		return "redirect:/shoppingcart";
 
 	}
 
@@ -155,8 +121,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 	}
 
 	@GetMapping("/total")
-	public String viewCheck(Model model, @RequestParam (defaultValue = "-1") int userID) { //, @RequestParam (defaultValue = "-1") int userID
-		//int userID = userService.getUserID();
+	public String viewTotal(Model model, @RequestParam (defaultValue = "-1") int userID) {
 		ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(userID);
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "total";
@@ -168,8 +133,8 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "items";
 	}
 
-	@GetMapping("/access_denied")
-	public String viewePaget() {
+	@GetMapping("/accessdenied")
+	public String viewAccessDenied() {
 		return "access_denied";
 	}
 	
@@ -185,7 +150,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 			return "signup_form";
 		}
 
-		logger.info("Adding new user " + user.getUsername());
+		//logger.info("Adding new user " + user.getUsername());
 		User registeredUser = userService.registerUser(user.getUsername(), user.getPassword(), user.getEmail());
 		if(registeredUser==null){
 			return "signup_form";
@@ -200,21 +165,37 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "users";
 	}
 
-	@GetMapping("/user_page")
-	public String getInfo( Model model) {
+	@GetMapping("/userpage")
+	public String getInfo(Model model) {
 		model.addAttribute("user", new User());
 		return "user_page";
 	}
 
 
-	@GetMapping("/user_pa")
+	/*@PostMapping("/userpage")
 	public String getInfoOfUser(@ModelAttribute("userSearchFormData") User formData, Model model) {
-		User userDanger = userService.getUserDanger(formData.getUsername());
-		User userSecure = userService.getUserSecure(formData.getUsername());
+		//User userDanger = userService.getUserDanger(formData.getUsername());
+		//User userSecure = userService.getUserSecure(formData.getUsername());
 		User userSecureWithJPA = userService.getUserSecureWithJPA(formData.getUsername());
 
-		model.addAttribute("user", userDanger);
-		return "user_pa";
+		//model.addAttribute("user", userDanger);
+		return "user_page";
+	}*/
+
+	@GetMapping("/getinfo")
+	public String getInfo(@ModelAttribute("userSearchFormData") User formData, Model model) {
+		model.addAttribute("user", new User());
+		return "get_info";
+	}
+
+	@PostMapping("/getinfo")
+	public String getInfoOfUser(@ModelAttribute("userSearchFormData") User formData, Model model) {
+		List<User> userDangerList = userService.getUserDanger(formData.getUsername());
+		//User userSecure = userService.getUserSecure(formData.getUsername());
+		User userSecureWithJPA = userService.getUserSecureWithJPA(formData.getUsername());
+
+		model.addAttribute("userDangerList", userDangerList);
+		return "get_info";
 	}
 
 	@GetMapping("/delete_user")

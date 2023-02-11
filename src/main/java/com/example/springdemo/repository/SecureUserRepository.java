@@ -4,7 +4,6 @@ import com.example.springdemo.model.User;
 import com.example.springdemo.validation.SqlInputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -25,7 +24,7 @@ public class SecureUserRepository implements CustomUserRepository {
     @PersistenceContext
     private EntityManager em;
 
-    @Override
+    /*@Override
     public Optional<User> findUserByUsername(String username) {
         boolean valid = sqlInputValidator.isValidUsername(username);
         if (!valid) {
@@ -34,6 +33,11 @@ public class SecureUserRepository implements CustomUserRepository {
             return Optional.of(user);
         }
         return queryDatabase(FIND_USER_BY_USERNAME, username);
+    }*/
+
+    @Override
+    public List<User> findUserByUsername(String username) {
+        return null;
     }
 
 
@@ -70,5 +74,6 @@ public class SecureUserRepository implements CustomUserRepository {
         user.setActive(activeFromDatabase);
         return Optional.of(user);
     }
+
 }
 

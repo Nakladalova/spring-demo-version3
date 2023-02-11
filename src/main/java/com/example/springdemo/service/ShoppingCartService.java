@@ -5,7 +5,6 @@ import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.repository.ItemRepository;
 import com.example.springdemo.repository.ShoppingCartRepository;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,8 +41,6 @@ public class ShoppingCartService {
             int subtotal = item.getAmount() * item.getPrice();
             total = total + subtotal;
         }
-
-        //shoppingCart.setTotal(total);
         int user_id = userService.getUserID();
         shoppingCartRepository.updateTotal(total,user_id);
         ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUser_id(user_id);

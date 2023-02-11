@@ -11,20 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Integer>, CrudRepository<ShoppingCart, Integer> {
-    @Query("SELECT s FROM ShoppingCart s WHERE s.user_id = ?1")
-    public ShoppingCart findShoppingCartByUser_id(int user_id);
+    @Query("SELECT s FROM ShoppingCart s WHERE s.userId = ?1")
+    public ShoppingCart findShoppingCartByUser_id(int userId);
 
-    @Query("UPDATE ShoppingCart s SET s.total = ?1 WHERE s.user_id = ?2")
+    @Query("UPDATE ShoppingCart s SET s.total = ?1 WHERE s.userId = ?2")
     @Modifying
-    public void updateTotal(int total, int user_id);
+    public void updateTotal(int total, int userId);
 
-    @Query("UPDATE ShoppingCart s SET s.wallet = ?1 WHERE s.user_id = ?2")
+    @Query("UPDATE ShoppingCart s SET s.wallet = ?1 WHERE s.userId = ?2")
     @Modifying
-    public void updateWallet(int wallet, int user_id);
+    public void updateWallet(int wallet, int userId);
 
-    @Query("UPDATE ShoppingCart s SET s.total = ?1, s.wallet=?2 WHERE s.user_id = ?3")
+    @Query("UPDATE ShoppingCart s SET s.total = ?1, s.wallet=?2 WHERE s.userId = ?3")
     @Modifying
-    public void updateShoppingCart(int total, int wallet, int user_id);
+    public void updateShoppingCart(int total, int wallet, int userId);
 
 
 }

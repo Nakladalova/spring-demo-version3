@@ -622,7 +622,7 @@
                                 <div th:with="result=${item.amount * item.price}">
                                     <td th:text="${result}"></td>
                                 </div>
-                                <td><form th:action="@{/shopping}" method="post">
+                                <td><form th:action="@{/shoppingcart}" method="post">
                                     <input type="hidden" name="product_name" th:value=${item.product_name}>
                                     <button type="submit" class="button button2"/>Delete</button>
                                 </form></td>
@@ -638,10 +638,7 @@
 
     <div class="subtotal cf">
         <ul>
-<!--            <li class="totalRow final"><span class="label">Total</span><span class="value" th:text="${shoppingCart.total}"></span></li>-->
-
             <li class="totalRow"><a href="/total" class="btn continue">Checkout</a></li>
-
         </ul>
     </div>
 </div>

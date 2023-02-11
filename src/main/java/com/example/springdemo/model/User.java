@@ -14,8 +14,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(nullable = false, unique = true, length = 45)  //"'", "\"", "--", "/", "\\", "&", ";","||
-	//@Pattern(regexp="^[a-z0-9_A-ZĚŠČŘŽÝÁÍÉěščřžýáíéúůÚŮ]{3,10}$", message="INVALID INPUT")
+	@Column(nullable = false, unique = true, length = 45)
 	//@ValidUsername
 	private String username;
 
@@ -32,7 +31,6 @@ public class User {
 			inverseJoinColumns = {@JoinColumn(name = "fk_role_id", referencedColumnName = "id" )}
 	)
 	private Set<Role> roles;
-	//private Set<Role> roles = new HashSet<>();
 
 	private boolean accountNonLocked;
 

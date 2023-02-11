@@ -54,8 +54,7 @@
         <div class = "col-md-6 col-md-offset-3">
 
             <h1> Get your info from database </h1>
-            <!--/*@thymesVar id="employee" type=""*/-->
-            <form th:action="@{/user_pa}" th:object="${user}" method="post">
+            <form th:action="@{/userpage}" th:object="${user}" method="post">
 
                 <!-- logout message -->
                 <div th:if="${param.logout}">
@@ -64,7 +63,6 @@
 
                 <div class = "form-group">
                     <label for ="username">Insert your username </label>
-                    <!--<input type="text" th:field="*{id}" class="form-control" placeholder="Employee ID" autofocus="autofocus"/> /-->
                     <input type="text" class = "form-control" id ="username" name = "username" th:field="*{username}"
                            placeholder="Enter your username" autofocus="autofocus" required th:errorClass="is-invalid">
                     					<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red" class="invalid-feedback"></div>
@@ -89,9 +87,6 @@
                     <tr>
                         <label class="form-label" >E-mail</label>
                         <td>
-                            <!--/*@thymesVar id="ename" type="string"*/-->
-                            <!--/*@thymesVar id="ename" type=""*/-->
-<!--                            <input type="text" th:field="${user.email}" class="form-control" placeholder="ID" />-->
                             <input type="text" th:field="*{email}" class="form-control" placeholder="Email" />
                         </td>
                     </tr>
@@ -117,46 +112,39 @@
                 <div class="text-center">
                     <a href="#" th:href="@{/logout}" class="button2 b-green rot-135">Log out</a>
                 </div>
-<!--                <form name = "logoutForm" th:action="@{/logout}" method="post">-->
-<!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-<!--                    <input type="submit" value="Sign out"/>-->
-
-<!--                <div sec:authorize="isAuthenticated()">-->
-<!--                    <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Sign out</a>-->
-<!--                    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">-->
-<!--                        <input hidden type="submit" value="Sign Out" />-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--                <a href="#" th:href="@{/logout}">Log Out</a>-->
                 </form>
+            <div class="wrap cf">
+                <div class="cart">
+                    <ul class="cartWrap">
+                        <li class="items even">
+                            <div class="infoWrap">
+                                <div class="cartSection">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">E-mail</th>
+                                            <th scope="col">Password</th>
+                                            <th scope="col">Active user</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="user: ${listOfUsers}">
+                                            <td th:text="${user.email}">E-mail</td>
+                                            <td th:text="${user.password}">Password</td>
+                                            <td th:text="${user.active}">Active user</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
             </form>
         </div>
     </div>
 </div>
-<!--<br>-->
-<!--<table class="table">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th>User ID</th>-->
-<!--        <th>E-mail</th>-->
-<!--        <th>Username</th>-->
-<!--        <th>Active</th>-->
-        <!--		<th>Action</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-
-<!--    <tbody>-->
-<!--    <tr th:each="user: ${listUsers}">-->
-<!--        <td th:text="${user.id}">User ID </td>-->
-<!--        <td th:text="${user.email}">E-mail</td>-->
-<!--        <td th:text="${user.username}">Username</td>-->
-<!--        <td th:text="${user.active}">Active</td>-->
-        <!--		<td>-->
-        <!--			<a class='btn btn-primary btn-sm' href='update'>Update</a>-->
-        <!--			<a class='btn btn-danger btn-sm' href='delete'>Delete</a>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--</table>-->
 </body>
 </html>

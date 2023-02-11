@@ -6,7 +6,6 @@ import com.example.springdemo.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -22,8 +21,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import java.nio.file.Path;
@@ -32,7 +29,6 @@ import java.nio.file.Paths;
 @EnableTransactionManagement
 @Configuration
 @EnableWebSecurity
-//@EnableWebMvc
 public class SecurityConfiguration{
 
 	@Bean
@@ -47,19 +43,6 @@ public class SecurityConfiguration{
 
 	/*@Autowired
      private PasswordEncoder passwordEncoder;*/
-
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		exposeDirectory("product-photos", registry);
-	}
-
-	private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
-		Path uploadDir = Paths.get(dirName);
-		String uploadPath = uploadDir.toFile().getAbsolutePath();
-
-		if (dirName.startsWith("../")) dirName = dirName.replace("../", "");
-
-		registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:/"+ uploadPath + "/");
-	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -116,7 +99,7 @@ public class SecurityConfiguration{
 				.exceptionHandling().accessDeniedPage("/access_denied");
 		http.authenticationProvider(authenticationProvider());
 		//http.headers().xssProtection().disable();
-		//http.csrf().disable();
+		http.csrf().disable();
 		/*http.sessionManagement()
 				.sessionFixation().none();
 		/*http

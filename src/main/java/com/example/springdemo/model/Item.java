@@ -9,27 +9,29 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
-    private Integer item_id;
+    private Integer itemId;
 
     @Column(name = "shoppingcart_id")
-    private long shoppingcart_id;
+    private long shoppingcartId;
 
     @Column(name = "product_id")
-    private Integer product_id;
+    private Integer productId;
 
     @Column(name = "amount", nullable = false, precision=11, scale=0)
     private Integer amount;
 
-    private String product_name;
+    @Column(name = "product_name")
+    private String productName;
 
+    @Column(name = "price")
     private Integer price;
 
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProductName(String product_name) {
+        this.productName = product_name;
     }
 
     public Integer getPrice() {
@@ -40,28 +42,28 @@ public class Item {
         this.price = price;
     }
 
-    public Integer getItem_id() {
-        return item_id;
+    public Integer getItemId() {
+        return itemId;
     }
 
-    public void setItem_id(Integer item_id) {
-        this.item_id = item_id;
+    public void setItemId(Integer item_id) {
+        this.itemId = item_id;
     }
 
-    public long getShoppingcart_id() {
-        return shoppingcart_id;
+    public long getShoppingcartId() {
+        return shoppingcartId;
     }
 
-    public void setShoppingcart_id(long shoppingcart_id) {
-        this.shoppingcart_id = shoppingcart_id;
+    public void setShoppingcartId(long shoppingcart_id) {
+        this.shoppingcartId = shoppingcart_id;
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public void setProductId(Integer product_id) {
+        this.productId = product_id;
     }
 
     public Integer getAmount() {

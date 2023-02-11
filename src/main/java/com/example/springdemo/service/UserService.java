@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -36,13 +36,17 @@ public class UserService {
     @Autowired
     private SecureUserRepository secureUserRepository;
 
-    public User getUserDanger(String username) {
+    public List<User> getUserDanger(String username) {
+        return dangerUserRepository.findUserByUsername(username);
+    }
+
+    /*public User getUserDanger(String username) {
         return dangerUserRepository.findUserByUsername(username).get();
     }
 
     public User getUserSecure(String username) {
         return secureUserRepository.findUserByUsername(username).get();
-    }
+    }*/
 
     public User getUserSecureWithJPA(String username) {
         User user = userRepository.findByUsername(username);
@@ -74,6 +78,7 @@ public class UserService {
             user.setUsername(username);
             user.setPassword(password);
             user.setEmail(email);
+            user.setActive("true");
             user.setId(1);
             user.setAccountNonLocked(true);
             user.setEnabled(true);
@@ -96,15 +101,15 @@ public class UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByUsername(currentPrincipalName);
-        int user_id = user.getId();
-        return user_id;
+        int userId = user.getId();
+        return userId;
 
     }
 
     public int getUserIDwithUsername(String username) {
         User user = userRepository.findByUsername(username);
-        int user_id = user.getId();
-        return user_id;
+        int userId = user.getId();
+        return userId;
 
     }
 
@@ -120,18 +125,18 @@ public class UserService {
 
     @Transactional
     public void transferMoney(String receiverName, int amount){
-       int senderID = getUserID();
-       ShoppingCart shoppingCartSender = shoppingCartService.getShoppingCart(senderID);
+       int senderId = getUserID();
+       ShoppingCart shoppingCartSender = shoppingCartService.getShoppingCart(senderId);
        int accountBalance = shoppingCartSender.getWallet();
        int newAccountBalance = accountBalance - amount;
-       shoppingCartService.updateShoppingCartTransfer(newAccountBalance, senderID);
+       shoppingCartService.updateShoppingCartTransfer(newAccountBalance, senderId);
 
-       int receiverID = getUserIDwithUsername(receiverName);
-       ShoppingCart shoppingCartReceiver = shoppingCartService.getShoppingCart(receiverID);
+       int receiverId = getUserIDwithUsername(receiverName);
+       ShoppingCart shoppingCartReceiver = shoppingCartService.getShoppingCart(receiverId);
        accountBalance = shoppingCartReceiver.getWallet();
        newAccountBalance = accountBalance + amount;
-       shoppingCartService.updateShoppingCartTransfer(newAccountBalance, receiverID);
-       validateWallet(receiverID,newAccountBalance);
+       shoppingCartService.updateShoppingCartTransfer(newAccountBalance, receiverId);
+       validateWallet(receiverId,newAccountBalance);
 
     }
 }

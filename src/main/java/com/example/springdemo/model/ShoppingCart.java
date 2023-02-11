@@ -10,10 +10,10 @@ public class ShoppingCart {
 
     @Id
     @Column(name = "shoppingcart_id")
-    private Integer shoppingcart_id;
+    private Integer shoppingcartId;
 
     @Column(name = "user_id")
-    private Integer user_id;
+    private Integer userId;
 
     @Column(name = "wallet")
     private Integer wallet;
@@ -21,20 +21,20 @@ public class ShoppingCart {
     @Column(name = "total")
     private Integer total;
 
-    public Integer getShoppingcart_id() {
-        return shoppingcart_id;
+    public Integer getShoppingcartId() {
+        return shoppingcartId;
     }
 
-    public void setShoppingcart_id(Integer shoppingcart_id) {
-        this.shoppingcart_id = shoppingcart_id;
+    public void setShoppingcartId(Integer shoppingcart_id) {
+        this.shoppingcartId = shoppingcart_id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer user_id) {
+        this.userId = user_id;
     }
 
     public Integer getWallet() {

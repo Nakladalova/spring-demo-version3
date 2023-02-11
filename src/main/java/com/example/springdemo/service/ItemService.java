@@ -1,7 +1,6 @@
 package com.example.springdemo.service;
 
 import com.example.springdemo.model.Item;
-import com.example.springdemo.model.ShoppingCart;
 import com.example.springdemo.model.User;
 import com.example.springdemo.repository.ItemRepository;
 import com.example.springdemo.repository.UserRepository;
@@ -9,11 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,23 +31,23 @@ public class ItemService {
     @Autowired
     private ProductService productService;
 
-    public void addItem(int product_id, int amount, int price) {
+    public void addItem(int productId, int amount, int price) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByUsername(currentPrincipalName);
-        int user_id = user.getId();
-        Integer amount2 = findItem(product_id, user_id);
-        if(amount2 > 0){
-            int updatedAmount = amount2 + amount;
-            itemRepository.updateItem(updatedAmount, product_id, user_id);
+        int userId = user.getId();
+        Integer amountInDB = findItem(productId, userId);
+        if(amountInDB > 0){
+            int updatedAmount = amountInDB + amount;
+            itemRepository.updateItem(updatedAmount, productId, userId);
             return;
         }
-        Item item2 = new Item();
-        item2.setProduct_id(product_id);
-        item2.setAmount(amount);
-        item2.setShoppingcart_id(user_id);
-        item2.setPrice(price);
-        itemRepository.save(item2);
+        Item item = new Item();
+        item.setProductId(productId);
+        item.setAmount(amount);
+        item.setShoppingcartId(userId);
+        item.setPrice(price);
+        itemRepository.save(item);
         return;
     }
 
@@ -60,24 +55,23 @@ public class ItemService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepository.findByUsername(currentPrincipalName);
-        int user_id = user.getId();
-        Collection<Item> itemsCollection = itemRepository.findAllItems(user_id);
+        int userId = user.getId();
+        Collection<Item> itemsCollection = itemRepository.findAllItems(userId);
         List<Item> itemsList = itemsCollection.stream().collect(toList());
         return itemsList;
     }
 
-    public int findItem(int product_id, int shoppingcart_id){
-        //Item item = itemRepository.findItem(product_id,shoppingcart_id );
-        Integer amount = itemRepository.findItem(product_id,shoppingcart_id );
+    public int findItem(int productId, int shoppingcartId){
+        Integer amount = itemRepository.findItem(productId,shoppingcartId );
         if (amount == null){
             return 0;
         }
         return amount;
     }
 
-    public void deleteItem(String product_name) {
-        int shoppingCartID = userService.getUserID();
-        int productID = productService.getProductByName(product_name);
-        itemRepository.deleteItem(shoppingCartID, productID);
+    public void deleteItem(String productName) {
+        int shoppingCartId = userService.getUserID();
+        int productId = productService.getProductByName(productName);
+        itemRepository.deleteItem(shoppingCartId, productId);
     }
 }
