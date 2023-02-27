@@ -75,11 +75,9 @@ public class SecurityConfiguration{
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/users").hasAnyRole("ADMIN")
-				.antMatchers("/user_page").authenticated()
-				.antMatchers("/user_pa").authenticated()
+				.antMatchers("/getinfo").authenticated()
 				.antMatchers("/delete_user").authenticated()
 				.antMatchers("/images/**").permitAll()
-				.antMatchers("/items").permitAll()
 				.antMatchers("/watchdetail").authenticated()
 				.antMatchers("/total").authenticated()
 				.antMatchers("/shoppingcart").authenticated()
@@ -93,7 +91,7 @@ public class SecurityConfiguration{
 				.failureHandler(loginFailureHandler)
 				.successHandler(loginSuccessHandler)
 
-				.defaultSuccessUrl("/user_page")
+				.defaultSuccessUrl("/getinfo")
 				.permitAll()
 				.and()
 				.exceptionHandling().accessDeniedPage("/access_denied");

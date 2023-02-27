@@ -18,14 +18,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -75,8 +73,8 @@ public class AppController extends WebMvcConfigurerAdapter {
 	}
 
 	@PostMapping("/watchdetail")
-	public String addItem(@RequestParam("product_name") String product_name, @RequestParam("price") int price,Item item) {
-		Integer id = productService.getProductByName(product_name);
+	public String addItem(@RequestParam("productName") String productName, @RequestParam("price") int price,Item item) {
+		Integer id = productService.getProductByName(productName);
 		itemService.addItem(id,item.getAmount(),price);
 		return "redirect:/shoppingcart";
 	}
@@ -107,8 +105,8 @@ public class AppController extends WebMvcConfigurerAdapter {
 	}
 
 	@PostMapping("/shoppingcart")
-	public String deleteItem(@RequestParam("product_name") String product_name) {
-        itemService.deleteItem(product_name);
+	public String deleteItem(@RequestParam("productName") String productName) {
+        itemService.deleteItem(productName);
 		return "redirect:/shoppingcart";
 
 	}
@@ -126,7 +124,6 @@ public class AppController extends WebMvcConfigurerAdapter {
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "total";
 	}
-
 
 	@GetMapping("/items")
 	public String viewItems() {
@@ -165,25 +162,8 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "users";
 	}
 
-	@GetMapping("/userpage")
-	public String getInfo(Model model) {
-		model.addAttribute("user", new User());
-		return "user_page";
-	}
-
-
-	/*@PostMapping("/userpage")
-	public String getInfoOfUser(@ModelAttribute("userSearchFormData") User formData, Model model) {
-		//User userDanger = userService.getUserDanger(formData.getUsername());
-		//User userSecure = userService.getUserSecure(formData.getUsername());
-		User userSecureWithJPA = userService.getUserSecureWithJPA(formData.getUsername());
-
-		//model.addAttribute("user", userDanger);
-		return "user_page";
-	}*/
-
 	@GetMapping("/getinfo")
-	public String getInfo(@ModelAttribute("userSearchFormData") User formData, Model model) {
+	public String getInfo(Model model) {
 		model.addAttribute("user", new User());
 		return "get_info";
 	}
@@ -191,10 +171,9 @@ public class AppController extends WebMvcConfigurerAdapter {
 	@PostMapping("/getinfo")
 	public String getInfoOfUser(@ModelAttribute("userSearchFormData") User formData, Model model) {
 		List<User> userDangerList = userService.getUserDanger(formData.getUsername());
-		//User userSecure = userService.getUserSecure(formData.getUsername());
-		User userSecureWithJPA = userService.getUserSecureWithJPA(formData.getUsername());
-
-		model.addAttribute("userDangerList", userDangerList);
+		List<User> userSecure = userService.getUserSecure(formData.getUsername());
+		List<User> userSecureWithJPA = userService.getUserSecureWithJPA(formData.getUsername());
+		model.addAttribute("userList", userSecureWithJPA);
 		return "get_info";
 	}
 

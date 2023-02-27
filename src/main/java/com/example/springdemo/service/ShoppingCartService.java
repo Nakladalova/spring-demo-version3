@@ -6,6 +6,7 @@ import com.example.springdemo.repository.ItemRepository;
 import com.example.springdemo.repository.ShoppingCartRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import java.lang.Math;
 
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class ShoppingCartService {
         if(userID == -1){
             userID = userService.getUserID();
         }
-        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUser_id(userID);
+        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(userID);
         if(shoppingCart==null){
             userID = userService.getUserID();
-            shoppingCart = shoppingCartRepository.findShoppingCartByUser_id(userID);
+            shoppingCart = shoppingCartRepository.findShoppingCartByUserId(userID);
         }
         return shoppingCart;
     }
@@ -39,11 +40,14 @@ public class ShoppingCartService {
         for (int i = 0; i < itemsList.size(); i++) {
             Item item = itemsList.get(i);
             int subtotal = item.getAmount() * item.getPrice();
+            if (subtotal < 0) {
+                throw new RuntimeException("Integer Overflow");
+            }
             total = total + subtotal;
         }
-        int user_id = userService.getUserID();
-        shoppingCartRepository.updateTotal(total,user_id);
-        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUser_id(user_id);
+        int userID = userService.getUserID();
+        shoppingCartRepository.updateTotal(total,userID);
+        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(userID);
         return shoppingCart;
     }
 

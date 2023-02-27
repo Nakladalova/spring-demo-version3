@@ -1,7 +1,5 @@
 package com.example.springdemo.model;
 
-import com.example.springdemo.model.User;
-
 import javax.persistence.*;
 import java.util.Set;
 

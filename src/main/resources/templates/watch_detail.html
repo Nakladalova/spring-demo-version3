@@ -264,8 +264,6 @@
                 top: 1.3em;
             }
         }
-
-
     </style>
 </head>
 
@@ -283,7 +281,7 @@
             <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
             <a class="navbar-brand" href="#" th:href="@{/login}">Login</a>
             <a class="navbar-brand" href="#" th:href="@{/users}">Users</a>
-            <a class="navbar-brand" href="#" th:href="@{/user_page}">Get info</a>
+            <a class="navbar-brand" href="#" th:href="@{/getinfo}">Get info</a>
             <a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
         </div>
     </div>
@@ -292,12 +290,12 @@
 <br>
 <br>
 <!--<form th:action="@{/watch_detail}" method="get" th:object="${product}">-->
-    <b><h1> <td th:text="${product.product_name}">Name</h1></b>
+    <b><h1> <td th:text="${product.productName}">Name</h1></b>
 <div class="container">
     <br>
     <br>
     <section>
-        <th:block th:switch="${product.product_name}">
+        <th:block th:switch="${product.productName}">
             <div th:case="'Watch1'">
                 <img src="https://www.maxpixel.net/static/photo/1x/Wristwatch-Rolex-Watches-Watch-Luxury-Watch-Class-4696644.jpg" class="img1"/>
             </div>
@@ -345,7 +343,7 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
-                        <th:block th:switch="${product.product_name}">
+                        <th:block th:switch="${product.productName}">
                             <div th:case="'Watch1'">
                                 <input type="hidden" name="price" value="1000">
                             </div>
@@ -365,7 +363,7 @@
                                 <input type="hidden" name="price" value="1000">
                             </div>
                         </th:block>
-                        <input type="hidden" name="product_name" th:value=${product.product_name}>
+                        <input type="hidden" name="productName" th:value=${product.productName}>
                         <input type="submit" name="btn btn-success"
                                class="form-control btn btn-primary" value="Add to cart" />;
                     </div>

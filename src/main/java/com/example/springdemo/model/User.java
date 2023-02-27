@@ -1,7 +1,5 @@
 package com.example.springdemo.model;
 
-//import com.example.springdemo.validation.ValidUsername;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -15,7 +13,6 @@ public class User {
 	private Integer id;
 	
 	@Column(nullable = false, unique = true, length = 45)
-	//@ValidUsername
 	private String username;
 
 	@Column(nullable = false, length = 64)

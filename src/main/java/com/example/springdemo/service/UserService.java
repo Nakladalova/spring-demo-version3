@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,22 +41,21 @@ public class UserService {
         return dangerUserRepository.findUserByUsername(username);
     }
 
-    /*public User getUserDanger(String username) {
-        return dangerUserRepository.findUserByUsername(username).get();
+    public List<User> getUserSecure(String username) {
+        return secureUserRepository.findUserByUsername(username);
     }
 
-    public User getUserSecure(String username) {
-        return secureUserRepository.findUserByUsername(username).get();
-    }*/
-
-    public User getUserSecureWithJPA(String username) {
+    public List<User> getUserSecureWithJPA(String username) {
         User user = userRepository.findByUsername(username);
+        List<User> listOfUsers = new ArrayList<User>();
         if(user == null){
             User userMessage = new User();
             userMessage.setMessage("USER IS NULL!");
-            return userMessage;
+            listOfUsers.add(userMessage);
+            return listOfUsers;
         }
-        return user;
+        listOfUsers.add(user);
+        return listOfUsers;
     }
 
     /*@Bean

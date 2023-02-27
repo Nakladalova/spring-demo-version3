@@ -38,90 +38,12 @@ public class DangerUserRepository implements CustomUserRepository {
             Object[] userDB = result.get(i);
             User user = new User();
             user.setEmail(userDB[0].toString());
-            System.out.println(userDB[0].toString());
             user.setPassword(userDB[1].toString());
-            System.out.println(userDB[1].toString());
             user.setActive(userDB[2].toString());
-            System.out.println(userDB[2].toString());
             listOfUsers.add(user);
 
         }
 
         return listOfUsers;
     }
-
-    /*Optional<User> queryDatabase(String query, Object... params) {
-        String formattedQuery = String.format(query, params);
-        Query nativeQuery = this.em.createNativeQuery(formattedQuery);
-        StringBuffer s = new StringBuffer();
-        StringBuffer b = new StringBuffer();
-        StringBuffer d = new StringBuffer();
-        String email="";
-        String active="";
-        String password="";
-        List<Object[]> result = nativeQuery.getResultList();
-        if(result == null || result.size() == 0) {
-            User user = new User();
-            user.setMessage("USERNAME DOESN'T EXIST!");
-            return Optional.of(user);
-        }
-        for(int i=0; i < result.size(); i++){
-            Object[] userDB = result.get(i);
-            email = userDB[0].toString();
-            password =  userDB[1].toString();
-            active = userDB[2].toString();
-            s.append(email + " ");
-            b.append(password + "  ");
-            d.append(active + " ");
-        }
-        String nameFromDatabase = s.toString();
-        String passwordFromDatabase = b.toString();
-        String activeFromDatabase = d.toString();
-        User user = new User();
-        user.setEmail(nameFromDatabase);
-        user.setPassword(passwordFromDatabase);
-        user.setActive(activeFromDatabase);
-        return Optional.of(user);
-    }*/
-
-    /*@Override
-    public List<User> findUserByUsername(String username) {
-        return queryDatabase(FIND_USER_BY_USERNAME, username);
-    }*/
-
-
-    /*List<User> queryDatabase(String query, String username) {
-        String formattedQuery = String.format(query, username);
-        Query nativeQuery = this.em.createNativeQuery(formattedQuery);
-       /* StringBuffer s = new StringBuffer();
-        StringBuffer b = new StringBuffer();
-        StringBuffer d = new StringBuffer();
-        String email="";
-        String active="";
-        String password="";*/
-        /*List<Object[]> result = nativeQuery.getResultList();
-        if(result == null || result.size() == 0) {
-            User user = new User();
-            user.setMessage("USERNAME DOESN'T EXIST!");
-            return Optional.of(user);
-        }
-        for(int i=0; i < result.size(); i++){
-            Object[] userDB = result.get(i);
-            email = userDB[0].toString();
-            password =  userDB[1].toString();
-            active = userDB[2].toString();
-            s.append(email + " ");
-            b.append(password + "  ");
-            d.append(active + " ");
-        }
-        String nameFromDatabase = s.toString();
-        String passwordFromDatabase = b.toString();
-        String activeFromDatabase = d.toString();
-        User user = new User();
-        user.setEmail(nameFromDatabase);
-        user.setPassword(passwordFromDatabase);
-        user.setActive(activeFromDatabase);
-        return Optional.of(user);
-    }*/
-
 }

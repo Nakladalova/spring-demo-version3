@@ -103,7 +103,6 @@
 
         <h1> Get your info from database </h1>
         <!-- logout message -->
-
         <div class="form-group">
           <label for="username">Insert your username </label>
           <input type="text" class="form-control" id="username" name="username" width="200" placeholder="Enter your username" autofocus="autofocus" required="" value="">
@@ -120,8 +119,8 @@
         <div alight="left">
 
           <label class="form-label">Error message</label>
-
-          <input type="text" class="form-control" style="color: red" placeholder="Error Message" id="message" name="message" value=" value= th:text="${user.email}">
+          <input type="text" th:text="${userList?.get(0)?.message}" class="form-control" style="color: red" placeholder="Error Message" />
+<!--          <input type="text" class="form-control" style="color: red" placeholder="Error Message" id="message" name="message" value= th:text="${user.email}">-->
           <br>
         </div>
       </div>
@@ -142,7 +141,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="user: ${userDangerList}">
+          <tr th:each="user: ${userList}">
             <td th:text="${user.email}">E-mail</td>
             <td th:utext="${user.password}">Username</td>
             <td th:text="${user.active}">Active user</td>

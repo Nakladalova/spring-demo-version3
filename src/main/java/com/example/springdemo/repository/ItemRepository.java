@@ -20,6 +20,12 @@ public interface ItemRepository extends JpaRepository<Item,Integer>, CrudReposit
             "WHERE s.user_id = ?1", nativeQuery = true)
     Collection<Item> findAllItems(int userId);
 
+     /*@Query(value ="SELECT p.product_name, p.price, i.amount, i.item_id, p.product_id, s.shoppingcart_id FROM public.item i " +
+            "INNER JOIN public.product p ON i.product_id= p.product_id " +
+            "INNER JOIN public.shoppingcart s ON i.shoppingcart_id = s.shoppingcart_id " +
+            "WHERE s.user_id = ?1", nativeQuery = true)
+    Collection<Item> findAllItems(int user_id);*/
+
     @Query("DELETE FROM Item i WHERE i.shoppingcartId = ?1")
     @Modifying
     public void deleteItems(long shoppingcartId);

@@ -23,6 +23,4 @@ public class SqlInputValidator {
         return true;
     }
 
-
-
 }

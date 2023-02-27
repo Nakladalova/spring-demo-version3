@@ -489,10 +489,8 @@
     </div>
 </nav>
 <div class="wrap cf">
+<form th:action="@{/purchase}" method="post">
     <h1 class="projTitle">Purchase</h1>
-    <!--    <form th:action="@{/check}" method="post">-->
-
-
     <div th:if="${shoppingCart.wallet<0}">
         <div class="alert alert-danger">Not enough money on the wallet. Remove items</div>
     </div>
@@ -543,8 +541,9 @@
 <!--                            <td th:text="${shoppingCart.wallet}">Wallet</td>-->
                     </div>
                 </div>
-
+                  </ul>
                 </div>
+
             </li>
     <br>
     <br>
@@ -557,6 +556,7 @@
         </div>
     </div>
         </ul>
+     </form>
     </div>
 
 </div>

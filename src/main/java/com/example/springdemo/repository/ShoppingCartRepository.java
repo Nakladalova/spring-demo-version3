@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Integer>, CrudRepository<ShoppingCart, Integer> {
     @Query("SELECT s FROM ShoppingCart s WHERE s.userId = ?1")
-    public ShoppingCart findShoppingCartByUser_id(int userId);
+    public ShoppingCart findShoppingCartByUserId(int userId);
 
     @Query("UPDATE ShoppingCart s SET s.total = ?1 WHERE s.userId = ?2")
     @Modifying
@@ -25,6 +25,5 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Inte
     @Query("UPDATE ShoppingCart s SET s.total = ?1, s.wallet=?2 WHERE s.userId = ?3")
     @Modifying
     public void updateShoppingCart(int total, int wallet, int userId);
-
 
 }
