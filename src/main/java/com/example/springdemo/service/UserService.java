@@ -123,7 +123,7 @@ public class UserService {
         }
     }
 
-    @Transactional
+    //@Transactional
     public void transferMoney(String receiverName, int amount){
        int senderId = getUserID();
        ShoppingCart shoppingCartSender = shoppingCartService.getShoppingCart(senderId);
@@ -136,7 +136,7 @@ public class UserService {
        accountBalance = shoppingCartReceiver.getWallet();
        newAccountBalance = accountBalance + amount;
        shoppingCartService.updateShoppingCartTransfer(newAccountBalance, receiverId);
-       validateWallet(receiverId,newAccountBalance);
+       //validateWallet(receiverId,newAccountBalance);
 
     }
 }
