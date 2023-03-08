@@ -75,6 +75,22 @@
             -webkit-font-smoothing: antialiased;
             font-family: "Droid Serif", serif;
         }
+        .button {
+            background-color: #1F51FF;
+            border: none;
+            color: white;
+            text-align: left;
+            text-decoration: none;
+            display: inline-block;
+            float:left;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            margin-left: 39%;
+            margin-top: 0%;
+        }
+
+        .button2 {padding: 8px 24px;}
 
         img {
             max-width: 100%;
@@ -470,7 +486,6 @@
     </script>
 </head>
 <body>
-
 <!-- create navigation bar ( header) -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -488,53 +503,49 @@
     </div>
 </nav>
 <div class="wrap cf">
-    <h1 class="projTitle">Total</h1>
-<!--    <form th:action="@{/total}" method="post">-->
-    <div class="heading cf">
-        <h1></h1>
-        <a href="/products" class="continue">Continue Shopping</a>
-
+        <h1 class="projTitle">Total</h1>
+        <div class="heading cf">
+            <h1></h1>
+            <a href="/products" class="continue">Continue Shopping</a>
+        </div>
+        <div class="cart">
+            <ul class="cartWrap">
+                <li class="items even">
+                    <div class="infoWrap">
+                        <div class="cartSection">
+                            <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
+                            <h3>Total Cost</h3>
+                            <p> Including Tax
+                            </p>
+                        </div>
+                        <div class="prodTotal cartSection">
+                            <td th:text="${shoppingCart.total}">Total</td>
+                        </div>
+                    </div>
+                </li>
+                <li class="items even">
+                    <div class="infoWrap">
+                        <div class="cartSection">
+                            <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
+                            <h3>My Wallet</h3>
+                            <p>My Account</p>
+                        </div>
+                        <div class="prodTotal cartSection">
+                            <td th:text="${shoppingCart.wallet}">Total</td>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="subtotal cf">
+            <ul>
+<!--                <form th:action="@{/purchase}" method="post">-->
+                    <li class="totalRow"><a href="/purchase" class="btn continue">Checkout</a></li>
+<!--                    <li class="totalRow"><button class="btn continue"/>Checkout</button></li>-->
+                </form>
+            </ul>
+        </div>
     </div>
-    <div class="cart">
-        <ul class="cartWrap">
-
-            <li class="items even">
-
-                <div class="infoWrap">
-                    <div class="cartSection">
-
-                        <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
-                        <h3>Total Cost</h3>
-                        <p> Including Tax
-                        </p>
-                    </div>
-                    <div class="prodTotal cartSection">
-                        <td th:text="${shoppingCart.total}">Total</td>
-                    </div>
-                </div>
-            </li>
-            <li class="items even">
-
-                <div class="infoWrap">
-                    <div class="cartSection">
-
-                        <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
-                        <h3>My Wallet</h3>
-
-                        <p>My Account</p>
-                    </div>
-                    <div class="prodTotal cartSection">
-                        <td th:text="${shoppingCart.wallet}">Total</td>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="subtotal cf">
-        <ul>
-            <li class="totalRow"><a href="/purchase" class="btn continue">Checkout</a></li>
-        </ul>
-    </div>
-</div>
 </body>
 </html>
+

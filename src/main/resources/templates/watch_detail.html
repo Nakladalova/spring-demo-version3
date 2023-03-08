@@ -290,7 +290,7 @@
 <br>
 <br>
 <!--<form th:action="@{/watch_detail}" method="get" th:object="${product}">-->
-    <b><h1> <td th:text="${product.productName}">Name</h1></b>
+<b><h1> <td th:text="${product.productName}">Name</h1></b>
 <div class="container">
     <br>
     <br>
@@ -317,10 +317,11 @@
         </th:block>
     </section>
     <section>
-       <h4><i><td th:text="${product.description}">Description</td></i></h4>
+        <h4><i><td th:text="${product.description}">Description</td></i></h4>
     </section>
     <section>
         <br>
+        <h5><i><b>Price</b><span th:utext="${'&#36;'+'&nbsp;'}"></span> <td th:text="${product.price}">Price</td></i></h5>
         <br>
         <br>
         <br>
@@ -368,7 +369,8 @@
                                class="form-control btn btn-primary" value="Add to cart" />;
                     </div>
                 </div>
-            </div>
+            </form>
+        </div>
         <br>
         <br>
         <br>

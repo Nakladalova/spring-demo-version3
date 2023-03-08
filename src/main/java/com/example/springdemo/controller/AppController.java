@@ -120,14 +120,14 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	@GetMapping("/total")
 	public String viewTotal(Model model, @RequestParam (defaultValue = "-1") int userID) {
+		int loggedUserID = userService.getUserID();
 		ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(userID);
+		int requestedUserID = shoppingCart.getUserId();
+		if(loggedUserID != requestedUserID){
+			return "redirect:/accessdenied";
+		}
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "total";
-	}
-
-	@GetMapping("/items")
-	public String viewItems() {
-		return "items";
 	}
 
 	@GetMapping("/accessdenied")
