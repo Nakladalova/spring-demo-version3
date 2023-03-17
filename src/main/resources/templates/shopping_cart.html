@@ -37,7 +37,8 @@
         }
 
         table th {
-            font-size: .85em;
+            font-size: .95em;
+            font-family: "Calibri", sans-serif;
             letter-spacing: .1em;
             text-transform: uppercase;
         }
@@ -90,9 +91,13 @@
                 border-bottom: 0;
             }
         }
+        h1 {
+            font-family: Verdana, sans-serif;
+
+        }
         /* general styling */
         body {
-            font-family: "Open Sans", sans-serif;
+            /*font-family: "Open Sans", sans-serif;*/
             line-height: 1.25;
         }
         @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
@@ -112,7 +117,7 @@
             margin: 0;
             padding: 0;
             border: 0;
-            font: inherit;
+            /*font: inherit;*/
             font-size: 100%;
             vertical-align: baseline;
         }
@@ -176,7 +181,7 @@
         body {
             color: #333;
             -webkit-font-smoothing: antialiased;
-            font-family: "Droid Serif", serif;
+            /*font-family: "Droid Serif", serif;*/
         }
 
         img {
@@ -188,6 +193,8 @@
             content: " ";
             display: table;
         }
+
+
 
         .cf:after {
             clear: both;
@@ -216,7 +223,7 @@
             text-transform: uppercase;
         }
         .projTitle span {
-            font-family: "Droid Serif", serif;
+            /*font-family: "Droid Serif", serif;*/
             font-weight: normal;
             font-style: italic;
             text-transform: lowercase;
@@ -234,7 +241,7 @@
         }
         .heading a.continue:link, .heading a.continue:visited {
             text-decoration: none;
-            font-family: "Montserrat", sans-serif;
+            /*font-family: "Montserrat", sans-serif;*/
             letter-spacing: -0.015em;
             font-size: 0.75em;
             padding: 1em;
@@ -272,7 +279,7 @@
             display: table;
             width: 100%;
             font-family: "Calibri", sans-serif;
-            font-size: 0.75em;
+            font-size: 1em;
         }
         .tableHead li {
             display: table-cell;
@@ -312,7 +319,7 @@
         }
         .cart .items .cartSection h3 {
             font-size: 1em;
-            font-family: "Montserrat", sans-serif;
+            /*font-family: "Montserrat", sans-serif;*/
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.025em;
@@ -321,7 +328,7 @@
             display: inline-block;
             font-size: 0.85em;
             color: #777777;
-            font-family: "Montserrat", sans-serif;
+            /*font-family: "Montserrat", sans-serif;*/
         }
         .cart .items .cartSection p .quantity {
             font-weight: bold;
@@ -362,7 +369,7 @@
 
         .special {
             display: block;
-            font-family: "Montserrat", sans-serif;
+            /*font-family: "Montserrat", sans-serif;*/
         }
         .special .specialContent {
             padding: 1em 1em 0;
@@ -438,7 +445,7 @@
 
         .btn:link, .btn:visited {
             text-decoration: none;
-            font-family: "Montserrat", sans-serif;
+            /*font-family: "Montserrat", sans-serif;*/
             letter-spacing: -0.015em;
             font-size: 1em;
             padding: 1em 3em;
@@ -495,7 +502,7 @@
             text-align: right;
         }
         .subtotal .totalRow .label {
-            font-family: "Montserrat", sans-serif;
+            /*font-family: "Montserrat", sans-serif;*/
             font-size: 0.85em;
             text-transform: uppercase;
             color: #777;
@@ -535,7 +542,7 @@
             .cart .items .cartSection.qtyWrap:before {
                 content: "QTY";
                 display: block;
-                font-family: "Montserrat", sans-serif;
+                /*font-family: "Montserrat", sans-serif;*/
                 padding: 0.25em;
                 font-size: 0.75em;
             }
@@ -573,9 +580,6 @@
 
     </script>
 </head>
-<body>
-
-<!-- create navigation bar ( header) -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -586,11 +590,15 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" th:href="@{/}">Home Page
-            </a>
+            <h6><a class="navbar-brand" href="#"  th:href="@{/}">Home Page
+            </a></h6>
         </div>
     </div>
 </nav>
+<body>
+
+<!-- create navigation bar ( header) -->
+
 <div class="wrap cf">
     <h1 class="projTitle">Shopping Cart</h1>
     <div class="heading cf">
@@ -607,11 +615,11 @@
                         <table>
                             <thead>
                             <tr>
-                                <th scope="col">Item name</th>
+                                <b><th scope="col">Item name</th></b>
                                 <th scope="col">Amount</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Subtotal</th>
-                                <th scope="col">Action</th>
+<!--                                <th scope="col">Action</th>-->
                             </tr>
                             </thead>
                             <tbody>
