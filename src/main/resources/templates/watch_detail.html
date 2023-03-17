@@ -71,6 +71,24 @@
             /*text-align: left;*/
             background-color: #FFFFFF;
         }
+        h5 {
+            font-family: WildWest;
+            font-size: 20px;
+            color: black;
+            padding: -7em;
+            /*text-align: left;*/
+            background-color: #FFFFFF;
+        }
+
+        h6 {
+            font-family: WildWest;
+            font-size: 22px;
+            color: black;
+            padding: -6em;
+            /*text-align: left;*/
+            background-color: #FFFFFF;
+        }
+
 
         p {
             padding: 0.5em;
@@ -289,9 +307,10 @@
 <br>
 <br>
 <br>
-<!--<form th:action="@{/watch_detail}" method="get" th:object="${product}">-->
+<br>
 <b><h1> <td th:text="${product.productName}">Name</h1></b>
 <div class="container">
+    <br>
     <br>
     <br>
     <section>
@@ -320,24 +339,23 @@
         <h4><i><td th:text="${product.description}">Description</td></i></h4>
     </section>
     <section>
-        <br>
-        <h5><i><b>Price</b><span th:utext="${'&#36;'+'&nbsp;'}"></span> <td th:text="${product.price}">Price</td></i></h5>
-        <br>
-        <br>
-        <br>
+        <div class = "col-md-6 col-md-offset-3">
+            <div class="form-q">
+                <h5><label for="amount">Price: </label></h5><h6><span th:utext="${'&#36;'+'&nbsp;'}"></span><td th:text="${product.price}">Price</td></i></h6>
         <br>
         <br>
         <br>
         <br>
         <br>
+        <br>
+            </div>
+        </div>
     </section>
     <section>
         <div class = "col-md-6 col-md-offset-3">
             <form th:action="@{/watchdetail}" method="post">
                 <div class="form-q">
-                    <label for="amount">Quantity</label>
-                    <br>
-                    <br>
+                    <h5><label for="amount">Quantity:</label></h5>
                     <input type="amount" id="amount" name="amount" class="form-control" placeholder="Enter number of Items" />
                 </div>
                 <br>
