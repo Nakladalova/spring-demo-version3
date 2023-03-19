@@ -158,21 +158,57 @@
         }
 
         .button {
-            background-color: #d34a4f;
+            background-color: #F04040;
             border: none;
             color: white;
             text-align: center;
             text-decoration: none;
             display: block;
             float:left;
-            font-size: 14px;
+            font-size: 10px;
             margin: 4px 2px;
             cursor: pointer;
-            margin-left: 39%;
+            margin-left: 30%;
             margin-top: 0%;
         }
 
-        .button2 {padding: 8px 24px;}
+        .button2 {padding: 4px 8px;}
+
+        .button4 {
+            background-color: #67b867;
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            float:left;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            margin-left: 28%;
+            margin-top: 0%;
+        }
+
+        .button4 {padding: 6px 26px;}
+
+        .button3 {
+            background-color:#1F51FF;
+            background-color: #67b867;
+        ;
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            /*display: inline-table;*/
+            float:left;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            margin-left: 55%;
+            margin-top: 0%;
+        }
+
+        .button3 {padding: 10px 26px;}
 
         * {
             box-sizing: border-box;
@@ -603,7 +639,10 @@
     <h1 class="projTitle">Shopping Cart</h1>
     <div class="heading cf">
         <h1>My Cart</h1>
-        <a href="/products" class="continue">Continue Shopping</a>
+<!--        <a href="/products" class="continue">Continue Shopping</a>-->
+        <form th:action="@{/products}" method="get">
+           <li class="totalRow"><button type="submit" class="button3 button3 btn continue"/>Continue Shopping</button></li>
+        </form>
     </div>
     <div class="cart">
         <ul class="cartWrap">
@@ -632,7 +671,7 @@
                                 </div>
                                 <td><form th:action="@{/shoppingcart}" method="post">
                                     <input type="hidden" name="productName" th:value=${item.productName}>
-                                    <button type="submit" class="button button2"/>Delete</button>
+                                    <button type="submit" class="button button2"/>X</button>
                                 </form></td>
                                 </td>
                             </tr>
@@ -645,7 +684,9 @@
     </div>
     <div class="subtotal cf">
         <ul>
-            <li class="totalRow"><a href="/total" class="btn continue">Total</a></li>
+            <form th:action="@{/total}" method="get">
+                <li class="totalRow"><button type="submit" class="button4 button4 btn continue"/>Total</button></li>
+            </form>
         </ul>
     </div>
 </div>

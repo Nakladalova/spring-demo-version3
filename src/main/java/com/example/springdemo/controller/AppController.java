@@ -95,6 +95,11 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "home_page";
 	}
 
+	@PostMapping("/")
+	public String viewHomePag(Model model) {
+		return "products";
+	}
+
 	@GetMapping("/shoppingcart")
 	public String viewShoppingCart(Model model) {
 		List<Item> listItems = itemService.getItemsFromDB();
