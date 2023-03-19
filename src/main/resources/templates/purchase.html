@@ -80,6 +80,41 @@
             max-width: 100%;
         }
 
+        .button4{
+        background-color: #67b867;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        float:left;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        margin-left: 36%;
+        margin-top: 0%;
+        }
+
+        .button4 {padding: 6px 26px;}
+
+        .button3 {
+            background-color:#1F51FF;
+            background-color: #67b867;
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            /*display: inline-table;*/
+            float:left;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            margin-left: 75%;
+            margin-top: 0%;
+        }
+
+        .button3 {padding: 10px 26px;}
+
         .cf:before,
         .cf:after {
             content: " ";
@@ -498,7 +533,9 @@
     </div>
     <div class="heading cf">
         <h1></h1>
-        <a href="/products" class="continue">Continue Shopping</a>
+        <form th:action="@{/products}" method="get">
+            <li class="totalRow"><button type="submit" class="button3 button3 btn continue"/>Continue Shopping</button></li>
+        </form>
     </div>
     <div class="cart">
         <ul class="cartWrap">
@@ -538,7 +575,9 @@
     <div th:if="${shoppingCart.wallet<0}">
         <div class="subtotal cf">
             <ul>
-                <li class="totalRow"><a href="/shoppingcart" class="btn continue" >Edit items</a></li>
+                <form th:action="@{/shoppingcart}" method="get">
+                    <li class="totalRow"><button type="submit" class="button4 button4 btn continue"/>Edit items</button></li>
+                </form>
             </ul>
         </div>
     </div>
