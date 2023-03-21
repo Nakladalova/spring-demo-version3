@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Collection;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
@@ -15,9 +17,11 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class ItemService {
     private final ItemRepository itemRepository;
+    private ShoppingCartService shoppingCartService;
 
-    public ItemService(ItemRepository itemRepository){
+    public ItemService(ItemRepository itemRepository, ShoppingCartService shoppingCartService){
         this.itemRepository = itemRepository;
+        this.shoppingCartService = shoppingCartService;
     }
 
     @Autowired
@@ -29,6 +33,7 @@ public class ItemService {
     @Autowired
     private ProductService productService;
 
+    //@Transactional
     public void addItem(int productId, int amount, int price) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
@@ -46,6 +51,7 @@ public class ItemService {
         item.setShoppingcartId(userId);
         item.setPrice(price);
         itemRepository.save(item);
+        //shoppingCartService.getTotal(getItemsFromDB());
         return;
     }
 

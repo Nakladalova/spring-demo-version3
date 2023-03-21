@@ -10,6 +10,11 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
     <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
         table {
             /*border: 1px solid #ccc;*/
             /*border-collapse: collapse;*/
@@ -37,10 +42,11 @@
         }
 
         table th {
-            font-size: .95em;
+            font-size: 1em;
             font-family: "Calibri", sans-serif;
             letter-spacing: .1em;
             text-transform: uppercase;
+            font-weight: bold;
         }
 
         @media screen and (max-width: 600px) {
@@ -61,12 +67,14 @@
                 padding: 0;
                 position: absolute;
                 width: 1px;
+                font-weight: bold;
             }
 
             table tr {
                 border-bottom: 3px solid #ddd;
                 display: block;
                 margin-bottom: .625em;
+                font-weight: bold;
             }
 
             table td {
@@ -314,6 +322,7 @@
             display: table;
             width: 100%;
             font-family: "Calibri", sans-serif;
+            font-weight: bold;
             font-size: 1em;
         }
         .tableHead li {
@@ -625,39 +634,40 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <h6><a class="navbar-brand" href="#"  th:href="@{/}">Home Page
-            </a></h6>
+            <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+            <a class="navbar-brand" href="#" th:href="@{/products}">Shop</a>
+            <a class="navbar-brand" href="#" th:href="@{/login}">Login</a>
+            <a class="navbar-brand" href="#" th:href="@{/shoppingcart}">Shopping cart</a>
+            <a class="navbar-brand" href="#" th:href="@{/transfermoney}">Transfer money</a>
+            <a class="navbar-brand" href="#" th:href="@{/getinfo}">Get info</a>
+            <a class="navbar-brand" href="#" th:href="@{/users}">Users</a>
+            <a class="navbar-brand" href="#" th:href="@{/deleteuser}">Delete user</a>
+            <a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
         </div>
     </div>
 </nav>
 <body>
 
-<!-- create navigation bar ( header) -->
-
 <div class="wrap cf">
     <h1 class="projTitle">Shopping Cart</h1>
     <div class="heading cf">
         <h1>My Cart</h1>
-<!--        <a href="/products" class="continue">Continue Shopping</a>-->
         <form th:action="@{/products}" method="get">
            <li class="totalRow"><button type="submit" class="button3 button3 btn continue"/>Continue Shopping</button></li>
         </form>
     </div>
     <div class="cart">
         <ul class="cartWrap">
-
             <li class="items even">
-
                 <div class="infoWrap">
                     <div class="cartSection">
                         <table>
                             <thead>
                             <tr>
-                                <b><th scope="col">Item name</th></b>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Subtotal</th>
-<!--                                <th scope="col">Action</th>-->
+                               <th scope="col">Item name</th>
+                               <th scope="col">Amount</th>
+                               <th scope="col">Price</th>
+                               <th scope="col">Subtotal</th>
                             </tr>
                             </thead>
                             <tbody>

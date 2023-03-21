@@ -34,8 +34,15 @@
         html {
             line-height: 1;
         }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
         h4{
             position: static;
+            font-size: 18px ;
+
         }
 
         ol, ul {
@@ -470,7 +477,6 @@
                 padding: 1em;
                 font-size: 90%;
             }
-
             .cart .items .cartSection {
                 width: 90%;
                 display: block;
@@ -506,6 +512,23 @@
                 text-align: center;
             }
         }
+        .container {
+            position: relative;
+        }
+
+        .topright {
+            position: absolute;
+            top: 8px;
+            right: 420px;
+            font-size: 18px;
+        }
+
+        div.ex1 {
+            text-align: end;
+            width: 600px;
+            margin: auto;
+            border: white;
+        }
 
     </style>
     <script>
@@ -535,15 +558,21 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" th:href="@{/}">Home Page
-            </a>
+            <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+            <a class="navbar-brand" href="#" th:href="@{/products}">Shop</a>
+            <a class="navbar-brand" href="#" th:href="@{/login}">Login</a>
+            <a class="navbar-brand" href="#" th:href="@{/shoppingcart}">Shopping cart</a>
+            <a class="navbar-brand" href="#" th:href="@{/transfermoney}">Transfer money</a>
+            <a class="navbar-brand" href="#" th:href="@{/getinfo}">Get info</a>
+            <a class="navbar-brand" href="#" th:href="@{/users}">Users</a>
+            <a class="navbar-brand" href="#" th:href="@{/deleteuser}">Delete user</a>
+            <a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
         </div>
     </div>
 </nav>
 <div class="wrap cf">
         <h1 class="projTitle">Total</h1>
         <div class="heading cf">
-            <h1></h1>
             <form th:action="@{/products}" method="get">
                 <li class="totalRow"><button type="submit" class="button3 button3 btn continue"/>Continue Shopping</button></li>
             </form>
@@ -559,7 +588,7 @@
                             </p>
                         </div>
                         <div class="prodTotal cartSection">
-                            <h4><td th:text="${shoppingCart.total}">Total</td> </h4>
+                                <div class="ex1"><h4><span th:utext="${'&#36;'+'&nbsp;'}"></span><td th:text="${shoppingCart.total}">Total</td> </h4></div>
                         </div>
                     </div>
                 </li>
@@ -571,7 +600,9 @@
                             <p>My Account</p>
                         </div>
                         <div class="prodTotal cartSection">
-                            <h4><td th:text="${shoppingCart.wallet}">Wallet</td></h4>
+                                <div class="ex1">
+                                    <h4><span th:utext="${'&#36;'+'&nbsp;'}"></span><td th:text="${shoppingCart.wallet}">Wallet</td></h4>
+                                </div>
                         </div>
                     </div>
                 </li>
@@ -579,7 +610,7 @@
         </div>
         <div class="subtotal cf">
             <ul>
-                <form th:action="@{/purchase}" method="get">
+                <form th:action="@{/purchase}" method="POST">
                     <li class="totalRow"><button type="submit" class="button4 button4 btn continue">Checkout</button></li>
                 </form>
             </ul>

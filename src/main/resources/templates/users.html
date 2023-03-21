@@ -1,98 +1,49 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:style="http://www.w3.org/1999/xhtml"
+	  xmlns:text-align="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<!--	<link rel="stylesheet" href="css/style.css" />-->
 	<link rel="stylesheet"
 		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 		  crossorigin="anonymous"/>
-
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!--	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"-->
-<!--		  rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
 	<style>
-		h1 {text-align: center; font-size: 44px;}
-		p {text-align: center;}
-		div {text-align: center;}
+		.b-green, .b-green:before {
+			color: white;
+			padding: 9px 12px;
+			text-align: center;
 
-		 .b-green, .b-green:before {
-			 color: white;
-			 padding: 9px 12px;
-			 text-align: center;
-
-			 background: rgba(73,155,234,1);
-			 background: -moz-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-			 background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(73,155,234,1)), color-stop(100%, rgba(26,188,156,1)));
-			 background: -webkit-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-			 background: -o-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-			 background: -ms-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-			 background: linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-			 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#1abc9c', GradientType=1 );
-		 }
-		@media only screen and (max-width: 800px) {
-			/* Force table to not be like tables anymore */
-			#no-more-tables table,
-			#no-more-tables thead,
-			#no-more-tables tbody,
-			#no-more-tables th,
-			#no-more-tables td,
-			#no-more-tables tr {
-				display: block;
-			}
-
-			/* Hide table headers (but not display: none;, for accessibility) */
-			#no-more-tables thead tr {
-				position: absolute;
-				top: -9999px;
-				left: -9999px;
-			}
-
-			#no-more-tables tr {
-				border: 1px solid #ccc;
-			}
-
-			#no-more-tables td {
-				/* Behave  like a "row" */
-				border: none;
-				border-bottom: 1px solid #eee;
-				position: relative;
-				padding-left: 50%;
-				white-space: normal;
-				text-align: left;
-			}
-
-			#no-more-tables td:before {
-				/* Now like a table header */
-				position: absolute;
-				/* Top/left values mimic padding */
-				top: 6px;
-				left: 6px;
-				width: 45%;
-				padding-right: 10px;
-				white-space: nowrap;
-				text-align: left;
-				font-weight: bold;
-			}
-			#no-more-tables th{
-				text-align: center;
-			}
-
-			/*
-              Label the data
-              */
-			#no-more-tables td:before {
-				content: attr(data-title);
-			}
+			background: rgba(73,155,234,1);
+			background: -moz-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(73,155,234,1)), color-stop(100%, rgba(26,188,156,1)));
+			background: -webkit-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			background: -o-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			background: -ms-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			background: linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#1abc9c', GradientType=1 );
 		}
 
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		div.ex1 {
+			text-align: center;
+			width: 950px;
+			height: 950px;
+			margin: auto;
+			border: white;
+		}
+		h1 {
+			text-align: center;
+
+		}
 	</style>
 </head>
-<body style="margin: 50px;">
+<body>
+
+<!-- create navigation bar ( header) -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
@@ -103,16 +54,27 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#" th:href="@{/}">Home Page
-			</a>
+			<a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+			<a class="navbar-brand" href="#" th:href="@{/products}">Shop</a>
+			<a class="navbar-brand" href="#" th:href="@{/login}">Login</a>
+			<a class="navbar-brand" href="#" th:href="@{/shoppingcart}">Shopping cart</a>
+			<a class="navbar-brand" href="#" th:href="@{/transfermoney}">Transfer money</a>
+			<a class="navbar-brand" href="#" th:href="@{/getinfo}">Get info</a>
+			<a class="navbar-brand" href="#" th:href="@{/users}">Users</a>
+			<a class="navbar-brand" href="#" th:href="@{/deleteuser}">Delete user</a>
+			<a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
 		</div>
 	</div>
 </nav>
+</div>
+</div>
 <br>
-<div class="container">
+<div class="ex1">
 	<div class="row">
 		<div class="col-md-12">
-			<h1 class="text-center">
+			<br>
+			<br>
+			<h1>
 				Users
 			</h1>
 			<br>
@@ -153,9 +115,6 @@
 <br>
 <br>
 <br>
-<div class="text-center">
-	<a href="#" th:href="@{/logout}" class="button2 b-green rot-135">Log out</a>
-</div>
 </div>
 </body>
 </html>

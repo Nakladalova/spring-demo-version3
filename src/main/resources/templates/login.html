@@ -1,13 +1,44 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:style="http://www.w3.org/1999/xhtml"
+       xmlns:text-align="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Registration and Login App</title>
-
+    <!--	<link rel="stylesheet" href="css/style.css" />-->
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
+          crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+    <style>
+        .b-green, .b-green:before {
+            color: white;
+            padding: 9px 12px;
+            text-align: center;
+
+            background: rgba(73,155,234,1);
+            background: -moz-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+            background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(73,155,234,1)), color-stop(100%, rgba(26,188,156,1)));
+            background: -webkit-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+            background: -o-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+            background: -ms-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+            background: linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#1abc9c', GradientType=1 );
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        div.ex1 {
+            width: 900px;
+            height: 900px;
+            margin: auto;
+            border: white;
+        }
+        h1 {
+            text-align: center;
+
+        }
+    </style>
 </head>
 <body>
 
@@ -22,18 +53,27 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" th:href="@{/}">Home Page
-                </a>
+            <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+            <a class="navbar-brand" href="#" th:href="@{/products}">Shop</a>
+            <a class="navbar-brand" href="#" th:href="@{/login}">Login</a>
+            <a class="navbar-brand" href="#" th:href="@{/shoppingcart}">Shopping cart</a>
+            <a class="navbar-brand" href="#" th:href="@{/transfermoney}">Transfer money</a>
+            <a class="navbar-brand" href="#" th:href="@{/getinfo}">Get info</a>
+            <a class="navbar-brand" href="#" th:href="@{/users}">Users</a>
+            <a class="navbar-brand" href="#" th:href="@{/deleteuser}">Delete user</a>
+            <a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
         </div>
     </div>
 </nav>
+</div>
+</div>
 
 <br>
 <br>
-<div class = "container">
+<div class = "ex1">
     <div class = "row">
         <div class = "col-md-6 col-md-offset-3">
-
+            <br>
             <h1> User Login Page </h1>
             <form th:action="@{/login}" method="post">
                 <!-- error message -->

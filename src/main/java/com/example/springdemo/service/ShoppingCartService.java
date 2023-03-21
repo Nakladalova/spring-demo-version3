@@ -40,9 +40,9 @@ public class ShoppingCartService {
         for (int i = 0; i < itemsList.size(); i++) {
             Item item = itemsList.get(i);
             int subtotal = item.getAmount() * item.getPrice();
-            if (subtotal < 0) {
+            /*if (subtotal < 0) {
                 throw new RuntimeException("Integer Overflow");
-            }
+            }*/
             total = total + subtotal;
         }
         int userID = userService.getUserID();

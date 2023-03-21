@@ -116,7 +116,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 
 	}
 
-	@GetMapping("/purchase")
+	@PostMapping("/purchase")
 	public String viewPurchase(Model model) {
 		ShoppingCart shoppingCart = shoppingCartService.updateShoppingCart();
 		model.addAttribute("shoppingCart", shoppingCart);
@@ -182,14 +182,14 @@ public class AppController extends WebMvcConfigurerAdapter {
 		return "get_info";
 	}
 
-	@GetMapping("/delete_user")
+	@GetMapping("/deleteuser")
 	public String deleteUser( Model model) {
 		model.addAttribute("user", new User());
 		return "delete_user";
 	}
 
 
-	@PostMapping("/delete_user")
+	@PostMapping("/deleteuser")
 	public String deleteUserByUsername(User user, Model model) {
 		User message = userService.deleteUser(user.getUsername());
 		model.addAttribute("user", message );

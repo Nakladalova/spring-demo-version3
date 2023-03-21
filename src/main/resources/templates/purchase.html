@@ -35,6 +35,12 @@
             line-height: 1;
         }
 
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
         ol, ul {
             list-style: none;
         }
@@ -487,6 +493,29 @@
                 text-align: center;
             }
         }
+        h4{
+            position: static;
+            font-size: 18px ;
+
+        }
+
+        .container {
+            position: relative;
+        }
+
+        .topright {
+            position: absolute;
+            top: 8px;
+            right: 420px;
+            font-size: 18px;
+        }
+
+        div.ex1 {
+            text-align: end;
+            width: 600px;
+            margin: auto;
+            border: white;
+        }
 
     </style>
     <script>
@@ -516,9 +545,15 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" th:href="@{/}">Home Page
-            </a>
+            <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
             <a class="navbar-brand" href="#" th:href="@{/products}">Shop</a>
+            <a class="navbar-brand" href="#" th:href="@{/login}">Login</a>
+            <a class="navbar-brand" href="#" th:href="@{/shoppingcart}">Shopping cart</a>
+            <a class="navbar-brand" href="#" th:href="@{/transfermoney}">Transfer money</a>
+            <a class="navbar-brand" href="#" th:href="@{/getinfo}">Get info</a>
+            <a class="navbar-brand" href="#" th:href="@{/users}">Users</a>
+            <a class="navbar-brand" href="#" th:href="@{/deleteuser}">Delete user</a>
+            <a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
         </div>
     </div>
 </nav>
@@ -532,7 +567,6 @@
             <div class="alert alert-info">Successfull purchase</div>
     </div>
     <div class="heading cf">
-        <h1></h1>
         <form th:action="@{/products}" method="get">
             <li class="totalRow"><button type="submit" class="button3 button3 btn continue"/>Continue Shopping</button></li>
         </form>
@@ -548,7 +582,7 @@
                         </p>
                     </div>
                     <div class="prodTotal cartSection">
-                        <td th:text="${shoppingCart.total}">Total</td>
+                            <div class="ex1"><h4><span th:utext="${'&#36;'+'&nbsp;'}"></span><td th:text="${shoppingCart.total}">Total</td> </h4></div>
                     </div>
                 </div>
             </li>
@@ -560,10 +594,7 @@
                         <p>My Account</p>
                     </div>
                     <div class="prodTotal cartSection">
-<!--                        <div th:if="${shoppingCart.wallet<0}">-->
-                            <td th:text="${shoppingCart.wallet}">My Wallet</td>
-<!--                        <div th:if="${shoppingCart.wallet>-1}">-->
-<!--                            <td th:text="${shoppingCart.wallet}">Wallet</td>-->
+                            <div class="ex1"><h4><span th:utext="${'&#36;'+'&nbsp;'}"></span><td th:text="${shoppingCart.wallet}">Wallet</td> </h4></div>
                     </div>
                 </div>
                   </ul>
