@@ -34,7 +34,6 @@ public class DangerUserRepository implements CustomUserRepository {
             return listOfUsers;
         }
         for(int i=0; i < result.size(); i++){
-            System.out.println("Result is not null");
             Object[] userDB = result.get(i);
             User user = new User();
             user.setEmail(userDB[0].toString());

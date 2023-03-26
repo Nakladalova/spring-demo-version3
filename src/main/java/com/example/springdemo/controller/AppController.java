@@ -178,7 +178,7 @@ public class AppController extends WebMvcConfigurerAdapter {
 		List<User> userDangerList = userService.getUserDanger(formData.getUsername());
 		List<User> userSecure = userService.getUserSecure(formData.getUsername());
 		List<User> userSecureWithJPA = userService.getUserSecureWithJPA(formData.getUsername());
-		model.addAttribute("userList", userSecureWithJPA);
+		model.addAttribute("userList", userDangerList);
 		return "get_info";
 	}
 

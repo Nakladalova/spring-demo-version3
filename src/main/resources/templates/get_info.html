@@ -99,8 +99,7 @@
         <div alight="left">
 
           <label class="form-label">Error message</label>
-          <input type="text" th:text="${userList?.get(0)?.message}" class="form-control" style="color: red" placeholder="Error Message" />
-<!--          <input type="text" class="form-control" style="color: red" placeholder="Error Message" id="message" name="message" value= th:text="${user.email}">-->
+              <input type="text" th:value="${userList?.get(0)?.message}" class="form-control" id="message" name="message" style="color: red" placeholder="Error Message" />
           <br>
         </div>
       </div>
