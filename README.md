@@ -1,4 +1,5 @@
 DESIGN OF COMPUTER EXERCISES FOR SECURITY OF INFORMATION SYSTEMS
+
 Author: Kateřina Nakládalová
 
 This project includes a web application in Java programming language to demonstrate attacks targeting it. The application is built using the Spring framework and connected to a PostgreSQL database. The most common web attacks are demonstrated and described
